@@ -2,12 +2,12 @@ import React from 'react'
 import ShapeImage from './ShapeImage'
 
 const Cell = props => {
-  const { type } = props
+  const { type, onEmptyCellClick, disabled } = props
 
   if (type === null) {
     return <div
-      className="board-cell board-cell-empty col rounded m-1"
-      onClick={props.onEmptyCellClick}>
+      className={ `board-cell board-cell-empty ${disabled ? '' : 'board-cell-action'} col rounded m-1` }
+      onClick={ () => !disabled && onEmptyCellClick() }>
     </div>
   } else {
     return (

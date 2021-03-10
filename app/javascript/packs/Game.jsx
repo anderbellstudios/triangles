@@ -33,19 +33,65 @@ class Game extends React.Component {
     })
   }
 
-  render() {
-    return (
-      <div className="d-flex align-items-start">
-        <Board
-          cellAt={this.cellAt.bind(this)}
-          onEmptyCellClick={this.handleEmptyCellClicked.bind(this)} />
+  winner() {
+    const lines = [
+      [[0, 0], [1, 0], [2, 0]],
+      [[1, 0], [2, 0], [3, 0]],
+      [[0, 1], [1, 1], [2, 1]],
+      [[1, 1], [2, 1], [3, 1]],
+      [[0, 2], [1, 2], [2, 2]],
+      [[1, 2], [2, 2], [3, 2]],
+      [[0, 3], [1, 3], [2, 3]],
+      [[1, 3], [2, 3], [3, 3]],
+      [[0, 0], [0, 1], [0, 2]],
+      [[0, 1], [0, 2], [0, 3]],
+      [[1, 0], [1, 1], [1, 2]],
+      [[1, 1], [1, 2], [1, 3]],
+      [[2, 0], [2, 1], [2, 2]],
+      [[2, 1], [2, 2], [2, 3]],
+      [[3, 0], [3, 1], [3, 2]],
+      [[3, 1], [3, 2], [3, 3]],
+      [[1, 0], [2, 1], [3, 2]],
+      [[0, 0], [1, 1], [2, 2]],
+      [[1, 1], [2, 2], [3, 3]],
+      [[0, 1], [1, 2], [2, 3]],
+      [[0, 2], [1, 1], [2, 0]],
+      [[0, 3], [1, 2], [2, 1]],
+      [[1, 2], [2, 1], [3, 0]],
+      [[1, 3], [2, 2], [3, 1]],
+    ]
 
-        <div className="up-next d-flex flex-column align-items-center ms-3">
-          <ShapeImage type={this.nextCellType()} className="up-next-img up-next-img-1" />
-          <ShapeImage type={this.nextCellType(1)} className="up-next-img up-next-img-2" />
-          <ShapeImage type={this.nextCellType(2)} className="up-next-img up-next-img-3" />
+    const winners = lines.map(line =>
+      line.map(([x, y]) => this.cellAt(x, y)).reduce((a, b) => a === b ? a : null)
+    ).filter(x => x !== null)
+
+    if (winners.length > 0) {
+      return winners[0]
+    } else {
+      return null
+    }
+  }
+
+  render() {
+    const winner = this.winner()
+
+    return (
+      <>
+        { winner && `The winner is ${winner}` }
+
+        <div className="d-flex align-items-start">
+          <Board
+            cellAt={this.cellAt.bind(this)}
+            onEmptyCellClick={this.handleEmptyCellClicked.bind(this)}
+            disabled={winner !== null} />
+
+          <div className="up-next d-flex flex-column align-items-center ms-3">
+            <ShapeImage type={this.nextCellType()} className="up-next-img up-next-img-1" />
+            <ShapeImage type={this.nextCellType(1)} className="up-next-img up-next-img-2" />
+            <ShapeImage type={this.nextCellType(2)} className="up-next-img up-next-img-3" />
+          </div>
         </div>
-      </div>
+      </>
     )
   }
 }

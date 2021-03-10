@@ -68,6 +68,9 @@
 
   &.board-cell-empty {
     background-color: $gray-400;
+  }
+
+  &.board-cell-action {
     cursor: pointer;
 
     &:hover {
