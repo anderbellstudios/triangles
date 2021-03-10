@@ -12,6 +12,13 @@ class Game extends React.Component {
     }
   }
 
+  resetGame() {
+    this.setState({
+      cellsMap: {},
+      currentTurn: 1
+    })
+  }
+
   cellAt(x, y) {
     return this.state.cellsMap[[x, y]] || null
   }
@@ -33,7 +40,16 @@ class Game extends React.Component {
     })
   }
 
-  winner() {
+  gameState() {
+    const isDraw = [...Array(4).keys()].every(y =>
+      [...Array(4).keys()].every(x =>
+        this.cellAt(x, y) !== null
+      )
+    )
+
+    if (isDraw)
+      return { playing: false, draw: true, winner: null }
+
     const lines = [
       [[0, 0], [1, 0], [2, 0]],
       [[1, 0], [2, 0], [3, 0]],
@@ -66,32 +82,36 @@ class Game extends React.Component {
     ).filter(x => x !== null)
 
     if (winners.length > 0) {
-      return winners[0]
+      return { playing: false, draw: false, winner: winners[0] }
     } else {
-      return null
+      return { playing: true, draw: false, winner: null }
     }
   }
 
   render() {
-    const winner = this.winner()
+    const { playing, draw, winner } = this.gameState()
+
+    const gameOverMessage = !playing && (
+      draw
+      ? 'It\'s a draw'
+      : `${winner?.replace(/\b(\w)/, s => s.toUpperCase())} wins`
+    )
 
     return (
-      <>
-        { winner && `The winner is ${winner}` }
+      <div className="d-flex align-items-start">
+        <Board
+          cellAt={this.cellAt.bind(this)}
+          onEmptyCellClick={this.handleEmptyCellClicked.bind(this)}
+          onResetGame={this.resetGame.bind(this)}
+          playing={playing}
+          gameOverMessage={gameOverMessage} />
 
-        <div className="d-flex align-items-start">
-          <Board
-            cellAt={this.cellAt.bind(this)}
-            onEmptyCellClick={this.handleEmptyCellClicked.bind(this)}
-            disabled={winner !== null} />
-
-          <div className="up-next d-flex flex-column align-items-center ms-3">
-            <ShapeImage type={this.nextCellType()} className="up-next-img up-next-img-1" />
-            <ShapeImage type={this.nextCellType(1)} className="up-next-img up-next-img-2" />
-            <ShapeImage type={this.nextCellType(2)} className="up-next-img up-next-img-3" />
-          </div>
+        <div className="up-next d-flex flex-column align-items-center ms-3">
+          <ShapeImage type={this.nextCellType()} className="up-next-img up-next-img-1" />
+          <ShapeImage type={this.nextCellType(1)} className="up-next-img up-next-img-2" />
+          <ShapeImage type={this.nextCellType(2)} className="up-next-img up-next-img-3" />
         </div>
-      </>
+      </div>
     )
   }
 }

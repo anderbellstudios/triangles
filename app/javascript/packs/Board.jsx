@@ -2,7 +2,7 @@ import React from 'react'
 import Cell from './Cell'
 
 const Board = props => {
-  const { cellAt, onEmptyCellClick, ...other } = props
+  const { cellAt, onEmptyCellClick, onResetGame, playing, gameOverMessage } = props
 
   return (
     <div className="board rounded p-1">
@@ -13,10 +13,26 @@ const Board = props => {
               key={x}
               type={cellAt(x, y)}
               onEmptyCellClick={() => onEmptyCellClick(x, y)}
-              {...other} />
+              disabled={!playing} />
           )) }
         </div>
       )) }
+
+      {
+        !playing && (
+          <div className="gameover-overlay d-flex justify-content-center align-items-center">
+            <div className="text-center">
+              <h1>{gameOverMessage}</h1>
+
+              <button
+                className="btn btn-dark"
+                onClick={onResetGame}>
+                Play again
+              </button>
+            </div>
+          </div>
+        )
+      }
     </div>
   )
 }
