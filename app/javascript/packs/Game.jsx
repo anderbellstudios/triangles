@@ -16,6 +16,22 @@ class Game extends React.Component {
     this.setState({
       cellsMap: {},
       currentTurn: 1
+    }, this.gameDataDidChange.bind(this))
+  }
+
+  setGameData(gameData) {
+    const { cellsMap, currentTurn } = gameData
+
+    this.setState({
+      cellsMap,
+      currentTurn,
+    })
+  }
+
+  gameDataDidChange() {
+    this.props.onUpdate?.({
+      cellsMap: this.state.cellsMap,
+      currentTurn: this.state.currentTurn,
     })
   }
 
@@ -32,12 +48,10 @@ class Game extends React.Component {
       cellsMap: {
         ...this.state.cellsMap,
         [[x, y]]: this.nextCellType(),
-      }
-    })
+      },
 
-    this.setState({
       currentTurn: this.state.currentTurn + 1
-    })
+    }, this.gameDataDidChange.bind(this))
   }
 
   gameState() {
