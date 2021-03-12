@@ -9,11 +9,11 @@ const subscribe = props => (
 
     {
       connected() {
-        // Called when the subscription is ready for use on the server
+        props.onConnect?.()
       },
 
       disconnected() {
-        // Called when the subscription has been terminated by the server
+        props.onDisconnect?.()
       },
 
       received(data) {

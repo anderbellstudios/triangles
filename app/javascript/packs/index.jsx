@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ReactDOM.render(
     <Application
-      gamesPath={app.dataset.gamesPath}
-      gamePath={app.dataset.gamePath} />,
+      gameId={app.dataset.gameId}
+      gamesPath={app.dataset.gamesPath} />,
     app
   )
 })

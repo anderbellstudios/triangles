@@ -11,23 +11,32 @@ class Application extends React.Component {
     this.gameRef = React.createRef()
 
     this.state = {
+      gameId: null,
       gameSubscription: null,
+      waitingToConnect: true,
+      connected: false,
+      windowUnloading: false,
     }
   }
 
   componentDidMount() {
-    const gamePromise = (
-      this.props.gamePath === ''
+    const gameIdPromise = (
+      this.props.gameId === ''
       ? this.createGame()
-      : this.fetchGame()
+      : Promise.resolve(this.props.gameId)
     )
 
-    gamePromise
-      .then(game => {
-        this.handleRemoteUpdate(JSON.parse(game.data))
-        this.subscribeToGame(game)
+    gameIdPromise
+      .then(gameId => {
+        this.setState({
+          gameId,
+        })
+
+        this.subscribeToGame()
       })
       .catch(console.error)
+
+    window.addEventListener('beforeunload', () => this.setState({ windowUnloading: true }))
   }
 
   createGame() {
@@ -47,21 +56,39 @@ class Application extends React.Component {
       .then(response => response.json())
       .then(game => {
         window.history.replaceState({}, '', `/${game.id}`)
-        return game
+        return game.id
       })
   }
 
-  fetchGame() {
-    return fetch(this.props.gamePath)
-      .then(response => response.json())
-  }
-
-  subscribeToGame(game) {
+  subscribeToGame() {
     this.setState({
       gameSubscription: GameChannel.subscribe({
-        gameId: game.id,
+        gameId: this.state.gameId,
+        onConnect: this.handleConnect.bind(this),
+        onDisconnect: this.handleDisconnect.bind(this),
         onUpdate: data => this.handleRemoteUpdate(data),
       }),
+    })
+  }
+
+  handleConnect() {
+    fetch(`/games/${this.state.gameId}`)
+      .then(response => response.json())
+      .then(game => {
+        this.handleRemoteUpdate(JSON.parse(game.data))
+
+        this.setState({
+          waitingToConnect: false,
+          connected: true,
+        })
+      })
+      .catch(console.error)
+  }
+
+  handleDisconnect() {
+    this.setState({
+      waitingToConnect: false,
+      connected: false,
     })
   }
 
@@ -77,6 +104,14 @@ class Application extends React.Component {
     return (
       <div className="container"  style={{ maxWidth: '60vh' }}>
         <div className="row justify-content-between align-items-center">
+          {
+            !(this.state.waitingToConnect || this.state.connected || this.state.windowUnloading) && (
+              <div className="alert alert-danger" role="alert">
+                <strong>Disconnected.</strong> Trying to reconnect&hellip; <div className="spinner-border spinner-border-sm"></div>
+              </div>
+            )
+          }
+
           <h1 className="col mb-2">
             <a href="/" className="text-reset text-decoration-none">Triangles</a>
           </h1>
@@ -84,7 +119,8 @@ class Application extends React.Component {
           <div className="col-auto mb-2">
             <button
               className="btn btn-sm btn-dark"
-              onClick={() => this.gameRef.current.resetGame()}>
+              onClick={() => this.gameRef.current.resetGame()}
+              disabled={!this.state.connected}>
               New game
             </button>
           </div>
@@ -95,7 +131,10 @@ class Application extends React.Component {
         </p>
 
         <div className="my-5">
-          <Game ref={this.gameRef} onUpdate={this.handleLocalUpdate.bind(this)} />
+          <Game
+            ref={this.gameRef}
+            disabled={!this.state.connected}
+            onUpdate={this.handleLocalUpdate.bind(this)} />
         </div>
 
         <h2>Play with friends</h2>

@@ -121,6 +121,7 @@ class Game extends React.Component {
             onEmptyCellClick={this.handleEmptyCellClicked.bind(this)}
             onResetGame={this.resetGame.bind(this)}
             playing={playing}
+            disabled={this.props.disabled}
             gameOverMessage={gameOverMessage} />
         </div>
 

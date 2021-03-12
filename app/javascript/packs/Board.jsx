@@ -2,7 +2,7 @@ import React from 'react'
 import Cell from './Cell'
 
 const Board = props => {
-  const { cellAt, onEmptyCellClick, onResetGame, playing, gameOverMessage } = props
+  const { cellAt, onEmptyCellClick, onResetGame, playing, disabled, gameOverMessage } = props
 
   return (
     <div className="board rounded p-1" aria-label="Grid">
@@ -14,7 +14,7 @@ const Board = props => {
               position={[x, y]}
               type={cellAt(x, y)}
               onEmptyCellClick={() => onEmptyCellClick(x, y)}
-              disabled={!playing} />
+              disabled={disabled || !playing} />
           )) }
         </div>
       )) }
@@ -27,7 +27,8 @@ const Board = props => {
 
               <button
                 className="btn btn-dark"
-                onClick={onResetGame}>
+                onClick={onResetGame}
+                disabled={disabled}>
                 Play again
               </button>
             </div>
