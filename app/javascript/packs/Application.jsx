@@ -1,8 +1,8 @@
 import React from 'react'
 import Rails from '@rails/ujs'
-import Game from './Game'
-
 import GameChannel from '../channels/game_channel'
+import Game from './Game'
+import CopyButton from './CopyButton'
 
 class Application extends React.Component {
   constructor(props) {
@@ -88,8 +88,18 @@ class Application extends React.Component {
           3 players; 3 shapes; 3 in a row
         </p>
 
-        <div className="mt-5 mb-3">
+        <div className="my-5">
           <Game ref={this.gameRef} onUpdate={this.handleLocalUpdate.bind(this)} />
+        </div>
+
+        <h2>Play with friends</h2>
+
+        <p className="lead">Anyone with the link can play live</p>
+
+        <div className="d-grid d-md-block">
+          <CopyButton copyText={() => window.location.href} className="btn btn-dark">
+            Copy link
+          </CopyButton>
         </div>
       </div>
     )
