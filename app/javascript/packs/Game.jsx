@@ -124,7 +124,7 @@ class Game extends React.Component {
             gameOverMessage={gameOverMessage} />
         </div>
 
-        <div className="col-md-auto up-next d-flex flex-md-column align-items-center">
+        <div className="col-md-auto up-next d-flex flex-md-column align-items-center" aria-label="Up next">
           <ShapeImage type={this.nextCellType()} className="up-next-img up-next-img-1" />
           <ShapeImage type={this.nextCellType(1)} className="up-next-img up-next-img-2" />
           <ShapeImage type={this.nextCellType(2)} className="up-next-img up-next-img-3" />

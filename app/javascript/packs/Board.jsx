@@ -5,12 +5,13 @@ const Board = props => {
   const { cellAt, onEmptyCellClick, onResetGame, playing, gameOverMessage } = props
 
   return (
-    <div className="board rounded p-1">
+    <div className="board rounded p-1" aria-label="Grid">
       { [...Array(4).keys()].map(y => (
         <div key={y} className="row g-0">
           { [...Array(4).keys()].map(x => (
             <Cell
               key={x}
+              position={[x, y]}
               type={cellAt(x, y)}
               onEmptyCellClick={() => onEmptyCellClick(x, y)}
               disabled={!playing} />
