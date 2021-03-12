@@ -9,6 +9,7 @@ class Application extends React.Component {
     super(props)
 
     this.gameRef = React.createRef()
+    this.jitsiMeetContainerRef = React.createRef()
 
     this.state = {
       gameId: null,
@@ -16,6 +17,7 @@ class Application extends React.Component {
       waitingToConnect: true,
       connected: false,
       windowUnloading: false,
+      jitsiStarted: false,
     }
   }
 
@@ -100,53 +102,89 @@ class Application extends React.Component {
     this.gameRef.current.setGameData(gameData)
   }
 
+  startJitsi() {
+    const container = this.jitsiMeetContainerRef.current
+    container.innerHTML = ''
+
+    const api = new JitsiMeetExternalAPI('meet.jit.si', {
+      roomName: `triangles-${this.state.gameId}`,
+      parentNode: container,
+    })
+
+    container.querySelector('iframe').style.height = '80vh'
+
+    this.setState({
+      jitsiStarted: true,
+    })
+
+    api.addEventListener('videoConferenceLeft', () => this.setState({
+      jitsiStarted: false,
+    }))
+
+    api.addEventListener('readyToClose', () => {
+      container.innerHTML = ''
+    })
+  }
+
   render() {
     return (
-      <div className="container"  style={{ maxWidth: '60vh' }}>
-        <div className="row justify-content-between align-items-center">
-          {
-            !(this.state.waitingToConnect || this.state.connected || this.state.windowUnloading) && (
-              <div className="alert alert-danger" role="alert">
-                <strong>Disconnected.</strong> Trying to reconnect&hellip; <div className="spinner-border spinner-border-sm"></div>
-              </div>
-            )
-          }
+      <>
+        <div className="container"  style={{ maxWidth: '60vh' }}>
+          <div className="row justify-content-between align-items-center">
+            {
+              !(this.state.waitingToConnect || this.state.connected || this.state.windowUnloading) && (
+                <div className="alert alert-danger" role="alert">
+                  <strong>Disconnected.</strong> Trying to reconnect&hellip; <div className="spinner-border spinner-border-sm"></div>
+                </div>
+              )
+            }
 
-          <h1 className="col mb-2">
-            <a href="/" className="text-reset text-decoration-none">Triangles</a>
-          </h1>
+            <h1 className="col mb-2">
+              <a href="/" className="text-reset text-decoration-none">Triangles</a>
+            </h1>
 
-          <div className="col-auto mb-2">
-            <button
-              className="btn btn-sm btn-dark"
-              onClick={() => this.gameRef.current.resetGame()}
-              disabled={!this.state.connected}>
-              New game
+            <div className="col-auto mb-2">
+              <button
+                className="btn btn-sm btn-dark"
+                onClick={() => this.gameRef.current.resetGame()}
+                disabled={!this.state.connected}>
+                New game
+              </button>
+            </div>
+          </div>
+
+          <p className="lead">
+            3 players; 3 shapes; 3 in a row
+          </p>
+
+          <div className="mt-5">
+            <Game
+              ref={this.gameRef}
+              disabled={!this.state.connected}
+              onUpdate={this.handleLocalUpdate.bind(this)} />
+          </div>
+
+          <h2 className="mt-5">Play with friends</h2>
+
+          <p className="lead">Anyone with the link can play live</p>
+
+          <div className="d-grid d-md-block gap-2">
+            <CopyButton copyText={() => window.location.href} className="btn btn-dark">
+              Copy link
+            </CopyButton>
+
+            {' '}
+
+            <button className="btn btn-dark" onClick={this.startJitsi.bind(this)} disabled={this.state.jitsiStarted}>
+              Join Jitsi Meet call
             </button>
           </div>
         </div>
 
-        <p className="lead">
-          3 players; 3 shapes; 3 in a row
-        </p>
-
-        <div className="my-5">
-          <Game
-            ref={this.gameRef}
-            disabled={!this.state.connected}
-            onUpdate={this.handleLocalUpdate.bind(this)} />
+        <div className="container">
+          <div ref={this.jitsiMeetContainerRef} className="mt-5"></div>
         </div>
-
-        <h2>Play with friends</h2>
-
-        <p className="lead">Anyone with the link can play live</p>
-
-        <div className="d-grid d-md-block">
-          <CopyButton copyText={() => window.location.href} className="btn btn-dark">
-            Copy link
-          </CopyButton>
-        </div>
-      </div>
+      </>
     )
   }
 }
