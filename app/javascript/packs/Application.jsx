@@ -77,10 +77,16 @@ class Application extends React.Component {
     return (
       <div className="container"  style={{ maxWidth: '60vh' }}>
         <div className="row justify-content-between align-items-center">
-          <h1 className="col mb-2">Triangles</h1>
+          <h1 className="col mb-2">
+            <a href="/" className="text-reset text-decoration-none">Triangles</a>
+          </h1>
 
           <div className="col-auto mb-2">
-            <a href="/" className="btn btn-sm btn-dark">New game</a>
+            <button
+              className="btn btn-sm btn-dark"
+              onClick={() => this.gameRef.current.resetGame()}>
+              New game
+            </button>
           </div>
         </div>
 
