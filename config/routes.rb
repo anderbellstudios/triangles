@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   root 'application#index'
+  get '/:id', to: 'application#index'
+
   resources :games, only: [:show, :create], defaults: { format: :json }
 end

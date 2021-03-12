@@ -19,35 +19,37 @@ class Game extends React.Component {
     }, this.gameDataDidChange.bind(this))
   }
 
-  setGameData(gameData) {
-    const { cellsMap, currentTurn } = gameData
-
-    this.setState({
-      cellsMap,
-      currentTurn,
-    })
-  }
-
-  gameDataDidChange() {
-    this.props.onUpdate?.({
+  get gameData() {
+    return ({
       cellsMap: this.state.cellsMap,
       currentTurn: this.state.currentTurn,
     })
   }
 
-  cellAt(x, y) {
-    return this.state.cellsMap[[x, y]] || null
+  setGameData(gameData) {
+    this.setState({
+      cellsMap: gameData.cellsMap,
+      currentTurn: gameData.currentTurn,
+    })
+  }
+
+  gameDataDidChange() {
+    this.props.onUpdate?.(this.gameData)
   }
 
   nextCellType(offset = 0) {
     return ['cross', 'circle', 'triangle'][(this.state.currentTurn - 1 + offset) % 3]
   }
 
+  cellAt(x, y) {
+    return this.state.cellsMap[`${x},${y}`] || null
+  }
+
   handleEmptyCellClicked(x, y) {
     this.setState({
       cellsMap: {
         ...this.state.cellsMap,
-        [[x, y]]: this.nextCellType(),
+        [`${x},${y}`]: this.nextCellType(),
       },
 
       currentTurn: this.state.currentTurn + 1
@@ -112,15 +114,17 @@ class Game extends React.Component {
     )
 
     return (
-      <div className="d-flex align-items-start">
-        <Board
-          cellAt={this.cellAt.bind(this)}
-          onEmptyCellClick={this.handleEmptyCellClicked.bind(this)}
-          onResetGame={this.resetGame.bind(this)}
-          playing={playing}
-          gameOverMessage={gameOverMessage} />
+      <div className="row g-1 align-items-start">
+        <div className="col-md">
+          <Board
+            cellAt={this.cellAt.bind(this)}
+            onEmptyCellClick={this.handleEmptyCellClicked.bind(this)}
+            onResetGame={this.resetGame.bind(this)}
+            playing={playing}
+            gameOverMessage={gameOverMessage} />
+        </div>
 
-        <div className="up-next d-flex flex-column align-items-center ms-3">
+        <div className="col-md-auto up-next d-flex flex-md-column align-items-center">
           <ShapeImage type={this.nextCellType()} className="up-next-img up-next-img-1" />
           <ShapeImage type={this.nextCellType(1)} className="up-next-img up-next-img-2" />
           <ShapeImage type={this.nextCellType(2)} className="up-next-img up-next-img-3" />

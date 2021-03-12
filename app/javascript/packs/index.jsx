@@ -2,9 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Application from './Application'
 
-document.addEventListener('DOMContentLoaded', () =>
+document.addEventListener('DOMContentLoaded', () => {
+  const app = document.querySelector('#app')
+
   ReactDOM.render(
-    <Application />,
-    document.querySelector('#app'),
+    <Application
+      gamesPath={app.dataset.gamesPath}
+      gamePath={app.dataset.gamePath} />,
+    app
   )
-)
+})

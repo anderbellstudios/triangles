@@ -1,13 +1,26 @@
+require 'json'
+
 class GameChannel < ApplicationCable::Channel
   def subscribed
-    stream_from 'game_channel'
+    set_game
+    stream_for @game
   end
 
-  def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
+  def unsubscribe
   end
 
-  def update_game(data)
-    ActionCable.server.broadcast('game_channel', data)
+  def receive(data)
+    set_game
+
+    if @game.update(data: data.to_json)
+      broadcast_to(@game, data)
+    else
+      Rails.logger.error(@game.errors)
+    end
   end
+
+  private
+    def set_game
+      @game = Game.find(params[:id])
+    end
 end

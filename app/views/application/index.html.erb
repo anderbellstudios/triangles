@@ -1,3 +1,8 @@
 <%= javascript_pack_tag 'index' %>
 
-<div id="app" class="d-flex"></div>
+<div
+  id="app"
+  data-games-path="<%= games_path %>"
+  data-game-path="<%= @game ? game_path(@game) : nil %>"
+  class="d-flex">
+</div>

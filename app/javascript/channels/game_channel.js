@@ -1,31 +1,32 @@
 import consumer from './consumer'
 
-const actionListeners = {}
+const subscribe = props => (
+  consumer.subscriptions.create(
+    {
+      channel: 'GameChannel',
+      id: props.gameId,
+    },
 
-const gameChannel = consumer.subscriptions.create('GameChannel', {
-  connected() {
-    // Called when the subscription is ready for use on the server
-  },
+    {
+      connected() {
+        // Called when the subscription is ready for use on the server
+      },
 
-  disconnected() {
-    // Called when the subscription has been terminated by the server
-  },
+      disconnected() {
+        // Called when the subscription has been terminated by the server
+      },
 
-  received(data) {
-    // Called when there's incoming data on the websocket for this channel
-    const { action } = data
+      received(data) {
+        props.onUpdate?.(data)
+      },
 
-    actionListeners[action]?.forEach(l => l(data))
-  },
+      update(gameData) {
+        this.send(gameData)
+      }
+    }
+  )
+)
 
-  updateGame(gameData) {
-    this.perform('update_game', { game: gameData })
-  },
-
-  addActionListener(action, callback) {
-    actionListeners[action] = actionListeners[action] || []
-    actionListeners[action].push(callback)
-  }
-})
-
-export default gameChannel
+export default {
+  subscribe,
+}
