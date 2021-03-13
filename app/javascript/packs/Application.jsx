@@ -129,7 +129,7 @@ class Application extends React.Component {
   render() {
     return (
       <>
-        <div className="container"  style={{ maxWidth: '60vh' }}>
+        <div className="container" style={{ maxWidth: '720px' }}>
           <div className="row justify-content-between align-items-center">
             {
               !(this.state.waitingToConnect || this.state.connected || this.state.windowUnloading) && (
