@@ -86,15 +86,6 @@ class Game extends React.Component {
   }
 
   gameState() {
-    const isDraw = [...Array(4).keys()].every(y =>
-      [...Array(4).keys()].every(x =>
-        this.cellAt(x, y) !== null
-      )
-    )
-
-    if (isDraw)
-      return { playing: false, draw: true, winner: null }
-
     const lines = [
       [[0, 0], [1, 0], [2, 0]],
       [[1, 0], [2, 0], [3, 0]],
@@ -126,8 +117,16 @@ class Game extends React.Component {
       line.map(([x, y]) => this.cellAt(x, y)).reduce((a, b) => a === b ? a : null)
     ).filter(x => x !== null)
 
+    const isDraw = [...Array(4).keys()].every(y =>
+      [...Array(4).keys()].every(x =>
+        this.cellAt(x, y) !== null
+      )
+    )
+
     if (winners.length > 0) {
       return { playing: false, draw: false, winner: winners[0] }
+    } else if (isDraw) {
+      return { playing: false, draw: true, winner: null }
     } else {
       return { playing: true, draw: false, winner: null }
     }
