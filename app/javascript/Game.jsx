@@ -35,10 +35,12 @@ class Game extends React.Component {
   }
 
   undo() {
-    this.setState({
-      moves: this.state.moves.slice(0, -1),
-      currentTurn: this.state.currentTurn - 1,
-    }, this.gameDataDidChange.bind(this))
+    if (this.state.moves.length > 0) {
+      this.setState({
+        moves: this.state.moves.slice(0, -1),
+        currentTurn: this.state.currentTurn - 1,
+      }, this.gameDataDidChange.bind(this))
+    }
   }
 
   get gameData() {
@@ -165,7 +167,6 @@ class Game extends React.Component {
               ref={this.undoButtonRef}
               className="btn btn-link text-decoration-none"
               onClick={this.undo.bind(this)}
-              disabled={this.props.disabled || this.state.moves.length === 0}
               aria-label="Undo"
               data-bs-toggle="tooltip"
               title="Undo">
