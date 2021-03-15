@@ -209,7 +209,7 @@ class Application extends React.Component {
           </h1>
 
           <p className="lead">
-            3 players; 3 shapes; 3 in a row
+            3 players; 3 shapes; 3 in a line
           </p>
 
           <div className="mt-5">
