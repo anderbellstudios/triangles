@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Application from './Application'
+import Application from '../Application'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector('#app')

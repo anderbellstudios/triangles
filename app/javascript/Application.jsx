@@ -1,6 +1,6 @@
 import React from 'react'
 import Rails from '@rails/ujs'
-import GameChannel from '../channels/game_channel'
+import GameChannel from './channels/game_channel'
 import Game from './Game'
 import CopyButton from './CopyButton'
 
