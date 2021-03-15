@@ -131,7 +131,7 @@ class Application extends React.Component {
   render() {
     return (
       <>
-        <div className="container" style={{ maxWidth: '720px' }}>
+        <div className="container-fluid" style={{ maxWidth: '576px' }}>
           {
             (this.state.shouldBeConnected && !this.state.connected && !this.state.windowUnloading) && (
               <div className="alert alert-danger" role="alert">
