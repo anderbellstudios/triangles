@@ -16,6 +16,10 @@
 
 @import "bootstrap/scss/bootstrap";
 
+.btn-link {
+  padding: 0;
+}
+
 .up-next {
   @include media-breakpoint-down(md) {
     height: 70px;

@@ -142,15 +142,6 @@ class Application extends React.Component {
             <h1 className="col mb-2">
               <a href="/" className="text-reset text-decoration-none">Triangles</a>
             </h1>
-
-            <div className="col-auto mb-2">
-              <button
-                className="btn btn-sm btn-dark"
-                onClick={() => this.gameRef.current.resetGame()}
-                disabled={!this.state.connected}>
-                New game
-              </button>
-            </div>
           </div>
 
           <p className="lead">
