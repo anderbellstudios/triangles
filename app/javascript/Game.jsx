@@ -10,6 +10,7 @@ class Game extends React.Component {
     this.state = {
       moves: [],
       currentTurn: 1,
+      startingShapeOffset: 0,
     }
   }
 
@@ -18,6 +19,12 @@ class Game extends React.Component {
       moves: [],
       currentTurn: 1
     }, this.gameDataDidChange.bind(this))
+  }
+
+  playAgain() {
+    this.setState({
+      startingShapeOffset: (this.state.startingShapeOffset + 1) % 3,
+    }, this.resetGame.bind(this))
   }
 
   undo() {
@@ -31,6 +38,7 @@ class Game extends React.Component {
     return ({
       moves: this.state.moves,
       currentTurn: this.state.currentTurn,
+      startingShapeOffset: this.state.startingShapeOffset,
     })
   }
 
@@ -38,6 +46,7 @@ class Game extends React.Component {
     this.setState({
       moves: gameData.moves,
       currentTurn: gameData.currentTurn,
+      startingShapeOffset: gameData.startingShapeOffset,
     })
   }
 
@@ -46,7 +55,9 @@ class Game extends React.Component {
   }
 
   nextCellType(offset = 0) {
-    return ['cross', 'circle', 'triangle'][(this.state.currentTurn - 1 + offset) % 3]
+    return ['cross', 'circle', 'triangle'][
+      (this.state.currentTurn - 1 + offset + this.state.startingShapeOffset) % 3
+    ]
   }
 
   cellAt(x, y) {
@@ -161,7 +172,7 @@ class Game extends React.Component {
             <Board
               cellAt={this.cellAt.bind(this)}
               onEmptyCellClick={this.handleEmptyCellClicked.bind(this)}
-              onResetGame={this.resetGame.bind(this)}
+              onPlayAgain={this.playAgain.bind(this)}
               playing={playing}
               disabled={this.props.disabled}
               gameOverMessage={gameOverMessage} />

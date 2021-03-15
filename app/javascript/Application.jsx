@@ -130,19 +130,17 @@ class Application extends React.Component {
     return (
       <>
         <div className="container" style={{ maxWidth: '720px' }}>
-          <div className="row justify-content-between align-items-center">
-            {
-              !(this.state.waitingToConnect || this.state.connected || this.state.windowUnloading) && (
-                <div className="alert alert-danger" role="alert">
-                  <strong>Disconnected.</strong> Trying to reconnect&hellip; <div className="spinner-border spinner-border-sm"></div>
-                </div>
-              )
-            }
+          {
+            !(this.state.waitingToConnect || this.state.connected || this.state.windowUnloading) && (
+              <div className="alert alert-danger" role="alert">
+                <strong>Disconnected.</strong> Trying to reconnect&hellip; <div className="spinner-border spinner-border-sm"></div>
+              </div>
+            )
+          }
 
-            <h1 className="col mb-2">
-              <a href="/" className="text-reset text-decoration-none">Triangles</a>
-            </h1>
-          </div>
+          <h1>
+            <a href="/" className="text-reset text-decoration-none">Triangles</a>
+          </h1>
 
           <p className="lead">
             3 players; 3 shapes; 3 in a row
