@@ -147,7 +147,7 @@ class Game extends React.Component {
           <div className="col-auto">
             <button
               className="btn btn-sm btn-dark"
-              onClick={this.resetGame.bind(this)}
+              onClick={() => this.gameState().playing ? this.resetGame() : this.playAgain() }
               disabled={this.props.disabled}>
               New game
             </button>
