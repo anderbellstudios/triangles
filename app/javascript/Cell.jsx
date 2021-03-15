@@ -8,13 +8,12 @@ const Cell = props => {
   const squareLabel = `Square ${x+1}, ${y+1}`
 
   if (type === null) {
-    return <div
-      className={ `board-cell board-cell-empty ${disabled ? '' : 'board-cell-action'} col rounded m-1` }
+    return <button
+      className={ `d-block border-0 board-cell board-cell-empty ${disabled ? '' : 'board-cell-action'} col rounded m-1 p-0` }
       onClick={ () => !disabled && onEmptyCellClick() }
-      role="button"
       aria-label={`${squareLabel} - Empty`}
       aria-disabled={disabled}>
-    </div>
+    </button>
   } else {
     return (
       <div className="board-cell col rounded m-1" aria-label={`${squareLabel} - ${type}`}>
