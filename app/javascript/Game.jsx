@@ -1,4 +1,5 @@
 import React from 'react'
+import { Tooltip } from 'bootstrap'
 import Board from './Board'
 import ShapeImage from './ShapeImage'
 import { ArrowCounterclockwise } from 'react-bootstrap-icons'
@@ -7,11 +8,17 @@ class Game extends React.Component {
   constructor(props) {
     super(props)
 
+    this.undoButtonRef = React.createRef()
+
     this.state = {
       moves: [],
       currentTurn: 1,
       startingShapeOffset: 0,
     }
+  }
+
+  componentDidMount() {
+    new Tooltip(this.undoButtonRef.current)
   }
 
   resetGame() {
@@ -155,11 +162,14 @@ class Game extends React.Component {
 
           <div className="col-auto flex-grow-1 text-end">
             <button
+              ref={this.undoButtonRef}
               className="btn btn-link text-decoration-none"
               onClick={this.undo.bind(this)}
               disabled={this.props.disabled || this.state.moves.length === 0}
-              aria-label="Undo">
-              <ArrowCounterclockwise size="1.5em" color="black" />
+              aria-label="Undo"
+              data-bs-toggle="tooltip"
+              title="Undo">
+              <ArrowCounterclockwise size="1.5em" color="black" className="pe-none" />
             </button>
           </div>
 
