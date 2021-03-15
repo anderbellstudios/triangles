@@ -20,5 +20,17 @@ services:
     depends_on:
       - db
 
+  clockwork:
+    build: .
+    environment:
+      DATABASE_URL: postgres://postgres@db
+    entrypoint: entrypoint-clockwork.sh
+    command: bundle exec clockwork config/clockwork.rb
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - web
+
 volumes:
   pgdata:

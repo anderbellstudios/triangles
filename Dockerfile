@@ -12,8 +12,8 @@ RUN bundle install
 
 COPY . /code/
 
-COPY docker/entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
+COPY docker/entrypoint.sh docker/entrypoint-clockwork.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh /usr/bin/entrypoint-clockwork.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 EXPOSE 3000
