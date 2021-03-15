@@ -12,9 +12,10 @@ class Application extends React.Component {
     this.jitsiMeetContainerRef = React.createRef()
 
     this.state = {
-      gameId: null,
+      onlineGame: this.props.gameId !== '',
+      gameId: this.props.gameId,
       gameSubscription: null,
-      waitingToConnect: true,
+      shouldBeConnected: false,
       connected: false,
       windowUnloading: false,
       jitsiStarted: false,
@@ -22,23 +23,22 @@ class Application extends React.Component {
   }
 
   componentDidMount() {
-    const gameIdPromise = (
-      this.props.gameId === ''
-      ? this.createGame()
-      : Promise.resolve(this.props.gameId)
-    )
-
-    gameIdPromise
-      .then(gameId => {
-        this.setState({
-          gameId,
-        })
-
-        this.subscribeToGame()
-      })
-      .catch(console.error)
+    if (this.state.onlineGame) {
+      this.subscribeToGame()
+    }
 
     window.addEventListener('beforeunload', () => this.setState({ windowUnloading: true }))
+  }
+
+  shareGame() {
+    this.createGame()
+      .then(gameId => {
+        this.setState({
+          onlineGame: true,
+          gameId,
+        }, this.subscribeToGame.bind(this))
+      })
+      .catch(console.error)
   }
 
   createGame() {
@@ -80,7 +80,7 @@ class Application extends React.Component {
         this.handleRemoteUpdate(JSON.parse(game.data))
 
         this.setState({
-          waitingToConnect: false,
+          shouldBeConnected: true,
           connected: true,
         })
       })
@@ -89,13 +89,15 @@ class Application extends React.Component {
 
   handleDisconnect() {
     this.setState({
-      waitingToConnect: false,
+      shouldBeConnected: true,
       connected: false,
     })
   }
 
   handleLocalUpdate(gameData) {
-    this.state.gameSubscription.update(gameData)
+    if (this.state.onlineGame) {
+      this.state.gameSubscription.update(gameData)
+    }
   }
 
   handleRemoteUpdate(gameData) {
@@ -131,7 +133,7 @@ class Application extends React.Component {
       <>
         <div className="container" style={{ maxWidth: '720px' }}>
           {
-            !(this.state.waitingToConnect || this.state.connected || this.state.windowUnloading) && (
+            (this.state.shouldBeConnected && !this.state.connected && !this.state.windowUnloading) && (
               <div className="alert alert-danger" role="alert">
                 <strong>Disconnected.</strong> Trying to reconnect&hellip; <div className="spinner-border spinner-border-sm"></div>
               </div>
@@ -149,25 +151,44 @@ class Application extends React.Component {
           <div className="mt-5">
             <Game
               ref={this.gameRef}
-              disabled={!this.state.connected}
+              disabled={this.state.onlineGame && !this.state.connected}
               onUpdate={this.handleLocalUpdate.bind(this)} />
           </div>
 
           <h2 className="mt-5">Play with friends</h2>
 
-          <p className="lead">Anyone with the link can play live</p>
+          {
+            this.state.onlineGame
+              ? (
+                <>
+                  <p className="lead">Anyone with the link can play live</p>
 
-          <div className="d-grid d-md-block gap-2">
-            <CopyButton copyText={() => window.location.href} className="btn btn-dark">
-              Copy link
-            </CopyButton>
+                  <div className="d-grid d-md-block gap-2">
+                    <CopyButton copyText={() => window.location.href} className="btn btn-dark">
+                      Copy link
+                    </CopyButton>
 
-            {' '}
+                    {' '}
 
-            <button className="btn btn-dark" onClick={this.startJitsi.bind(this)} disabled={this.state.jitsiStarted}>
-              Join Jitsi Meet call
-            </button>
-          </div>
+                    <button className="btn btn-dark" onClick={this.startJitsi.bind(this)} disabled={this.state.jitsiStarted}>
+                      Join Jitsi Meet call
+                    </button>
+                  </div>
+                </>
+              )
+
+              : (
+                <>
+                  <p className="lead">You are playing locally</p>
+
+                  <div className="d-grid d-md-block gap-2">
+                    <button className="btn btn-dark" onClick={this.shareGame.bind(this)}>
+                      Play online
+                    </button>
+                  </div>
+                </>
+              )
+          }
         </div>
 
         <div className="container">

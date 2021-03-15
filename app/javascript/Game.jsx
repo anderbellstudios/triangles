@@ -157,7 +157,7 @@ class Game extends React.Component {
             <button
               className="btn btn-link text-decoration-none"
               onClick={this.undo.bind(this)}
-              disabled={this.state.moves.length === 0}
+              disabled={this.props.disabled || this.state.moves.length === 0}
               aria-label="Undo">
               <ArrowCounterclockwise size="1.5em" color="black" />
             </button>
