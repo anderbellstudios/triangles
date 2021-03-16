@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Rails from '@rails/ujs'
 import GameChannel from './channels/game_channel'
 import Breadcrumbs from './Breadcrumbs'
 import Game from './Game'
@@ -41,7 +40,6 @@ class Application extends React.Component {
       return fetch(this.props.gamesPath, {
         method: 'POST',
         headers: {
-          'X-CSRF-Token': Rails.csrfToken(),
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
