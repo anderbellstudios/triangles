@@ -5,9 +5,13 @@ import circle from './images/circle.svg'
 import triangle from './images/triangle.svg'
 
 const ShapeImage = props => {
-  const { type, ...other } = props
+  const { type, className, ...other } = props
 
-  return <img src={{ cross, circle, triangle }[type]} {...other} aria-label={type} />
+  return <img
+    src={{ cross, circle, triangle }[type]}
+    className={`${className || ''} pe-none`}
+    aria-label={type}
+    {...other} />
 }
 
 export default ShapeImage
