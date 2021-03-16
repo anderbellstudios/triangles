@@ -3,6 +3,7 @@
 default: &default
   source_path: app/javascript
   source_entry_path: packs
+  service_workers_entry_path: service_workers
   public_root_path: public
   public_output_path: packs
   cache_path: tmp/cache/webpacker
@@ -58,7 +59,7 @@ development:
     host: 0.0.0
     port: 3035
     public: localhost:3035
-    hmr: true
+    hmr: false
     # Inline should be set to true if using HMR
     inline: true
     overlay: true

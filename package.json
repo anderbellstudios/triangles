@@ -15,7 +15,8 @@
     "react": "^17.0.1",
     "react-bootstrap-icons": "^1.4.0",
     "react-dom": "^17.0.1",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "webpacker-pwa": "^0.1.2"
   },
   "version": "0.1.0",
   "devDependencies": {

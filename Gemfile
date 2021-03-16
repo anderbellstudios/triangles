@@ -32,6 +32,9 @@ gem 'rexml'
 # Run jobs at specified times
 gem 'clockwork'
 
+# Serve service workers via webpack-dev-server
+gem 'webpacker-pwa'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

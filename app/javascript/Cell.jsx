@@ -12,7 +12,10 @@ const Cell = props => {
       onClick={ () => !props.disabled && props.onEmptyCellClick() }
       aria-label={`${squareLabel} - Empty`}
       aria-disabled={props.disabled}>
-      <ShapeImage type={props.nextCellType} className="img-fluid hover-focus-visible" aria-hidden="true"/>
+      <ShapeImage
+        type={props.nextCellType}
+        className={`img-fluid ${props.disabled ? 'invisible' : 'hover-focus-visible'}`}
+        aria-hidden="true"/>
     </button>
   } else {
     return (

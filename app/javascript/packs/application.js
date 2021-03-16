@@ -13,3 +13,19 @@ import 'channels'
 Rails.start()
 // Turbolinks.start()
 ActiveStorage.start()
+
+window.addEventListener('load', () => {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(registration => {
+      let serviceWorker
+
+      if (registration.installing) {
+        serviceWorker = registration.installing
+      } else if (registration.waiting) {
+        serviceWorker = registration.waiting
+      } else if (registration.active) {
+        serviceWorker = registration.active
+      }
+    })
+    .catch(console.error)
+})
