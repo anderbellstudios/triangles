@@ -183,6 +183,7 @@ class Game extends React.Component {
               cellAt={this.cellAt.bind(this)}
               onEmptyCellClick={this.handleEmptyCellClicked.bind(this)}
               onPlayAgain={this.playAgain.bind(this)}
+              nextCellType={this.nextCellType()}
               playing={playing}
               disabled={this.props.disabled}
               gameOverMessage={gameOverMessage} />

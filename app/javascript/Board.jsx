@@ -2,8 +2,6 @@ import React from 'react'
 import Cell from './Cell'
 
 const Board = props => {
-  const { cellAt, onEmptyCellClick, onPlayAgain, playing, disabled, gameOverMessage } = props
-
   return (
     <div className="board rounded p-1" aria-label="Grid">
       { [...Array(4).keys()].map(y => (
@@ -12,23 +10,24 @@ const Board = props => {
             <Cell
               key={x}
               position={[x, y]}
-              type={cellAt(x, y)}
-              onEmptyCellClick={() => onEmptyCellClick(x, y)}
-              disabled={disabled || !playing} />
+              type={props.cellAt(x, y)}
+              nextCellType={props.nextCellType}
+              onEmptyCellClick={() => props.onEmptyCellClick(x, y)}
+              disabled={props.disabled || !props.playing} />
           )) }
         </div>
       )) }
 
       {
-        !playing && (
+        !props.playing && (
           <div className="gameover-overlay d-flex justify-content-center align-items-center">
             <div className="text-center">
-              <h1>{gameOverMessage}</h1>
+              <h1>{props.gameOverMessage}</h1>
 
               <button
                 className="btn btn-dark"
-                onClick={onPlayAgain}
-                disabled={disabled}>
+                onClick={props.onPlayAgain}
+                disabled={props.disabled}>
                 Play again
               </button>
             </div>
