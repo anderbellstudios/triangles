@@ -1,4 +1,4 @@
-const version = '1'
+const version = '2'
 
 self.addEventListener('install', event => {
   const cacheOffline = caches
@@ -10,6 +10,19 @@ self.addEventListener('install', event => {
   event.waitUntil(cacheOffline)
 })
 
+const fetchAndCache = request => {
+  return fetch(request)
+    .then(response => {
+      const responseClone = response.clone()
+
+      caches
+        .open(version)
+        .then(cache => cache.put(request, responseClone))
+
+      return response
+    })
+}
+
 self.addEventListener('fetch', event => {
   const path = new URL(event.request.url).pathname
 
@@ -17,21 +30,15 @@ self.addEventListener('fetch', event => {
     return
   }
 
-  const response = caches.match(event.request)
-    .then(cached => {
-      return cached || fetch(event.request)
-        .then(response => {
-          const responseClone = response.clone()
-
-          caches
-            .open(version)
-            .then(cache => cache.put(event.request, responseClone))
-
-          return response
-        })
-    })
-
-  event.respondWith(response)
+  if (path.endsWith('.js') || path.endsWith('.css') || path.endsWith('.svg')) {
+    event.respondWith(
+      caches.match(event.request).then(cached => cached || fetchAndCache(event.request))
+    )
+  } else {
+    event.respondWith(
+      fetchAndCache(event.request).catch(() => cache.match(event.request))
+    )
+  }
 })
 
 self.addEventListener('activate', event => {
