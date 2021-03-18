@@ -14,6 +14,11 @@ class Game extends React.Component {
       moves: [],
       currentTurn: 1,
       startingShapeOffset: 0,
+      computerPlayers: {
+        cross: false,
+        circle: false,
+        triangle: false,
+      },
     }
   }
 
@@ -48,6 +53,7 @@ class Game extends React.Component {
       moves: this.state.moves,
       currentTurn: this.state.currentTurn,
       startingShapeOffset: this.state.startingShapeOffset,
+      computerPlayers: this.state.computerPlayers,
     })
   }
 
@@ -56,6 +62,7 @@ class Game extends React.Component {
       moves: gameData.moves,
       currentTurn: gameData.currentTurn,
       startingShapeOffset: gameData.startingShapeOffset,
+      computerPlayers: gameData.computerPlayers || this.state.computerPlayers,
     })
   }
 
@@ -193,6 +200,40 @@ class Game extends React.Component {
             <ShapeImage type={this.nextCellType()} className="up-next-img up-next-img-1" />
             <ShapeImage type={this.nextCellType(1)} className="up-next-img up-next-img-2" />
             <ShapeImage type={this.nextCellType(2)} className="up-next-img up-next-img-3" />
+          </div>
+        </div>
+
+        <div className="mt-5">
+          <h5>Computer plays as</h5>
+
+          <div className="row px-3">
+            { 
+              [
+                ['cross', 'Cross', 'primary'],
+                ['circle', 'Circle', 'success'],
+                ['triangle', 'Triangle', 'danger'],
+              ].map(([shape, shapeName, colour]) => (
+                <div key={shape} className={`col-auto form-check form-check-${colour} form-switch`}>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id={`computer-${shape}`}
+                    checked={this.state.computerPlayers[shape]}
+                    onChange={(event) => {
+                      this.setState({
+                        computerPlayers: {
+                          ...this.state.computerPlayers,
+                          [shape]: event.target.checked,
+                        },
+                      }, this.gameDataDidChange.bind(this))
+                    }} />
+
+                  <label className="form-check-label" htmlFor={`computer-${shape}`}>
+                    {shapeName}
+                  </label>
+                </div>
+              ))
+            }
           </div>
         </div>
       </>

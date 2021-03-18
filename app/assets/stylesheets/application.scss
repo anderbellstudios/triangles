@@ -14,10 +14,28 @@
  *= require_self
  */
 
+$primary: #006CAA;
+$success: #32A600;
+$danger: #830E00;
+
 @import "bootstrap/scss/bootstrap";
 
 .btn-link {
   padding: 0;
+}
+
+// Fix checks on Safari
+.form-check-input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+@each $color, $value in $theme-colors {
+  .form-check-#{$color} .form-check-input:checked {
+    border-color: $value;
+    background-color: $value;
+  }
 }
 
 .up-next {
