@@ -2,15 +2,27 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import GameChannel from './channels/game_channel'
 import Breadcrumbs from './Breadcrumbs'
-import Game from './Game'
 import CopyButton from './CopyButton'
+import GameComponent from './GameComponent'
+import Game from './game'
+import AI from './ai'
 
 class Application extends React.Component {
   constructor(props) {
     super(props)
 
-    this.gameRef = React.createRef()
+    this.gameComponentRef = React.createRef()
     this.jitsiMeetContainerRef = React.createRef()
+
+    this.game = new Game({
+      onChange: () => this.gameComponentRef.current.forceUpdate(),
+      onLocalChange: this.handleLocalChange.bind(this),
+    })
+
+    this.ai = new AI({
+      game: this.game,
+      isDisabled: this.gameDisabled.bind(this),
+    })
 
     this.state = {
       onlineGame: this.props.gameId !== '',
@@ -45,7 +57,7 @@ class Application extends React.Component {
         },
         body: JSON.stringify({
           game: {
-            data: JSON.stringify(this.gameRef.current.gameData),
+            data: JSON.stringify(this.game.serialise()),
           },
         }),
       })
@@ -73,7 +85,7 @@ class Application extends React.Component {
           gameId: this.state.gameId,
           onConnect: this.handleConnect.bind(this),
           onDisconnect: this.handleDisconnect.bind(this),
-          onUpdate: data => this.handleRemoteUpdate(data),
+          onUpdate: data => this.handleRemoteChange(data),
         }),
       })
     } else {
@@ -83,11 +95,15 @@ class Application extends React.Component {
     }
   }
 
+  gameDisabled() {
+    return this.state.onlineGame && !this.state.connected
+  }
+
   handleConnect() {
     fetch(`/games/${this.state.gameId}`)
       .then(response => response.json())
       .then(game => {
-        this.handleRemoteUpdate(JSON.parse(game.data))
+        this.handleRemoteChange(JSON.parse(game.data))
 
         this.setState({
           shouldBeConnected: true,
@@ -104,14 +120,16 @@ class Application extends React.Component {
     })
   }
 
-  handleLocalUpdate(gameData) {
+  handleLocalChange(gameData) {
     if (this.state.onlineGame) {
       this.state.gameSubscription.update(gameData)
     }
+
+    this.ai.gameChanged()
   }
 
-  handleRemoteUpdate(gameData) {
-    this.gameRef.current.setGameData(gameData)
+  handleRemoteChange(gameData) {
+    this.game.deserialise(gameData)
   }
 
   startJitsi() {
@@ -184,10 +202,10 @@ class Application extends React.Component {
           </p>
 
           <div className="mt-5">
-            <Game
-              ref={this.gameRef}
-              disabled={this.state.onlineGame && !this.state.connected}
-              onUpdate={this.handleLocalUpdate.bind(this)} />
+            <GameComponent
+              ref={this.gameComponentRef}
+              game={this.game}
+              disabled={this.gameDisabled()} />
           </div>
 
           <h2 className="mt-5">Play with friends</h2>
