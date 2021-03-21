@@ -19,7 +19,29 @@ class AI {
 
     if (this.game.state().playing && this.game.computerPlayers[this.game.nextPlayer()]) {
       const moveOptions = this.pickMoves()
-      const [x, y] = moveOptions[Math.floor(Math.random() * moveOptions.length)]
+
+      const [x, y] = this.randomCell(
+        moveOptions,
+        {
+          [[0, 0]]: 5,
+          [[1, 0]]: 24,
+          [[2, 0]]: 24,
+          [[3, 0]]: 5,
+          [[0, 1]]: 24,
+          [[1, 1]]: 75,
+          [[2, 1]]: 75,
+          [[3, 1]]: 24,
+          [[0, 2]]: 24,
+          [[1, 2]]: 75,
+          [[2, 2]]: 75,
+          [[3, 2]]: 24,
+          [[0, 3]]: 5,
+          [[1, 3]]: 24,
+          [[2, 3]]: 24,
+          [[3, 3]]: 5,
+        },
+      )
+
       this.game.performMove(x, y)
     }
   }
@@ -93,6 +115,25 @@ class AI {
         return null
       }
     }).filter(cell => cell !== null)
+  }
+
+  randomCell(moveOptions, cellWeightings) {
+    const randomVariable = Math.random() * moveOptions.reduce(
+      (acc, cell) => acc + cellWeightings[cell],
+      0,
+    )
+
+    let cumulativeWeight = 0
+
+    for (let cell of moveOptions) {
+      cumulativeWeight += cellWeightings[cell]
+
+      if (cumulativeWeight >= randomVariable) {
+        return cell
+      }
+    }
+
+    return moveOptions[moveOptions.length - 1]
   }
 }
 
