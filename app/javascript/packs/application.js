@@ -29,3 +29,9 @@ window.addEventListener('load', () => {
     })
     .catch(console.error)
 })
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    document.body.classList.add('no-hover')
+  }
+})

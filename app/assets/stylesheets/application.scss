@@ -102,10 +102,6 @@ $danger: #830E00;
 
   &.board-cell-action {
     cursor: pointer;
-
-    &:hover, &:focus {
-      background-color: $gray-200;
-    }
   }
 
   &:not(.board-cell-empty) {
@@ -124,10 +120,20 @@ $danger: #830E00;
     visibility: hidden;
     opacity: 0.5;
   }
+}
 
-  &:hover, &:focus {
-    .hover-focus-visible {
-      visibility: visible;
+body:not(.no-hover) {
+  .board-cell {
+    &.board-cell-action {
+      &:hover, &:focus {
+        background-color: $gray-200;
+      }
+    }
+
+    &:hover, &:focus {
+      .hover-focus-visible {
+        visibility: visible;
+      }
     }
   }
 }
