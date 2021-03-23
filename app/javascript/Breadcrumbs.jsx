@@ -31,11 +31,19 @@ class Breadcrumbs extends React.Component {
           onChange={
             event => {
               const { value } = event.target
-              const matches = value.match(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/)
 
-              if (matches !== null) {
-                popover.hide()
-                this.props.onGameIdSelected(matches[0])
+              let potentialId
+
+              try {
+                potentialId = new URL(value).pathname.substr(1)
+              } catch {
+                potentialId = value
+              }
+
+              if (potentialId.length > 0) {
+                this.props.onGameIdChange(potentialId, exists => {
+                  exists && popover.hide()
+                })
               }
             }
           } />,

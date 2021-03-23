@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import niceware from 'niceware'
 import GameChannel from './channels/game_channel'
 import Breadcrumbs from './Breadcrumbs'
 import CopyButton from './CopyButton'
@@ -57,6 +58,10 @@ class Application extends React.Component {
         },
         body: JSON.stringify({
           game: {
+            id: niceware.generatePassphrase(8).map(word => {
+              const [c, ...cs] = word
+              return [c.toUpperCase(), ...cs].join('')
+            }).join(''),
             data: JSON.stringify(this.game.serialise()),
           },
         }),
@@ -67,6 +72,13 @@ class Application extends React.Component {
           failedToCreateGame: true,
         }))
     })
+  }
+
+  gameExists(id) {
+    return fetch(`/games/${id}`, {
+      method: 'HEAD',
+    })
+      .then(response => response.status === 200)
   }
 
   setGameId(gameId) {
@@ -163,7 +175,12 @@ class Application extends React.Component {
           <Breadcrumbs
             onlineGame={this.state.onlineGame}
             gameId={this.state.gameId}
-            onGameIdSelected={this.setGameId.bind(this)} />
+            onGameIdChange={(id, callback) => {
+              this.gameExists(id).then(exists => {
+                exists && this.setGameId(id)
+                callback(exists)
+              })
+            }} />
 
           {
             this.state.showOfflineMessage && (

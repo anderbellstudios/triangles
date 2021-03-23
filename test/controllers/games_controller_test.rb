@@ -7,7 +7,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create game' do
     assert_difference('Game.count') do
-      post games_url, params: { game: { data: @game.data } }
+      post games_url, params: { game: { id: 'This Is A Game', data: @game.data } }
     end
     
     assert_response :created
