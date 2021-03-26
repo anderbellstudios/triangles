@@ -12,6 +12,8 @@ services:
     build: .
     environment:
       DATABASE_URL: postgres://postgres@db
+    env_file:
+      - '.env'
     ports:
     - "3000:3000"
     - "3035:3035"
@@ -24,6 +26,8 @@ services:
     build: .
     environment:
       DATABASE_URL: postgres://postgres@db
+    env_file:
+      - '.env'
     entrypoint: entrypoint-clockwork.sh
     command: bundle exec clockwork config/clockwork.rb
     volumes:

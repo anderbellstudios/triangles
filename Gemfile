@@ -35,6 +35,9 @@ gem 'clockwork'
 # Serve service workers via webpack-dev-server
 gem 'webpacker-pwa'
 
+# not Analytics
+gem 'not_analytics_client', '~> 0.2.0', github: '12joan/not-analytics-client', branch: 'main'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

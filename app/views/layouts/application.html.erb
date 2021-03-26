@@ -15,7 +15,10 @@
     <script src="https://meet.jit.si/external_api.js"></script>
   </head>
 
-  <body class="p-3">
+  <body class="p-3 min-vh-100 d-flex flex-column">
     <%= yield %>
+    <%= render 'footer' %>
+
+    <%= report_hit_javascript_tag %>
   </body>
 </html>

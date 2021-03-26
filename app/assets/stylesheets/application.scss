@@ -31,6 +31,12 @@ $danger: #830E00;
   -webkit-appearance: none;
 }
 
+.link-hover-underline {
+  a:not(:hover), .btn-link:not(:hover) {
+    @extend .text-decoration-none;
+  }
+}
+
 @each $color, $value in $theme-colors {
   .form-check-#{$color} .form-check-input:checked {
     border-color: $value;

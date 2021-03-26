@@ -1,0 +1,42 @@
+<footer class="mt-auto container-fluid text-muted link-hover-underline" style="max-width: 576px">
+  <div class="lead mb-2">
+    Game by
+    <a
+      href="https://anderbell.studio/"
+      target="_blank"
+      class="text-reset fw-bolder">
+      Anderbell Studios
+    </a>
+  </div>
+
+  <div class="row gx-2">
+    <a href="javascript:void(0)" class="col-auto text-reset" data-bs-toggle="modal" data-bs-target="#privacy-modal">
+      Privacy
+    </a>
+
+    <span class="col-auto" aria-hidden="true">|</span>
+
+    <a href="https://github.com/anderbellstudios/triangles" target="_blank" class="col-auto text-reset">
+      Source code
+    </a>
+  </div>
+</footer>
+
+<div class="modal fade" id="privacy-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Privacy Policy</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <%= render 'privacy' %>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
