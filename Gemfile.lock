@@ -100,7 +100,6 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
-    io-wait (0.1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     json (2.5.1)
@@ -125,8 +124,6 @@ GEM
       net-protocol
       uri
     net-protocol (0.1.0)
-      io-wait
-      timeout
     nio4r (2.5.7)
     nokogiri (1.11.2-x86_64-linux)
       racc (~> 1.4)
@@ -175,7 +172,7 @@ GEM
       ffi (~> 1.0)
     redis (4.2.5)
     regexp_parser (2.1.1)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -202,7 +199,6 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.1.0)
     tilt (2.0.10)
-    timeout (0.1.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uri (0.10.1)
