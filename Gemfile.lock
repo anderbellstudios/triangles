@@ -125,7 +125,7 @@ GEM
       uri
     net-protocol (0.1.0)
     nio4r (2.5.7)
-    nokogiri (1.11.2-x86_64-linux)
+    nokogiri (1.11.5-x86_64-linux)
       racc (~> 1.4)
     openssl (2.2.0)
     pg (1.2.3)
