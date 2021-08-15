@@ -2,7 +2,7 @@
   "name": "triangles",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-react": "^7.14.5",
     "@popperjs/core": "^2.9.1",
     "@rails/actioncable": "^6.1.4",
     "@rails/activestorage": "^6.0.0",
