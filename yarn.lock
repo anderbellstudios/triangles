@@ -1732,10 +1732,10 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap-icons@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.4.0.tgz#ea08e2c8bc1535576ad267312cca9ee84ea73343"
-  integrity sha512-EynaOv/G/X/sQgPUqkdLJoxPrWk73wwsVjVR3cDNYO0jMS58poq7DOC2CraBWlBt1AberEmt0blfw4ony2/ZIg==
+bootstrap-icons@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.7.1.tgz#c17840862845bc11dcc5f69e4ed6f853415df2fd"
+  integrity sha512-Hkuoo0qrWegA9cdzwS68YPSOLf7d42gqnMzT1tIy/SWvnxnI+Y5PFvK2qIbM/L7knH8SdC8FPgjA+bktzmGcAw==
 
 bootstrap@^5.0.0-beta3:
   version "5.0.0-beta3"
