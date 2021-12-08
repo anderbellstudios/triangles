@@ -5,11 +5,10 @@ export TZ="Europe/London"
 
 rm -f /code/tmp/pids/server.pid
 
-bundle exec rails db:create
-bundle exec rails db:migrate
+bundle exec rails db:prepare
 
-if [ "$RAILS_ENV" = "production" ]; then
-  bundle exec rails assets:precompile
+if [ "$RAILS_ENV" = "development" ]; then
+  bin/webpack-dev-server &
 fi
 
 exec "$@"

@@ -4,13 +4,15 @@ RUN apk add --update --no-cache bash build-base nodejs tzdata postgresql-dev yar
 
 WORKDIR /code
 
-COPY package.json yarn.lock /code/
-RUN yarn install --check-files
-
 COPY Gemfile Gemfile.lock /code/
 RUN bundle install
 
+COPY package.json yarn.lock /code/
+RUN yarn install --check-files
+
 COPY . /code/
+
+RUN bundle exec rails assets:precompile
 
 COPY docker/entrypoint.sh docker/entrypoint-clockwork.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh /usr/bin/entrypoint-clockwork.sh
