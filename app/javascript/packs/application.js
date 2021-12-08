@@ -9,10 +9,13 @@ import Rails from '@rails/ujs'
 // import Turbolinks from 'turbolinks'
 import * as ActiveStorage from '@rails/activestorage'
 import 'channels'
+import isbot from 'isbot'
 
 Rails.start()
 // Turbolinks.start()
 ActiveStorage.start()
+
+window.isBot = isbot(navigator.userAgent)
 
 window.addEventListener('load', () => {
   navigator.serviceWorker.register('/service-worker.js')
