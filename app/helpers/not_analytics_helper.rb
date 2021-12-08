@@ -9,7 +9,11 @@ module NotAnalyticsHelper
       bot_payload = NotAnalyticsClient::Hit.new(app_id: app_id, event: '[bot traffic]', key: key).payload
 
       javascript_tag <<~JS
-        if (navigator.onLine === undefined || navigator.onLine) {
+        const debounceCookiePresent = document.cookie.split(';').some(cookie => cookie.startsWith('debounce='))
+
+        if (!debounceCookiePresent && (navigator.onLine === undefined || navigator.onLine)) {
+          document.cookie = 'debounce=This cookie prevents the app from registering a page visit more than once per user per day without relying on privacy-infringing fingerprinting techniques.; max-age=86400; SameSite=None; Secure'
+
           fetch('#{j(url)}', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
