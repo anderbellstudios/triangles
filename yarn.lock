@@ -5892,10 +5892,10 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-bootstrap-icons@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-bootstrap-icons/-/react-bootstrap-icons-1.4.0.tgz#01eb010fcbd467e58f2846cbc5cd83c32de47a9f"
-  integrity sha512-rxT8IxIU3Cnnj4y+rDJvlj5qITNfQP0jdw0e1gGCuyNDQDxvRvrA6QEFSLmWBgMqC/hig3CnZ+Snx2GwXbPxmQ==
+react-bootstrap-icons@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-icons/-/react-bootstrap-icons-1.6.1.tgz#253e6bf637c983edfb82af0554454a22c5937731"
+  integrity sha512-0xoFKK0soRBx7F0+R8lHmNp7THqaCMnAKm2SfySeTTmyk2HOG6SMXuoqlEI8SPZu2ez4u3dHlrXoo5/2IGWCeA==
   dependencies:
     prop-types "^15.7.2"
 
