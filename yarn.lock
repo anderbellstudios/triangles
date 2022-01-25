@@ -4443,10 +4443,10 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-niceware@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/niceware/-/niceware-2.0.2.tgz#f98efcc0c94b0197f64e4b4cadc856edc015080c"
-  integrity sha512-IfPUd7FFs8La8xMINGJU3p/k+wGO2p4Eqy5FegBgwfMVXSIQFDoq6iFkuot2Yz9OKsYc8NcYaMyQkLfl+vyd7Q==
+niceware@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/niceware/-/niceware-3.0.0.tgz#f6ffa89a23a9337c86b486a61efa2aa28773c332"
+  integrity sha512-DbeDuqe836Ba4S9vjim4jTbbqmjCMwuAXFCVdh4QAvbmLOhmIQs84IakYrcXd/87VCsj1XKhSmmg7bAmwAEh5A==
   dependencies:
     binary-search "^1.3.6"
     randombytes "^2.0.6"
