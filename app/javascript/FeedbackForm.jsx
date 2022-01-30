@@ -12,7 +12,7 @@ const FeedbackForm = props => {
   const { formVersion } = props
 
   useEffect(() => {
-    const cookiePresent = document.cookie.split(';').includes(`${cookieName}=${formVersion}`)
+    const cookiePresent = document.cookie.split(';').map(cookie => cookie.trim()).includes(`${cookieName}=${formVersion}`)
     setVisible(!cookiePresent)
   }, [])
 
