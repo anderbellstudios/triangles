@@ -17,8 +17,29 @@
 $primary: #006CAA;
 $success: #32A600;
 $danger: #830E00;
+$info: #E30080;
 
 @import "bootstrap/scss/bootstrap";
+
+.feedback-container {
+  @include media-breakpoint-down(lg) {
+    .alert {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    z-index: 1;
+
+    .alert {
+      width: 400px;
+    }
+  }
+}
 
 .btn-link {
   padding: 0;

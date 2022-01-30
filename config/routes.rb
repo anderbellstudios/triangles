@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   match '/500', to: 'errors#internal_server_error', via: :all
 
   resources :games, only: [:show, :create], defaults: { format: :json }
+  resources :feedback, only: [:create], defaults: { format: :json }
 
   get '/:id', to: 'application#index'
 end
