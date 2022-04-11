@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.16.7",
-    "@popperjs/core": "^2.11.4",
+    "@popperjs/core": "^2.11.5",
     "@rails/actioncable": "^7.0.2",
     "@rails/activestorage": "^7.0.2",
     "@rails/ujs": "^7.0.2",
@@ -25,7 +25,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-bundle-analyzer": "^4.5.0",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^4.8.1"
   },
   "scripts": {
     "webpack:analyze": "yarn webpack:build_json && yarn webpack:analyze_json",
