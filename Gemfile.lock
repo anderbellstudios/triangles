@@ -262,7 +262,7 @@ DEPENDENCIES
   webpacker-pwa
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 3.0.4
 
 BUNDLED WITH
    2.2.3
