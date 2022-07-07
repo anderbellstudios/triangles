@@ -7,4 +7,13 @@ services:
       - './:/app'
     ports:
       - '3000:3000'
+    environment:
+      REDIS_URL: redis://redis:6379
     command: yarn dev
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - '6379:6379'

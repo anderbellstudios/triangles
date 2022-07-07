@@ -1,8 +1,11 @@
 const path = require('path')
 const express = require('express')
+const http = require('http')
 const api = require('./src/api')
+const { mountSocket } = require('./src/socket')
 
 const app = express()
+const server = http.createServer(app)
 
 app.use('/api', api)
 
@@ -14,8 +17,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(clientRoot, 'index.html'))
 })
 
+mountSocket(server)
+
 const port = process.env.PORT || 3000
 
-const server = app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Listening on port ${port}`)
 })
