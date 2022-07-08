@@ -6,6 +6,17 @@
   @apply outline-none ring-pink-500 ring-offset-2 ring-2 dark:ring-offset-slate-900;
 }
 
+.preact-hint {
+  --tooltip-bg-color: #000000;
+  --tooltip-text-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .preact-hint {
+    --tooltip-bg-color: #1e293b;
+  }
+}
+
 .preact-hint__content {
   @apply px-3 py-2 rounded;
 }

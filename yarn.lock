@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@12joan/preact-hint@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@12joan/preact-hint/-/preact-hint-0.3.0.tgz#c9afda9f03fcd401a410fd5754a24765d1dac8db"
-  integrity sha512-rKuIvp61QYXkGDkDDC9S32skEbpoFAd5UxwWos24KydjOrS94VchYMRulB50kp6Xp0vj85Xtx+tWqj8U2O3Apg==
+"@12joan/preact-hint@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@12joan/preact-hint/-/preact-hint-0.4.0.tgz#b8ad047a8004b710ce7723b979942caa9147c098"
+  integrity sha512-R5x9KcZzIDj6qxiHuZ7q8sLUfuj0dPw7Hy9IHcJp7UJRwX1AVb29OOqJ9EDH5aQXFrhxtqdY/F9fnYXQaY234g==
 
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
