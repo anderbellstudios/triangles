@@ -20,3 +20,19 @@
 .preact-hint__content {
   @apply px-3 py-2 rounded;
 }
+
+.grid > *:nth-child(1) {
+  @apply rounded-tl-lg;
+}
+
+.grid > *:nth-child(4) {
+  @apply rounded-tr-lg;
+}
+
+.grid > *:nth-child(13) {
+  @apply rounded-bl-lg;
+}
+
+.grid > *:nth-child(16) {
+  @apply rounded-br-lg;
+}

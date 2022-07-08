@@ -1,8 +1,8 @@
 import { h } from 'preact'
+import Grid from './Grid'
+import UpNext from './UpNext'
 import Hint from '@12joan/preact-hint'
-import '@12joan/preact-hint/dist/style.css'
 import { SubtleButton, IconButton } from './Button'
-import useViewport from './useViewport'
 
 const GameArea = ({ twoColumnLayout }) => {
   return (
@@ -24,33 +24,9 @@ const GameArea = ({ twoColumnLayout }) => {
 
       <div />
 
-      <div class="bg-slate-300 dark:bg-slate-700 rounded-lg grid grid-cols-4 gap-2 p-2">
-        {
-          Array.from({ length: 16 }).map((_, i) => (
-            <button
-              type="button"
-              class="bg-slate-100 dark:bg-slate-600 hover:bg-slate-200 dark:hover:bg-slate-500 ring-offset-slate-300 dark:ring-offset-slate-700 rounded-lg aspect-square"
-            />
-          ))
-        }
-      </div>
+      <Grid />
 
-      <Hint placement={twoColumnLayout ? 'right' : 'left'} template={content => {
-        const [descriptor, player] = content.split(',')
-
-        return (
-          <>
-            <div class="text-xs">{descriptor}</div>
-            <div>{player}</div>
-          </>
-        )
-      }}>
-        <div class="flex flex-col gap-4">
-          <div class="aspect-square bg-pink-100 rounded-lg" data-hint={['Current turn', 'Cross']} tabindex="0" />
-          <div class="aspect-square bg-pink-100 rounded-lg" data-hint={['Next turn', 'Circle']} tabindex="0" />
-          <div class="aspect-square bg-pink-100 rounded-lg" data-hint={['Last turn', 'Triangle']} tabindex="0" />
-        </div>
-      </Hint>
+      <UpNext {...{twoColumnLayout}} />
     </div>
   )
 }
