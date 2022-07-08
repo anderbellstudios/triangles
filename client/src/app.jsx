@@ -10,12 +10,14 @@ const App = () => {
   const twoColumnLayout = viewportWidth >= 768
 
   return (
-    <main class="max-w-screen-lg mx-auto">
+    <main class="mx-auto max-w-screen-lg">
       <H1>Triangles</H1>
-      <LeadParagraph class="mb-8">3 players; 3 shapes; 3 in a line</LeadParagraph>
+      <LeadParagraph class="mb-8">
+        3 players; 3 shapes; 3 in a line
+      </LeadParagraph>
 
-      <div class="flex flex-col md:flex-row justify-between align-center gap-8 mb-8">
-        <GameArea {...{twoColumnLayout}} />
+      <div class="align-center mb-8 flex flex-col justify-between gap-8 md:flex-row">
+        <GameArea {...{ twoColumnLayout }} />
 
         <div class="flex flex-col gap-8">
           <OnlineControls />
@@ -25,9 +27,13 @@ const App = () => {
 
       <H2>How to play</H2>
 
-      <Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Paragraph>
+      <Paragraph>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </Paragraph>
       <Paragraph>Duis non lectus eu massa tempor lobortis.</Paragraph>
-      <Paragraph>Vestibulum pretium arcu vel pellentesque sollicitudin.</Paragraph>
+      <Paragraph>
+        Vestibulum pretium arcu vel pellentesque sollicitudin.
+      </Paragraph>
     </main>
   )
 }

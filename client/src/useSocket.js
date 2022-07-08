@@ -3,7 +3,12 @@ import { useMemo, useState, useEffect } from 'preact/hooks'
 
 const socket = io()
 
-const useSocket = ({ query = {}, queryDependencies = [], handlers = {}, handlerDependencies = [] }) => {
+const useSocket = ({
+  query = {},
+  queryDependencies = [],
+  handlers = {},
+  handlerDependencies = [],
+}) => {
   const socket = useMemo(() => io('', { query }), queryDependencies)
 
   const [connected, setConnected] = useState(false)

@@ -7,8 +7,17 @@ const common = {
   defaultProps: { type: 'button' },
 }
 
-const Button = elem({ ...common, defaultClass: `${commonClass} bg-pink-500 text-white` })
-const SubtleButton = elem({ ...common, defaultClass: `${commonClass} bg-slate-100 dark:bg-slate-800 dark:hover:brightness-110 text-pink-500` })
-const IconButton = elem({ ...common, defaultClass: `${commonClass} text-pink-500 rounded-lg px-0 py-0` })
+const Button = elem({
+  ...common,
+  defaultClass: `${commonClass} bg-pink-500 text-white`,
+})
+const SubtleButton = elem({
+  ...common,
+  defaultClass: `${commonClass} bg-slate-100 dark:bg-slate-800 dark:hover:brightness-110 text-pink-500`,
+})
+const IconButton = elem({
+  ...common,
+  defaultClass: `${commonClass} text-pink-500 rounded-lg px-0 py-0`,
+})
 
 export { Button, SubtleButton, IconButton }
