@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 *:focus-visible {
-  @apply outline-none ring-pink-500 ring-offset-2 ring-2 dark:ring-offset-slate-900;
+  @apply outline-none ring-2 ring-pink-500 ring-offset-2 dark:ring-offset-slate-900;
 }
 
 .preact-hint {
@@ -18,21 +18,21 @@
 }
 
 .preact-hint__content {
-  @apply px-3 py-2 rounded;
+  @apply rounded px-3 py-2;
 }
 
-.grid > *:nth-child(1) {
+.grid-cell:nth-child(1) {
   @apply rounded-tl-lg;
 }
 
-.grid > *:nth-child(4) {
+.grid-cell:nth-child(4) {
   @apply rounded-tr-lg;
 }
 
-.grid > *:nth-child(13) {
+.grid-cell:nth-child(13) {
   @apply rounded-bl-lg;
 }
 
-.grid > *:nth-child(16) {
+.grid-cell:nth-child(16) {
   @apply rounded-br-lg;
 }
