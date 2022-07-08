@@ -12,6 +12,8 @@ const GridCell = ({ shape, nextShape, ...otherProps }) => {
       type="button"
       class={`grid-cell relative aspect-square rounded bg-contain bg-no-repeat ring-offset-slate-300 after:absolute after:inset-0 after:bg-contain after:bg-no-repeat dark:ring-offset-slate-800 ${shapeClass}`}
       disabled={shape !== undefined}
+      aria-live="polite"
+      aria-label={shape === undefined ? `Play ${nextShape}` : `Square with ${shape}`}
       {...otherProps}
     />
   )

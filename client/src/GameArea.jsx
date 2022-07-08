@@ -15,7 +15,7 @@ const GameArea = ({ twoColumnLayout }) => {
 
         <div class="flex gap-2">
           <Hint>
-            <IconButton data-hint="Undo" class="translate-y-1/2">
+            <IconButton data-hint="Undo" class="translate-y-1/2" aria-label="Undo">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="1.5em"
@@ -23,6 +23,7 @@ const GameArea = ({ twoColumnLayout }) => {
                 fill="currentColor"
                 viewBox="0 0 16 16"
                 class="pointer-events-none"
+                aria-hidden="true"
               >
                 <path
                   fill-rule="evenodd"

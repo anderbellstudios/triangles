@@ -9,15 +9,15 @@ const common = {
 
 const Button = elem({
   ...common,
-  defaultClass: `${commonClass} bg-pink-500 text-white`,
+  defaultClass: `${commonClass} bg-pink-600 text-white`,
 })
 const SubtleButton = elem({
   ...common,
-  defaultClass: `${commonClass} bg-slate-100 dark:bg-slate-800 dark:hover:brightness-110 text-pink-500`,
+  defaultClass: `${commonClass} bg-slate-100 dark:bg-slate-800 dark:hover:brightness-110 text-pink-700 dark:text-pink-500`,
 })
 const IconButton = elem({
   ...common,
-  defaultClass: `${commonClass} text-pink-500 rounded-lg px-0 py-0`,
+  defaultClass: `${commonClass} text-pink-700 rounded-lg px-0 py-0`,
 })
 
 export { Button, SubtleButton, IconButton }
