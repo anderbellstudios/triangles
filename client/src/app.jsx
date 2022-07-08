@@ -1,9 +1,23 @@
 import { h } from 'preact'
+import appState from './appState'
 import { H1, H2, Paragraph, LeadParagraph } from './typography'
 import GameArea from './GameArea'
 import OnlineControls from './OnlineControls'
 import AIControls from './AIControls'
 import useViewport from './useViewport'
+
+appState.init({
+  app: {
+    game: {
+      board: Array.from({ length: 16 }, () => null),
+      currentTurn: 'cross',
+    },
+  },
+})
+
+appState.addEventListener('app.game', game => {
+  console.log('Game data changed:', game)
+})
 
 const App = () => {
   const { viewportWidth } = useViewport()
