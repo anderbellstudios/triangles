@@ -17,21 +17,18 @@ const UpNext = ({ twoColumnLayout }) => {
       }}
     >
       <div class="flex flex-col gap-4">
-        <div
-          class="aspect-square rounded-lg bg-pink-100"
-          data-hint={['Current turn', 'Cross']}
-          tabindex="0"
-        />
-        <div
-          class="aspect-square rounded-lg bg-pink-100"
-          data-hint={['Next turn', 'Circle']}
-          tabindex="0"
-        />
-        <div
-          class="aspect-square rounded-lg bg-pink-100"
-          data-hint={['Last turn', 'Triangle']}
-          tabindex="0"
-        />
+        {[
+          ['Current turn', 'Cross', 'bg-cross aspect-square'],
+          ['Next turn', 'Circle', 'bg-circle aspect-[4/3] opacity-85'],
+          ['Last turn', 'Triangle', 'bg-triangle aspect-[4/2] opacity-70'],
+        ].map(([descriptor, player, className]) => (
+          <div
+            class={`rounded-lg bg-contain bg-center bg-no-repeat ${className}`}
+            aria-label={`${descriptor} is ${player}`}
+            data-hint={[descriptor, player]}
+            tabindex="0"
+          />
+        ))}
       </div>
     </Hint>
   )
