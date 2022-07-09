@@ -1,22 +1,33 @@
 import { h } from 'preact'
-import { performNewGame } from './appState'
+import Hint from '@12joan/preact-hint'
+import { performNewGame, performUndo } from './appState'
+import useAppState from './useAppState'
 import Grid from './Grid'
 import UpNext from './UpNext'
-import Hint from '@12joan/preact-hint'
 import { SubtleButton, IconButton } from './Button'
 
 const GameArea = ({ twoColumnLayout }) => {
+  const freshGame = useAppState('app.game.moveHistory').length === 0
+
   return (
     <div
       class="grid gap-x-4 gap-y-2 md:w-[512px]"
       style={{ gridTemplateColumns: 'minmax(0, 1fr) min(72px, 13vw)' }}
     >
       <div class="flex justify-between gap-4 text-xs md:text-sm">
-        <SubtleButton onClick={performNewGame}>New game</SubtleButton>
+        <SubtleButton onClick={performNewGame} disabled={freshGame}>
+          New game
+        </SubtleButton>
 
         <div class="flex gap-2">
           <Hint>
-            <IconButton data-hint="Undo" class="translate-y-1/2" aria-label="Undo">
+            <IconButton
+              data-hint="Undo"
+              class="translate-y-1/2"
+              aria-label="Undo"
+              onClick={performUndo}
+              disabled={freshGame}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="1.5em"

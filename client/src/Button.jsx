@@ -1,6 +1,6 @@
 import elem from './elem'
 
-const commonClass = 'hover:brightness-95 py-2 px-4 rounded-lg whitespace-nowrap'
+const commonClass = 'hover:brightness-95 py-2 px-4 rounded-lg whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-50'
 
 const common = {
   tag: 'button',
