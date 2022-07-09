@@ -1,5 +1,11 @@
-const makeNewGame = ({ version = 1 } = {}) => ({
-  version,
+const makeNewGame = (oldGame = {}) => ({
+  version: 1,
+  computerPlayers: {
+    cross: false,
+    circle: false,
+    triangle: false,
+  },
+  ...oldGame,
   board: Array.from({ length: 16 }, () => null),
   currentTurn: 'cross',
   moveHistory: [],

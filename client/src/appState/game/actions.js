@@ -22,7 +22,7 @@ const performMove = index => withIncrementVersion(t => {
 })
 
 const performNewGame = () => withIncrementVersion(t => {
-  t.transform('app.game', game => makeNewGame({ version: game.version }))
+  t.transform('app.game', game => makeNewGame(game))
 })
 
 const performUndo = () => withIncrementVersion(t => {
@@ -40,8 +40,16 @@ const performUndo = () => withIncrementVersion(t => {
   t.transform('app.game.currentTurn', currentTurn => getNthNextTurn(currentTurn, -1))
 })
 
+const setComputerPlayer = (player, isComputer) => withIncrementVersion(t => {
+  t.transform('app.game.computerPlayers', computerPlayers => ({
+    ...computerPlayers,
+    [player]: isComputer,
+  }))
+})
+
 export {
   performMove,
   performNewGame,
   performUndo,
+  setComputerPlayer,
 }
