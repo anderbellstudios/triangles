@@ -1,26 +1,18 @@
 import { h } from 'preact'
-import appState from './appState'
+import { performNewGame } from './appState'
 import Grid from './Grid'
 import UpNext from './UpNext'
 import Hint from '@12joan/preact-hint'
 import { SubtleButton, IconButton } from './Button'
 
 const GameArea = ({ twoColumnLayout }) => {
-  const handleNewGame = () => {
-    appState.transform('app.game', game => ({
-      ...game,
-      board: Array.from({ length: 16 }, () => null),
-      currentTurn: 'cross',
-    }))
-  }
-
   return (
     <div
       class="grid gap-x-4 gap-y-2 md:w-[512px]"
       style={{ gridTemplateColumns: 'minmax(0, 1fr) min(72px, 13vw)' }}
     >
       <div class="flex justify-between gap-4 text-xs md:text-sm">
-        <SubtleButton onClick={handleNewGame}>New game</SubtleButton>
+        <SubtleButton onClick={performNewGame}>New game</SubtleButton>
 
         <div class="flex gap-2">
           <Hint>

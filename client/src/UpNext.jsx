@@ -1,7 +1,14 @@
 import { h } from 'preact'
 import Hint from '@12joan/preact-hint'
+import useAppState from './useAppState'
+import { getNthNextTurn } from './appState'
+import capitalise from './capitalise'
 
 const UpNext = ({ twoColumnLayout }) => {
+  const currentTurn = useAppState('app.game.currentTurn')
+  const nextTurn = getNthNextTurn(currentTurn, 1)
+  const lastTurn = getNthNextTurn(currentTurn, 2)
+
   return (
     <Hint
       placement={twoColumnLayout ? 'right' : 'left'}
@@ -18,14 +25,14 @@ const UpNext = ({ twoColumnLayout }) => {
     >
       <div class="flex flex-col gap-4">
         {[
-          ['Current turn', 'Cross', 'bg-cross aspect-square'],
-          ['Next turn', 'Circle', 'bg-circle aspect-[4/3] opacity-85'],
-          ['Last turn', 'Triangle', 'bg-triangle aspect-[4/2] opacity-70'],
+          ['Current turn', currentTurn, `bg-${currentTurn} aspect-square`],
+          ['Next turn', nextTurn, `bg-${nextTurn} aspect-[4/3] opacity-85`],
+          ['Last turn', lastTurn, `bg-${lastTurn} aspect-[4/2] opacity-70`],
         ].map(([descriptor, player, className]) => (
           <div
             class={`rounded-lg bg-contain bg-center bg-no-repeat ${className}`}
-            aria-label={`${descriptor} is ${player}`}
-            data-hint={[descriptor, player]}
+            aria-label={`${descriptor} is ${capitalise(player)}`}
+            data-hint={[descriptor, capitalise(player)]}
             tabindex="0"
           />
         ))}

@@ -1,29 +1,52 @@
 import AppState from '@12joan/app-state'
-import { useState, useEffect } from 'preact/hooks'
+
+const makeEmptyBoard = () => Array.from({ length: 16 }, () => null)
 
 const appState = new AppState({
   app: {
     game: {
-      board: Array.from({ length: 16 }, () => null),
+      board: makeEmptyBoard(),
       currentTurn: 'cross',
     },
   },
 })
 
-const useAppState = (pathString) => {
-  const [value, setValue] = useState(appState.get(pathString))
+const getNthNextTurn = (currentTurn, n) => {
+  if (n === 0) return currentTurn
 
-  useEffect(() => {
-    const handler = data => setValue(data)
-    appState.addEventListener(pathString, handler)
-    return () => appState.removeEventListener(pathString, handler)
-  }, [pathString])
+  if (n === 1) return ({
+    cross: 'circle',
+    circle: 'triangle',
+    triangle: 'cross',
+  }[currentTurn])
 
-  return value
+  return getNthNextTurn(getNthNextTurn(currentTurn, 1), n - 1)
+}
+
+const performMove = index => {
+  appState.transaction(t => {
+    t.transform('app.game.board', board => {
+      const newBoard = [...board]
+      newBoard[index] = appState.get('app.game.currentTurn')
+      return newBoard
+    })
+
+    t.transform('app.game.currentTurn', currentTurn => getNthNextTurn(currentTurn, 1))
+  })
+}
+
+const performNewGame = () => {
+  appState.transform('app.game', game => ({
+    ...game,
+    board: makeEmptyBoard(),
+    currentTurn: 'cross',
+  }))
 }
 
 export {
-  useAppState,
+  getNthNextTurn,
+  performMove,
+  performNewGame,
 }
 
 export default appState
