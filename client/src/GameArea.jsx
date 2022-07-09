@@ -7,7 +7,11 @@ import { SubtleButton, IconButton } from './Button'
 
 const GameArea = ({ twoColumnLayout }) => {
   const handleNewGame = () => {
-    appState.update('app.game.board', () => Array.from({ length: 16 }, () => null))
+    appState.transform('app.game', game => ({
+      ...game,
+      board: Array.from({ length: 16 }, () => null),
+      currentTurn: 'cross',
+    }))
   }
 
   return (

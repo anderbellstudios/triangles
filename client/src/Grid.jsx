@@ -8,13 +8,13 @@ const Grid = () => {
 
   const handleCellClick = index => {
     appState.transaction(t => {
-      t.update('app.game.board', board => {
+      t.transform('app.game.board', board => {
         const newBoard = [...board]
         newBoard[index] = currentTurn
         return newBoard
       })
 
-      t.update('app.game.currentTurn', turn => ({
+      t.transform('app.game.currentTurn', turn => ({
         cross: 'circle',
         circle: 'triangle',
         triangle: 'cross',

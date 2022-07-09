@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@12joan/app-state@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@12joan/app-state/-/app-state-0.1.0.tgz#2b223f38d8cfe696b1ab021f8a6b62e798dd31b6"
+  integrity sha512-G0jedFE9f8fY+75hXWrJn5zls7h5CVI803S0VP2QJAPuYgbDrPUlBqn7zrjkCOMRnge1Pst0At0FYtFMrVIzrQ==
+
 "@12joan/preact-hint@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@12joan/preact-hint/-/preact-hint-0.4.0.tgz#b8ad047a8004b710ce7723b979942caa9147c098"

@@ -6,15 +6,6 @@ import OnlineControls from './OnlineControls'
 import AIControls from './AIControls'
 import useViewport from './useViewport'
 
-appState.init({
-  app: {
-    game: {
-      board: Array.from({ length: 16 }, () => null),
-      currentTurn: 'cross',
-    },
-  },
-})
-
 appState.addEventListener('app.game', game => {
   console.log('Game data changed:', game)
 })
