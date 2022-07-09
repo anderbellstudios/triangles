@@ -1,16 +1,49 @@
 import { h } from 'preact'
+import useAppState from './useAppState'
+import { joinRemoteGame, leaveRemoteGame } from './appState/onlinePlay/actions'
 import { Button, SubtleButton } from './Button'
 import { H2 } from './typography'
 
 const OnlineControls = () => {
+  const remoteGameID = useAppState('app.onlinePlay.remoteGameID')
+  const playingOnline = remoteGameID !== null
+
+  const child = playingOnline
+    ? <WhenOnline {...{ remoteGameID }} />
+    : <WhenLocal />
+
   return (
     <div>
       <H2>Play with friends</H2>
+      {child}
+    </div>
+  )
+}
 
-      <div class="flex gap-2">
-        <Button>Host game</Button>
-        <SubtleButton>Join game</SubtleButton>
+const WhenLocal = () => {
+  return (
+    <div class="space-x-2">
+      <Button onClick={() => joinRemoteGame('myHostedGame')}>
+        Host game
+      </Button>
+
+      <SubtleButton onClick={() => joinRemoteGame('myJoinedGame')}>
+        Join game
+      </SubtleButton>
+    </div>
+  )
+}
+
+const WhenOnline = ({ remoteGameID }) => {
+  return (
+    <div class="space-y-2">
+      <div>
+        <span class="font-medium">Game ID:</span> {remoteGameID}
       </div>
+
+      <SubtleButton onClick={() => leaveRemoteGame()}>
+        Leave game
+      </SubtleButton>
     </div>
   )
 }

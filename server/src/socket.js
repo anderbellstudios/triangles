@@ -16,11 +16,11 @@ module.exports.mountSocket = async server => {
   io.adapter(createAdapter(pubClient, subClient))
 
   io.on('connection', socket => {
-    const channel = socket.handshake.query.channel
-    socket.join(channel)
+    const gameID = socket.handshake.query.gameID
+    socket.join(gameID)
 
-    socket.on('message', message => {
-      socket.to(channel).emit('message', message)
+    socket.on('game-updated', game => {
+      socket.to(gameID).emit('game-updated', game)
     })
   })
 }

@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { performMove } from './appState'
+import { performMove } from './appState/game/actions'
 import useAppState from './useAppState'
 import GridCell from './GridCell'
 

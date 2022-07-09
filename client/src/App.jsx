@@ -6,10 +6,6 @@ import OnlineControls from './OnlineControls'
 import AIControls from './AIControls'
 import useViewport from './useViewport'
 
-appState.addEventListener('app.game', game => {
-  console.log('Game data changed:', game)
-})
-
 const App = () => {
   const { viewportWidth } = useViewport()
   const twoColumnLayout = viewportWidth >= 768

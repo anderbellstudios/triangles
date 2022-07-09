@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import Hint from '@12joan/preact-hint'
-import { performNewGame, performUndo } from './appState'
+import { performNewGame, performUndo } from './appState/game/actions'
 import useAppState from './useAppState'
 import Grid from './Grid'
 import UpNext from './UpNext'

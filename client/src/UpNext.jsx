@@ -1,7 +1,7 @@
 import { h } from 'preact'
 import Hint from '@12joan/preact-hint'
 import useAppState from './useAppState'
-import { getNthNextTurn } from './appState'
+import getNthNextTurn from './appState/game/getNthNextTurn'
 import capitalise from './capitalise'
 
 const UpNext = ({ twoColumnLayout }) => {
