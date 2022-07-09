@@ -1,15 +1,16 @@
 import appState from '..'
+import clientID from '../../clientID'
 import getNthNextTurn from './getNthNextTurn'
 import makeNewGame from './makeNewGame'
 
-const withIncrementVersion = procedure => {
+const withLastUpdatedBy = procedure => {
   appState.transaction(t => {
-    t.transform('app.game.version', version => version + 1)
+    t.set('app.game.lastUpdatedBy', clientID)
     procedure(t)
   })
 }
 
-const performMove = index => withIncrementVersion(t => {
+const performMove = index => withLastUpdatedBy(t => {
   t.transform('app.game.board', board => {
     const newBoard = [...board]
     newBoard[index] = appState.get('app.game.currentTurn')
@@ -21,11 +22,11 @@ const performMove = index => withIncrementVersion(t => {
   t.transform('app.game.moveHistory', moveHistory => [...moveHistory, index])
 })
 
-const performNewGame = () => withIncrementVersion(t => {
+const performNewGame = () => withLastUpdatedBy(t => {
   t.transform('app.game', game => makeNewGame(game))
 })
 
-const performUndo = () => withIncrementVersion(t => {
+const performUndo = () => withLastUpdatedBy(t => {
   const moveHistory = [...appState.get('app.game.moveHistory')]
   const lastMove = moveHistory.pop()
 
@@ -40,7 +41,7 @@ const performUndo = () => withIncrementVersion(t => {
   t.transform('app.game.currentTurn', currentTurn => getNthNextTurn(currentTurn, -1))
 })
 
-const setComputerPlayer = (player, isComputer) => withIncrementVersion(t => {
+const setComputerPlayer = (player, isComputer) => withLastUpdatedBy(t => {
   t.transform('app.game.computerPlayers', computerPlayers => ({
     ...computerPlayers,
     [player]: isComputer,

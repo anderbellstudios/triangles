@@ -1,5 +1,7 @@
+import clientID from '../../clientID'
+
 const makeNewGame = (oldGame = {}) => ({
-  version: 1,
+  lastUpdatedBy: clientID,
   computerPlayers: {
     cross: false,
     circle: false,
