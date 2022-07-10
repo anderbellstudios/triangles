@@ -1,26 +1,38 @@
 const path = require('path')
 const express = require('express')
 const http = require('http')
-const api = require('./src/api')
+const { createClient } = require('redis')
+const { mountAPI } = require('./src/api')
 const { mountSocket } = require('./src/socket')
 
-const app = express()
-const server = http.createServer(app)
+;(async () => {
+  const app = express()
+  const server = http.createServer(app)
 
-app.use('/api', api)
+  const redisClient = createClient({ url: process.env.REDIS_URL })
+  const pubClient = redisClient.duplicate()
+  const subClient = redisClient.duplicate()
 
-const clientRoot = path.join(__dirname, '../client/dist')
+  await Promise.all([
+    redisClient.connect(),
+    pubClient.connect(),
+    subClient.connect(),
+  ])
 
-app.use(express.static(clientRoot))
+  const io = mountSocket(server, redisClient, pubClient, subClient)
+  mountAPI(app, redisClient, io)
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(clientRoot, 'index.html'))
-})
+  const clientRoot = path.join(__dirname, '../client/dist')
 
-mountSocket(server)
+  app.use(express.static(clientRoot))
 
-const port = process.env.PORT || 3000
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientRoot, 'index.html'))
+  })
 
-server.listen(port, () => {
-  console.log(`Listening on port ${port}`)
-})
+  const port = process.env.PORT || 3000
+
+  server.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+  })
+})()

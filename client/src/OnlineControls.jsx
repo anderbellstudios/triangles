@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import useAppState from './useAppState'
-import { joinRemoteGame, leaveRemoteGame } from './appState/onlinePlay/actions'
+import { hostRemoteGame, joinRemoteGame, leaveRemoteGame } from './appState/onlinePlay/actions'
 import { Button, SubtleButton } from './Button'
 import { H2 } from './typography'
 
@@ -23,11 +23,11 @@ const OnlineControls = () => {
 const WhenLocal = () => {
   return (
     <div class="space-x-2">
-      <Button onClick={() => joinRemoteGame('myHostedGame')}>
+      <Button onClick={() => hostRemoteGame('myGame')}>
         Host game
       </Button>
 
-      <SubtleButton onClick={() => joinRemoteGame('myJoinedGame')}>
+      <SubtleButton onClick={() => joinRemoteGame('myGame')}>
         Join game
       </SubtleButton>
     </div>
