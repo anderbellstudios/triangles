@@ -1,3 +1,5 @@
-const clientID = Array.from({ length: 16 }, () => Math.floor(Math.random() * 16).toString(16)).join('')
+import makeRandomIdentifier from './randomIdentifier'
+
+const clientID = makeRandomIdentifier()
 
 export default clientID

@@ -6,10 +6,8 @@ let socket = null
 let teardownSocket = () => {}
 let previousRemoteGameID = null
 
-const lastChangedByCurrentClient = game => game.lastUpdatedBy === clientID
-
 appState.addEventListener('app.game', game => {
-  if (appState.get('app.onlinePlay.connected') && lastChangedByCurrentClient(game)) {
+  if (appState.get('app.onlinePlay.connected') && game.lastUpdatedBy === clientID) {
     socket.emit('game-updated', game)
   }
 })
@@ -33,7 +31,7 @@ const handleRemoteGameID = remoteGameID => {
   })
 
   socket.on('game-updated', game => {
-    if (!lastChangedByCurrentClient(game)) {
+    if (game.tag !== appState.get('app.game.tag')) {
       appState.set('app.game', game)
     }
   })

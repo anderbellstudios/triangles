@@ -1,16 +1,18 @@
 import appState from '..'
 import clientID from '../../clientID'
+import makeRandomIdentifier from '../../randomIdentifier'
 import getNthNextTurn from './getNthNextTurn'
 import makeNewGame from './makeNewGame'
 
-const withLastUpdatedBy = procedure => {
+const modifyGame = procedure => {
   appState.transaction(t => {
     t.set('app.game.lastUpdatedBy', clientID)
+    t.set('app.game.tag', makeRandomIdentifier())
     procedure(t)
   })
 }
 
-const performMove = index => withLastUpdatedBy(t => {
+const performMove = index => modifyGame(t => {
   t.transform('app.game.board', board => {
     const newBoard = [...board]
     newBoard[index] = appState.get('app.game.currentTurn')
@@ -22,11 +24,11 @@ const performMove = index => withLastUpdatedBy(t => {
   t.transform('app.game.moveHistory', moveHistory => [...moveHistory, index])
 })
 
-const performNewGame = () => withLastUpdatedBy(t => {
+const performNewGame = () => modifyGame(t => {
   t.transform('app.game', game => makeNewGame(game))
 })
 
-const performUndo = () => withLastUpdatedBy(t => {
+const performUndo = () => modifyGame(t => {
   const moveHistory = [...appState.get('app.game.moveHistory')]
   const lastMove = moveHistory.pop()
 
@@ -41,7 +43,7 @@ const performUndo = () => withLastUpdatedBy(t => {
   t.transform('app.game.currentTurn', currentTurn => getNthNextTurn(currentTurn, -1))
 })
 
-const setComputerPlayer = (player, isComputer) => withLastUpdatedBy(t => {
+const setComputerPlayer = (player, isComputer) => modifyGame(t => {
   t.transform('app.game.computerPlayers', computerPlayers => ({
     ...computerPlayers,
     [player]: isComputer,

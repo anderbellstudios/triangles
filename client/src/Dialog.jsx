@@ -1,0 +1,57 @@
+import { h } from 'preact'
+import { useState, useEffect, useRef } from 'preact/hooks'
+import { useA11yDialog } from 'react-a11y-dialog'
+import Hint from '@12joan/preact-hint'
+import { IconButton } from './Button'
+
+const Dialog = ({ id, title, open, onClose, children }) => {
+  const [instance, dialogProps] = useA11yDialog({ id, title, role: 'dialog' })
+
+  const actuallyOpen = useRef(false)
+
+  useEffect(() => {
+    if (open && !actuallyOpen.current) {
+      instance.show()
+    } else if (!open && actuallyOpen.current) {
+      instance.hide()
+    }
+
+    actuallyOpen.current = open
+  }, [open])
+
+  return (
+    <div {...dialogProps.container} class="fixed inset-0 flex z-10 aria-hidden:hidden p-4 overflow-y-auto">
+      <div {...dialogProps.overlay} class="fixed inset-0 bg-black/50 dark:bg-black/75" onClick={onClose} />
+
+      <div {...dialogProps.dialog} class="m-auto z-10 relative bg-white dark:bg-slate-900 p-8 rounded-lg shadow-lg w-full max-w-screen-sm">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+const DialogCloseButton = ({ onClick }) => {
+  return (
+    <Hint>
+      <IconButton onClick={onClick} data-hint="Close">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1.5em"
+          height="1.5em"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+          class="pointer-events-none"
+          aria-hidden="true"
+        >
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+        </svg>
+      </IconButton>
+    </Hint>
+  )
+}
+
+export {
+  DialogCloseButton,
+}
+
+export default Dialog

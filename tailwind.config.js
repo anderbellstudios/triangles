@@ -25,6 +25,7 @@ module.exports = {
   plugins: [
     plugin(({ addVariant }) => {
       addVariant('hocus', ['&:hover', '&:focus-visible'])
+      addVariant('aria-hidden', ['&[aria-hidden="true"]'])
     }),
   ],
 }

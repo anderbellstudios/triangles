@@ -1,6 +1,7 @@
 const wrappedFetch = async (url, options = {}) => {
   const {
     timeout = 10000,
+    acceptResponse = response => response.ok,
     ...otherOptions
   } = options
 
@@ -22,7 +23,7 @@ const wrappedFetch = async (url, options = {}) => {
 
   clearTimeout(timeoutID)
 
-  if (response.ok) {
+  if (acceptResponse(response)) {
     return response
   } else {
     return Promise.reject(new Error('An unknown error occurred'))

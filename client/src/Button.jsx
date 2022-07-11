@@ -1,6 +1,6 @@
 import elem from './elem'
 
-const commonClass = 'hover:brightness-95 py-2 px-4 rounded-lg whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-50'
+const commonClass = 'whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-50'
 
 const common = {
   tag: 'button',
@@ -9,15 +9,22 @@ const common = {
 
 const Button = elem({
   ...common,
-  defaultClass: `${commonClass} bg-pink-600 text-white`,
-})
-const SubtleButton = elem({
-  ...common,
-  defaultClass: `${commonClass} bg-slate-100 dark:bg-slate-800 dark:hover:brightness-110 text-pink-700 dark:text-pink-500`,
-})
-const IconButton = elem({
-  ...common,
-  defaultClass: `${commonClass} text-pink-700 rounded-lg px-0 py-0`,
+  defaultClass: `${commonClass} py-2 px-4 rounded-lg hover:brightness-95 bg-pink-600 text-white`,
 })
 
-export { Button, SubtleButton, IconButton }
+const SubtleButton = elem({
+  ...common,
+  defaultClass: `${commonClass} py-2 px-4 rounded-lg hover:brightness-95 bg-slate-100 dark:bg-slate-800 dark:hover:brightness-110 text-pink-700 dark:text-pink-500`,
+})
+
+const IconButton = elem({
+  ...common,
+  defaultClass: `${commonClass} rounded-lg text-pink-600 -m-1 p-1 hover:bg-slate-50 dark:hover:bg-slate-800 dark:text-pink-500`,
+})
+
+const ButtonLink = elem({
+  ...common,
+  defaultClass: `${commonClass} text-pink-600 dark:text-pink-500 underline hover:brightness-75 dark:hover:brightness-125`,
+})
+
+export { Button, SubtleButton, IconButton, ButtonLink }

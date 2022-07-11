@@ -1,7 +1,9 @@
 import clientID from '../../clientID'
+import makeRandomIdentifier from '../../randomIdentifier'
 
 const makeNewGame = (oldGame = {}) => ({
   lastUpdatedBy: clientID,
+  tag: makeRandomIdentifier(),
   computerPlayers: {
     cross: false,
     circle: false,
