@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'preact/hooks'
 import appState from './appState'
 
-const useAppState = (pathString) => {
+const useAppState = pathString => {
   const [value, setValue] = useState(appState.get(pathString))
 
   useEffect(() => {

@@ -10,9 +10,11 @@ const OnlineControls = () => {
   const remoteGameID = useAppState('app.onlinePlay.remoteGameID')
   const playingOnline = remoteGameID !== null
 
-  const child = playingOnline
-    ? <WhenOnline {...{ remoteGameID }} />
-    : <WhenLocal />
+  const child = playingOnline ? (
+    <WhenOnline {...{ remoteGameID }} />
+  ) : (
+    <WhenLocal />
+  )
 
   return (
     <div>
@@ -27,9 +29,7 @@ const WhenLocal = () => {
 
   return (
     <div class="space-x-2">
-      <Button onClick={() => hostRemoteGame('myGame')}>
-        Host game
-      </Button>
+      <Button onClick={() => hostRemoteGame('myGame')}>Host game</Button>
 
       <SubtleButton onClick={() => setShowJoinGameDialog(true)}>
         Join game
@@ -50,9 +50,7 @@ const WhenOnline = ({ remoteGameID }) => {
         <span class="font-medium">Game ID:</span> {remoteGameID}
       </div>
 
-      <SubtleButton onClick={() => leaveRemoteGame()}>
-        Leave game
-      </SubtleButton>
+      <SubtleButton onClick={() => leaveRemoteGame()}>Leave game</SubtleButton>
     </div>
   )
 }

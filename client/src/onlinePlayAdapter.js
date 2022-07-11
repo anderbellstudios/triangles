@@ -7,7 +7,10 @@ let teardownSocket = () => {}
 let previousRemoteGameID = null
 
 appState.addEventListener('app.game', game => {
-  if (appState.get('app.onlinePlay.connected') && game.lastUpdatedBy === clientID) {
+  if (
+    appState.get('app.onlinePlay.connected') &&
+    game.lastUpdatedBy === clientID
+  ) {
     socket.emit('game-updated', game)
   }
 })
@@ -36,7 +39,9 @@ const handleRemoteGameID = remoteGameID => {
     }
   })
 
-  socket.on('game-not-found', () => console.error('Tried to connect to game that does not exist'))
+  socket.on('game-not-found', () =>
+    console.error('Tried to connect to game that does not exist')
+  )
 
   teardownSocket = () => {
     socket.close()

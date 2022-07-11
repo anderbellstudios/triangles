@@ -17,7 +17,9 @@ const AIControls = () => {
           <label class="flex items-center gap-2">
             <LargeSwitch
               checked={computerPlayers[player]}
-              onChange={event => setComputerPlayer(player, event.target.checked)}
+              onChange={event =>
+                setComputerPlayer(player, event.target.checked)
+              }
             />
 
             {capitalise(player)}

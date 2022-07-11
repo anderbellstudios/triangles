@@ -19,8 +19,4 @@ const joinRemoteGame = gameID => {
 
 const leaveRemoteGame = () => appState.set('app.onlinePlay.remoteGameID', null)
 
-export {
-  hostRemoteGame,
-  joinRemoteGame,
-  leaveRemoteGame,
-}
+export { hostRemoteGame, joinRemoteGame, leaveRemoteGame }

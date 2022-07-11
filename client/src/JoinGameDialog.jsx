@@ -13,8 +13,7 @@ const JoinGameDialog = ({ open, onClose }) => {
   useEffect(() => {
     setGameExists(null)
 
-    if (!/[^\s]+/.test(gameID))
-      return
+    if (!/[^\s]+/.test(gameID)) return
 
     const timeout = setTimeout(async () => {
       const response = await wrappedFetch(`/api/game/${gameID}`, {
@@ -39,12 +38,12 @@ const JoinGameDialog = ({ open, onClose }) => {
   return (
     <Dialog id="join-game-dialog" title={title} open={open} onClose={onClose}>
       <form class="space-y-4" onSubmit={handleJoin}>
-        <div class="flex justify-between items-center">
+        <div class="flex items-center justify-between">
           <h1 class="text-2xl font-medium">{title}</h1>
           <DialogCloseButton onClick={onClose} />
         </div>
 
-        <div class="grid sm:flex gap-4">
+        <div class="grid gap-4 sm:flex">
           <Input
             autofocus
             class="grow"
@@ -59,31 +58,35 @@ const JoinGameDialog = ({ open, onClose }) => {
         </div>
 
         <p aria-live="polite">
-          {{
-            null: (
-              <span class="text-slate-600 dark:text-slate-400">
-                To join an existing game, enter its ID and click Join.
-              </span>
-            ),
-
-            false: (
-              <>
-                <span class="text-red-700 dark:text-red-400">
-                  No game with that ID exists.
+          {
+            {
+              null: (
+                <span class="text-slate-600 dark:text-slate-400">
+                  To join an existing game, enter its ID and click Join.
                 </span>
-                {' '}
-                <ButtonLink class="font-medium" onClick={() => alert('Not implemented yet')}>
-                  Create it now
-                </ButtonLink>
-              </>
-            ),
+              ),
 
-            true: (
-              <span class="text-green-700 dark:text-green-400">
-                Looks good to me! Click Join to confirm.
-              </span>
-            ),
-          }[gameExists]}
+              false: (
+                <>
+                  <span class="text-red-700 dark:text-red-400">
+                    No game with that ID exists.
+                  </span>{' '}
+                  <ButtonLink
+                    class="font-medium"
+                    onClick={() => alert('Not implemented yet')}
+                  >
+                    Create it now
+                  </ButtonLink>
+                </>
+              ),
+
+              true: (
+                <span class="text-green-700 dark:text-green-400">
+                  Looks good to me! Click Join to confirm.
+                </span>
+              ),
+            }[gameExists]
+          }
         </p>
       </form>
     </Dialog>

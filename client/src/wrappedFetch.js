@@ -15,7 +15,7 @@ const wrappedFetch = async (url, options = {}) => {
     console.error(error)
 
     if (error.name === 'AbortError') {
-      return Promise.reject(new Error('The server isn\'t responding'))
+      return Promise.reject(new Error("The server isn't responding"))
     } else {
       return Promise.reject(new Error('Could not connect to the server'))
     }
