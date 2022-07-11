@@ -16,7 +16,7 @@ const HostGameDialog = ({ ...otherProps }) => {
       {...otherProps}
       id="host-game-dialog"
       title="Host a new game"
-      inputPlaceholder="Type a game ID to create"
+      inputPlaceholder="Purple Octopus Ruins Opera"
       primaryButtonText="Host"
       defaultHintText="Enter an ID that people will use to join your game."
       expectedHintText="Looks good to me! Click Host to confirm."
@@ -70,6 +70,8 @@ const HostOrJoinGameDialog = ({
   const gameExistsIsExpected =
     gameExists === null ? null : gameExists === expectedExists
 
+  const inputID = `${id}-input`
+
   useEffect(() => {
     setGameExists(null)
 
@@ -106,18 +108,25 @@ const HostOrJoinGameDialog = ({
           <DialogCloseButton onClick={onClose} />
         </div>
 
-        <div class="grid gap-4 sm:flex">
-          <Input
-            autofocus
-            class="grow"
-            placeholder={inputPlaceholder}
-            value={gameID}
-            onInput={event => setGameID(event.target.value)}
-          />
+        <div class="space-y-2">
+          <label class="block font-medium" for={inputID}>
+            Game ID
+          </label>
 
-          <Button type="submit" disabled={gameExistsIsExpected !== true}>
-            {primaryButtonText}
-          </Button>
+          <div class="grid gap-4 sm:flex">
+            <Input
+              id={inputID}
+              autofocus
+              class="grow"
+              placeholder={inputPlaceholder}
+              value={gameID}
+              onInput={event => setGameID(event.target.value)}
+            />
+
+            <Button type="submit" disabled={gameExistsIsExpected !== true}>
+              {primaryButtonText}
+            </Button>
+          </div>
         </div>
 
         <p aria-live="polite">
