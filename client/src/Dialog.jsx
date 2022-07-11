@@ -12,8 +12,10 @@ const Dialog = ({ id, title, open, onClose, children }) => {
   useEffect(() => {
     if (open && !actuallyOpen.current) {
       instance.show()
+      instance.on('hide', onClose)
     } else if (!open && actuallyOpen.current) {
       instance.hide()
+      instance.off('hide', onClose)
     }
 
     actuallyOpen.current = open
@@ -27,7 +29,6 @@ const Dialog = ({ id, title, open, onClose, children }) => {
       <div
         {...dialogProps.overlay}
         class="fixed inset-0 bg-black/50 dark:bg-black/75"
-        onClick={onClose}
       />
 
       <div

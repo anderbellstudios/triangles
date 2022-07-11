@@ -1,0 +1,171 @@
+import { h } from 'preact'
+import { useState, useEffect } from 'preact/hooks'
+import { hostRemoteGame, joinRemoteGame } from './appState/onlinePlay/actions'
+import makeRandomIdentifier from './randomIdentifier'
+import wrappedFetch from './wrappedFetch'
+import Dialog, { DialogCloseButton } from './Dialog'
+import { Button, ButtonLink } from './Button'
+import { Input } from './Input'
+
+const handleHost = gameID => hostRemoteGame(gameID)
+const handleJoin = gameID => joinRemoteGame(gameID)
+
+const HostGameDialog = ({ ...otherProps }) => {
+  return (
+    <HostOrJoinGameDialog
+      {...otherProps}
+      id="host-game-dialog"
+      title="Host a new game"
+      inputPlaceholder="Type a game ID to create"
+      primaryButtonText="Host"
+      defaultHintText="Enter an ID that people will use to join your game."
+      expectedHintText="Looks good to me! Click Host to confirm."
+      unexpectedHintText="That ID is already in use."
+      alternativeActionText="Join that game"
+      expectedExists={false}
+      primaryAction={handleHost}
+      alternativeAction={handleJoin}
+      showRandomiseButton
+    />
+  )
+}
+
+const JoinGameDialog = ({ ...otherProps }) => {
+  return (
+    <HostOrJoinGameDialog
+      {...otherProps}
+      id="join-game-dialog"
+      title="Join an existing game"
+      inputPlaceholder="Type a game ID to join"
+      primaryButtonText="Join"
+      defaultHintText="To join an existing game, enter its ID and click Join."
+      expectedHintText="Looks good to me! Click Join to confirm."
+      unexpectedHintText="No game with that ID exists."
+      alternativeActionText="Create it now"
+      expectedExists={true}
+      primaryAction={handleJoin}
+      alternativeAction={handleHost}
+    />
+  )
+}
+
+const HostOrJoinGameDialog = ({
+  id,
+  title,
+  inputPlaceholder,
+  primaryButtonText,
+  defaultHintText,
+  expectedHintText,
+  unexpectedHintText,
+  alternativeActionText,
+  expectedExists,
+  primaryAction,
+  alternativeAction,
+  showRandomiseButton = false,
+  open,
+  onClose,
+}) => {
+  const [gameID, setGameID] = useState('')
+  const [gameExists, setGameExists] = useState(null)
+  const gameExistsIsExpected =
+    gameExists === null ? null : gameExists === expectedExists
+
+  useEffect(() => {
+    setGameExists(null)
+
+    if (!/[^\s]+/.test(gameID)) return
+
+    const timeout = setTimeout(async () => {
+      const response = await wrappedFetch(`/api/game/${gameID}`, {
+        method: 'HEAD',
+        acceptResponse: response => /200|404/.test(response.status),
+      })
+
+      setGameExists(response.ok)
+    }, 500)
+
+    return () => clearTimeout(timeout)
+  }, [gameID])
+
+  const handlePrimaryButton = event => {
+    event.preventDefault()
+    primaryAction(gameID)
+    onClose()
+  }
+
+  const handleAlternativeButton = () => {
+    alternativeAction(gameID)
+    onClose()
+  }
+
+  return (
+    <Dialog id={id} title={title} open={open} onClose={onClose}>
+      <form class="space-y-4" onSubmit={handlePrimaryButton}>
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-medium">{title}</h1>
+          <DialogCloseButton onClick={onClose} />
+        </div>
+
+        <div class="grid gap-4 sm:flex">
+          <Input
+            autofocus
+            class="grow"
+            placeholder={inputPlaceholder}
+            value={gameID}
+            onInput={event => setGameID(event.target.value)}
+          />
+
+          <Button type="submit" disabled={gameExistsIsExpected !== true}>
+            {primaryButtonText}
+          </Button>
+        </div>
+
+        <p aria-live="polite">
+          {
+            {
+              null: (
+                <>
+                  <span class="text-slate-600 dark:text-slate-400">
+                    {defaultHintText}
+                  </span>
+
+                  {showRandomiseButton && (
+                    <>
+                      {' '}
+                      <ButtonLink
+                        class="font-medium"
+                        onClick={() => setGameID(makeRandomIdentifier())}
+                        children="Use a random ID"
+                      />
+                    </>
+                  )}
+                </>
+              ),
+
+              false: (
+                <>
+                  <span class="text-red-700 dark:text-red-400">
+                    {unexpectedHintText}
+                  </span>{' '}
+                  <ButtonLink
+                    class="font-medium"
+                    onClick={handleAlternativeButton}
+                    children={alternativeActionText}
+                  />
+                </>
+              ),
+
+              true: (
+                <span class="text-green-700 dark:text-green-400">
+                  {expectedHintText}
+                </span>
+              ),
+            }[gameExistsIsExpected]
+          }
+        </p>
+      </form>
+    </Dialog>
+  )
+}
+
+export { HostGameDialog, JoinGameDialog }
