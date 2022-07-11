@@ -3,6 +3,7 @@ import { useState, useEffect } from 'preact/hooks'
 import { hostRemoteGame, joinRemoteGame } from './appState/onlinePlay/actions'
 import makeRandomIdentifier from './randomIdentifier'
 import wrappedFetch from './wrappedFetch'
+import usePromise from './usePromise'
 import Dialog, { DialogCloseButton } from './Dialog'
 import { Button, ButtonLink } from './Button'
 import { Input } from './Input'
@@ -66,24 +67,29 @@ const HostOrJoinGameDialog = ({
   onClose,
 }) => {
   const [gameID, setGameID] = useState('')
+
   const [gameExists, setGameExists] = useState(null)
+
   const gameExistsIsExpected =
     gameExists === null ? null : gameExists === expectedExists
 
-  const inputID = `${id}-input`
+  const [promiseState, setPromise] = usePromise()
 
   useEffect(() => {
     setGameExists(null)
+    setPromise(null)
 
     if (!/[^\s]+/.test(gameID)) return
 
-    const timeout = setTimeout(async () => {
-      const response = await wrappedFetch(`/api/game/${gameID}`, {
-        method: 'HEAD',
-        acceptResponse: response => /200|404/.test(response.status),
-      })
-
-      setGameExists(response.ok)
+    const timeout = setTimeout(() => {
+      setPromise(
+        wrappedFetch(`/api/game/${gameID}`, {
+          method: 'HEAD',
+          acceptResponse: response => /200|404/.test(response.status),
+        }).then(response => {
+          setGameExists(response.ok)
+        })
+      )
     }, 500)
 
     return () => clearTimeout(timeout)
@@ -91,14 +97,15 @@ const HostOrJoinGameDialog = ({
 
   const handlePrimaryButton = event => {
     event.preventDefault()
-    primaryAction(gameID)
-    onClose()
+
+    setPromise(primaryAction(gameID).then(onClose))
   }
 
   const handleAlternativeButton = () => {
-    alternativeAction(gameID)
-    onClose()
+    setPromise(alternativeAction(gameID).then(onClose))
   }
+
+  const inputID = `${id}-input`
 
   return (
     <Dialog id={id} title={title} open={open} onClose={onClose}>
@@ -107,6 +114,13 @@ const HostOrJoinGameDialog = ({
           <h1 class="text-2xl font-medium">{title}</h1>
           <DialogCloseButton onClick={onClose} />
         </div>
+
+        {promiseState.rejected && (
+          <p aria-live="polite" class="text-red-600 dark:text-red-500">
+            <span class="font-medium">Something went wrong:</span>{' '}
+            {promiseState.error.message}
+          </p>
+        )}
 
         <div class="space-y-2">
           <label class="block font-medium" for={inputID}>
@@ -153,7 +167,7 @@ const HostOrJoinGameDialog = ({
 
               false: (
                 <>
-                  <span class="text-red-700 dark:text-red-400">
+                  <span class="text-red-600 dark:text-red-400">
                     {unexpectedHintText}
                   </span>{' '}
                   <ButtonLink

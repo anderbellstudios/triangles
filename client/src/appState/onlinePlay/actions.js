@@ -13,7 +13,7 @@ const hostRemoteGame = async gameID => {
   appState.set('app.onlinePlay.remoteGameID', gameID)
 }
 
-const joinRemoteGame = gameID => {
+const joinRemoteGame = async gameID => {
   appState.set('app.onlinePlay.remoteGameID', gameID)
 }
 
