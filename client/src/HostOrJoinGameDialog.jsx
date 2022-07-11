@@ -8,6 +8,8 @@ import Dialog, { DialogCloseButton } from './Dialog'
 import { Button, ButtonLink } from './Button'
 import { Input } from './Input'
 
+const makeRandomGameID = () => makeRandomIdentifier(8)
+
 const handleHost = gameID => hostRemoteGame(gameID)
 const handleJoin = gameID => joinRemoteGame(gameID)
 
@@ -17,16 +19,29 @@ const HostGameDialog = ({ ...otherProps }) => {
       {...otherProps}
       id="host-game-dialog"
       title="Host a new game"
+      initialGameID={makeRandomGameID()}
       inputPlaceholder="Purple Octopus Ruins Opera"
       primaryButtonText="Host"
-      defaultHintText="Enter an ID that people will use to join your game."
-      expectedHintText="Looks good to me! Click Host to confirm."
-      unexpectedHintText="That ID is already in use."
-      alternativeActionText="Join that game"
       expectedExists={false}
       primaryAction={handleHost}
       alternativeAction={handleJoin}
-      showRandomiseButton
+      hint={(gameExists, AlternativeActionButton, RandomiseButton) => {
+        return gameExists ? (
+          <>
+            <span class="text-red-600 dark:text-red-400">
+              That ID is already in use.
+            </span>{' '}
+            <AlternativeActionButton children="Join that game" />
+          </>
+        ) : (
+          <>
+            <span class="text-slate-600 dark:text-slate-400">
+              Enter an ID that people will use to join your game.
+            </span>{' '}
+            <RandomiseButton />
+          </>
+        )
+      }}
     />
   )
 }
@@ -39,13 +54,33 @@ const JoinGameDialog = ({ ...otherProps }) => {
       title="Join an existing game"
       inputPlaceholder="Type a game ID to join"
       primaryButtonText="Join"
-      defaultHintText="To join an existing game, enter its ID and click Join."
-      expectedHintText="Looks good to me! Click Join to confirm."
-      unexpectedHintText="No game with that ID exists."
-      alternativeActionText="Create it now"
       expectedExists={true}
       primaryAction={handleJoin}
       alternativeAction={handleHost}
+      hint={(gameExists, AlternativeActionButton) =>
+        ({
+          null: (
+            <span class="text-slate-600 dark:text-slate-400">
+              To join an existing game, enter its ID and click Join.
+            </span>
+          ),
+
+          false: (
+            <>
+              <span class="text-red-600 dark:text-red-400">
+                No game with that ID exists.
+              </span>{' '}
+              <AlternativeActionButton children="Create it now" />
+            </>
+          ),
+
+          true: (
+            <span class="text-green-700 dark:text-green-400">
+              Looks good to me! Click Join to confirm.
+            </span>
+          ),
+        }[gameExists])
+      }
     />
   )
 }
@@ -53,26 +88,18 @@ const JoinGameDialog = ({ ...otherProps }) => {
 const HostOrJoinGameDialog = ({
   id,
   title,
+  initialGameID = '',
   inputPlaceholder,
   primaryButtonText,
-  defaultHintText,
-  expectedHintText,
-  unexpectedHintText,
-  alternativeActionText,
   expectedExists,
   primaryAction,
   alternativeAction,
-  showRandomiseButton = false,
+  hint,
   open,
   onClose,
 }) => {
-  const [gameID, setGameID] = useState('')
-
+  const [gameID, setGameID] = useState(initialGameID)
   const [gameExists, setGameExists] = useState(null)
-
-  const gameExistsIsExpected =
-    gameExists === null ? null : gameExists === expectedExists
-
   const [promiseState, setPromise] = usePromise()
 
   useEffect(() => {
@@ -95,21 +122,30 @@ const HostOrJoinGameDialog = ({
     return () => clearTimeout(timeout)
   }, [gameID])
 
-  const handlePrimaryButton = event => {
+  const handleSubmit = event => {
     event.preventDefault()
-
     setPromise(primaryAction(gameID).then(onClose))
   }
 
-  const handleAlternativeButton = () => {
-    setPromise(alternativeAction(gameID).then(onClose))
-  }
+  const AlternativeActionButton = ({ children }) => (
+    <ButtonLink
+      onClick={() => setPromise(alternativeAction(gameID).then(onClose))}
+      children={children}
+    />
+  )
+
+  const RandomiseButton = () => (
+    <ButtonLink
+      onClick={() => setGameID(makeRandomGameID())}
+      children="Use a random ID"
+    />
+  )
 
   const inputID = `${id}-input`
 
   return (
     <Dialog id={id} title={title} open={open} onClose={onClose}>
-      <form class="space-y-4" onSubmit={handlePrimaryButton}>
+      <form class="space-y-4" onSubmit={handleSubmit}>
         <div class="flex items-center justify-between">
           <h1 class="text-2xl font-medium">{title}</h1>
           <DialogCloseButton onClick={onClose} />
@@ -137,54 +173,14 @@ const HostOrJoinGameDialog = ({
               onInput={event => setGameID(event.target.value)}
             />
 
-            <Button type="submit" disabled={gameExistsIsExpected !== true}>
+            <Button type="submit" disabled={gameExists !== expectedExists}>
               {primaryButtonText}
             </Button>
           </div>
         </div>
 
         <p aria-live="polite">
-          {
-            {
-              null: (
-                <>
-                  <span class="text-slate-600 dark:text-slate-400">
-                    {defaultHintText}
-                  </span>
-
-                  {showRandomiseButton && (
-                    <>
-                      {' '}
-                      <ButtonLink
-                        class="font-medium"
-                        onClick={() => setGameID(makeRandomIdentifier())}
-                        children="Use a random ID"
-                      />
-                    </>
-                  )}
-                </>
-              ),
-
-              false: (
-                <>
-                  <span class="text-red-600 dark:text-red-400">
-                    {unexpectedHintText}
-                  </span>{' '}
-                  <ButtonLink
-                    class="font-medium"
-                    onClick={handleAlternativeButton}
-                    children={alternativeActionText}
-                  />
-                </>
-              ),
-
-              true: (
-                <span class="text-green-700 dark:text-green-400">
-                  {expectedHintText}
-                </span>
-              ),
-            }[gameExistsIsExpected]
-          }
+          {hint(gameExists, AlternativeActionButton, RandomiseButton)}
         </p>
       </form>
     </Dialog>
