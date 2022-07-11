@@ -21,7 +21,7 @@ const HostGameDialog = ({ ...otherProps }) => {
       title="Host a new game"
       initialGameID={makeRandomGameID()}
       inputPlaceholder="Purple Octopus Ruins Opera"
-      primaryButtonText="Host"
+      primaryButtonText="Create game"
       expectedExists={false}
       primaryAction={handleHost}
       alternativeAction={handleJoin}
