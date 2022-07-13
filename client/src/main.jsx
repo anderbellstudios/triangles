@@ -1,6 +1,6 @@
 import { h, render } from 'preact'
 import '@12joan/preact-hint/dist/style.css'
-import App from './app'
+import App from './App'
 import './index.css'
 import './onlinePlayAdapter'
 

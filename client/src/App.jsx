@@ -20,9 +20,11 @@ const App = () => {
       <div class="align-center mb-8 flex flex-col justify-between gap-8 md:flex-row">
         <GameArea {...{ twoColumnLayout }} />
 
-        <div class="flex flex-col gap-8">
-          <OnlineControls />
-          <AIControls />
+        <div class="md:ml-auto">
+          <div class="md:max-w-sm space-y-8">
+            <OnlineControls />
+            <AIControls />
+          </div>
         </div>
       </div>
 

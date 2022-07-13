@@ -3,7 +3,7 @@ const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: [
     './client/index.html',
-    './client/src/**/*.jsx',
+    './client/src/**/*.{jsx,js}',
   ],
   safelist: [
     'bg-cross',

@@ -1,9 +1,9 @@
 import { h } from 'preact'
 import { useState } from 'preact/hooks'
 import useAppState from './useAppState'
-import { hostRemoteGame, leaveRemoteGame } from './appState/onlinePlay/actions'
+import { leaveRemoteGame } from './appState/onlinePlay/actions'
 import { Button, SubtleButton } from './Button'
-import { H2 } from './typography'
+import { H2, LeadParagraph } from './typography'
 import { HostGameDialog, JoinGameDialog } from './HostOrJoinGameDialog'
 
 const OnlineControls = () => {
@@ -19,7 +19,10 @@ const OnlineControls = () => {
   return (
     <div>
       <H2>Play with friends</H2>
-      {child}
+
+      <div class="space-y-4">
+        {child}
+      </div>
     </div>
   )
 }
@@ -29,35 +32,65 @@ const WhenLocal = () => {
   const [showJoinGameDialog, setShowJoinGameDialog] = useState(false)
 
   return (
-    <div class="space-x-2">
-      <Button onClick={() => setShowHostGameDialog(true)}>Host game</Button>
+    <>
+      <LeadParagraph>
+        You are playing locally
+      </LeadParagraph>
 
-      <HostGameDialog
-        open={showHostGameDialog}
-        onClose={() => setShowHostGameDialog(false)}
-      />
+      <div class="space-x-2">
+        <Button onClick={() => setShowHostGameDialog(true)}>Host game</Button>
 
-      <SubtleButton onClick={() => setShowJoinGameDialog(true)}>
-        Join game
-      </SubtleButton>
+        <HostGameDialog
+          open={showHostGameDialog}
+          onClose={() => setShowHostGameDialog(false)}
+        />
 
-      <JoinGameDialog
-        open={showJoinGameDialog}
-        onClose={() => setShowJoinGameDialog(false)}
-      />
-    </div>
+        <SubtleButton onClick={() => setShowJoinGameDialog(true)}>
+          Join game
+        </SubtleButton>
+
+        <JoinGameDialog
+          open={showJoinGameDialog}
+          onClose={() => setShowJoinGameDialog(false)}
+        />
+      </div>
+    </>
   )
 }
 
 const WhenOnline = ({ remoteGameID }) => {
-  return (
-    <div class="space-y-2">
-      <div>
-        <span class="font-medium">Game ID:</span> {remoteGameID}
-      </div>
+  const [justCopied, setJustCopied] = useState(false)
 
-      <SubtleButton onClick={() => leaveRemoteGame()}>Leave game</SubtleButton>
-    </div>
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(window.location.href)
+
+    setJustCopied(true)
+    if (!justCopied) setTimeout(() => setJustCopied(false), 1000)
+  }
+
+  return (
+    <>
+      <LeadParagraph>
+        You are playing online
+      </LeadParagraph>
+
+      <p>
+        Game ID:{' '}
+        <code class="p-1 rounded bg-slate-100 text-pink-700 dark:bg-slate-800 dark:text-pink-500 select-all">
+          {remoteGameID}
+        </code>
+      </p>
+
+      <div class="space-x-2">
+        <Button
+          onClick={handleCopy}
+          class={justCopied ? 'relative after:animate-ping after:absolute after:inset-0 after:bg-pink-600 after:rounded-lg' : ''}
+          children="Copy link"
+        />
+
+        <SubtleButton onClick={() => leaveRemoteGame()}>Leave game</SubtleButton>
+      </div>
+    </>
   )
 }
 
