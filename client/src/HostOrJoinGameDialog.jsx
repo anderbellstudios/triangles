@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { useState, useEffect } from 'preact/hooks'
+import { useState, useEffect, useRef } from 'preact/hooks'
 import { hostRemoteGame, joinRemoteGame } from './appState/onlinePlay/actions'
 import makeRandomIdentifier from './randomIdentifier'
 import wrappedFetch from './wrappedFetch'
@@ -98,11 +98,18 @@ const HostOrJoinGameDialog = ({
   open,
   onClose,
 }) => {
+  const inputRef = useRef()
   const [gameID, setGameID] = useState(initialGameID)
   const [gameExists, setGameExists] = useState(null)
   const [promiseState, setPromise] = usePromise()
 
   useEffect(() => {
+    if (open) inputRef.current.select()
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+
     setGameExists(null)
     setPromise(null)
 
@@ -120,7 +127,7 @@ const HostOrJoinGameDialog = ({
     }, 500)
 
     return () => clearTimeout(timeout)
-  }, [gameID])
+  }, [open, gameID])
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -166,7 +173,7 @@ const HostOrJoinGameDialog = ({
           <div class="grid gap-4 sm:flex">
             <Input
               id={inputID}
-              autofocus
+              ref={inputRef}
               class="grow"
               placeholder={inputPlaceholder}
               value={gameID}
