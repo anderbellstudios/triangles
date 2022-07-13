@@ -20,9 +20,7 @@ const OnlineControls = () => {
     <div>
       <H2>Play with friends</H2>
 
-      <div class="space-y-4">
-        {child}
-      </div>
+      <div class="space-y-4">{child}</div>
     </div>
   )
 }
@@ -33,9 +31,7 @@ const WhenLocal = () => {
 
   return (
     <>
-      <LeadParagraph>
-        You are playing locally
-      </LeadParagraph>
+      <LeadParagraph>You are playing locally</LeadParagraph>
 
       <div class="space-x-2">
         <Button onClick={() => setShowHostGameDialog(true)}>Host game</Button>
@@ -70,13 +66,11 @@ const WhenOnline = ({ remoteGameID }) => {
 
   return (
     <>
-      <LeadParagraph>
-        You are playing online
-      </LeadParagraph>
+      <LeadParagraph>You are playing online</LeadParagraph>
 
       <p>
         Game ID:{' '}
-        <code class="p-1 rounded bg-slate-100 text-pink-700 dark:bg-slate-800 dark:text-pink-500 select-all">
+        <code class="select-all rounded bg-slate-100 p-1 text-pink-700 dark:bg-slate-800 dark:text-pink-500">
           {remoteGameID}
         </code>
       </p>
@@ -84,11 +78,17 @@ const WhenOnline = ({ remoteGameID }) => {
       <div class="space-x-2">
         <Button
           onClick={handleCopy}
-          class={justCopied ? 'relative after:animate-ping after:absolute after:inset-0 after:bg-pink-600 after:rounded-lg' : ''}
+          class={
+            justCopied
+              ? 'relative after:absolute after:inset-0 after:animate-ping after:rounded-lg after:bg-pink-600'
+              : ''
+          }
           children="Copy link"
         />
 
-        <SubtleButton onClick={() => leaveRemoteGame()}>Leave game</SubtleButton>
+        <SubtleButton onClick={() => leaveRemoteGame()}>
+          Leave game
+        </SubtleButton>
       </div>
     </>
   )

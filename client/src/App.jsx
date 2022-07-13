@@ -1,5 +1,4 @@
 import { h } from 'preact'
-import appState from './appState'
 import { H1, H2, Paragraph, LeadParagraph } from './typography'
 import GameArea from './GameArea'
 import OnlineControls from './OnlineControls'
@@ -21,7 +20,7 @@ const App = () => {
         <GameArea {...{ twoColumnLayout }} />
 
         <div class="md:ml-auto">
-          <div class="md:max-w-sm space-y-8">
+          <div class="space-y-8 md:max-w-sm">
             <OnlineControls />
             <AIControls />
           </div>

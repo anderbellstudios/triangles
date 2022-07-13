@@ -16,9 +16,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        cross: 'url(./src/cross.svg)',
-        circle: 'url(./src/circle.svg)',
-        triangle: 'url(./src/triangle.svg)',
+        cross: 'url(/src/cross.svg)',
+        circle: 'url(/src/circle.svg)',
+        triangle: 'url(/src/triangle.svg)',
       },
     },
   },
