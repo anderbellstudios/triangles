@@ -2,7 +2,7 @@ import { h } from 'preact'
 import { useState, useEffect, useRef } from 'preact/hooks'
 import { hostRemoteGame, joinRemoteGame } from './appState/onlinePlay/actions'
 import makeRandomIdentifier from './randomIdentifier'
-import wrappedFetch from './wrappedFetch'
+import * as API from './api'
 import usePromise from './usePromise'
 import Dialog, { DialogCloseButton } from './Dialog'
 import { Button, ButtonLink } from './Button'
@@ -115,16 +115,10 @@ const HostOrJoinGameDialog = ({
 
     if (!/[^\s]+/.test(gameID)) return
 
-    const timeout = setTimeout(() => {
-      setPromise(
-        wrappedFetch(`/api/game/${gameID}`, {
-          method: 'HEAD',
-          acceptResponse: response => /200|404/.test(response.status),
-        }).then(response => {
-          setGameExists(response.ok)
-        })
-      )
-    }, 500)
+    const timeout = setTimeout(
+      () => setPromise(API.gameExists(gameID).then(setGameExists)),
+      500
+    )
 
     return () => clearTimeout(timeout)
   }, [open, gameID])

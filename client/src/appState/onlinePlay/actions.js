@@ -1,15 +1,8 @@
 import appState from '..'
-import wrappedFetch from '../../wrappedFetch'
+import * as API from '../../api'
 
 const hostRemoteGame = async gameID => {
-  await wrappedFetch(`/api/game/${gameID}`, {
-    method: 'POST',
-    body: JSON.stringify(appState.get('app.game')),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-
+  await API.uploadGame(gameID, appState.get('app.game'))
   appState.set('app.onlinePlay.remoteGameID', gameID)
 }
 
