@@ -1,12 +1,14 @@
 import { h, render } from 'preact'
 import '@12joan/preact-hint/dist/style.css'
 import App from './App'
+import appState from './appState'
 import { performNewGame } from './appState/game/actions'
 import { joinRemoteGame, leaveRemoteGame } from './appState/onlinePlay/actions'
+import { uploadGame } from './api'
 import './index.css'
 import './onlinePlayAdapter'
 
-const handleURLChange = (event = undefined) => {
+const handleURLChange = async () => {
   const gameID = window.location.pathname.match(/^\/game\/(.*)/)?.[1]
 
   if (gameID === undefined) {
@@ -16,11 +18,13 @@ const handleURLChange = (event = undefined) => {
       leaveRemoteGame(false)
     }
   } else {
+    await uploadGame(gameID, appState.get('app.game')).catch(console.error)
     joinRemoteGame(gameID, false)
   }
 }
 
 window.addEventListener('popstate', handleURLChange)
-handleURLChange()
 
-render(<App />, document.querySelector('#app'))
+handleURLChange().then(() => {
+  render(<App />, document.querySelector('#app'))
+})

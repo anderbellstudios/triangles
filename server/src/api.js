@@ -12,10 +12,17 @@ module.exports.mountAPI = (app, redisClient, io) => {
   })
 
   api.post('/game/:id', async (req, res) => {
-    const game = req.body
     const gameID = req.params.id
-    await redisHelper.setGame(redisClient, req.params.id, JSON.stringify(game))
+
+    if (await redisHelper.gameExists(redisClient, gameID)) {
+      res.status(200).send()
+      return
+    }
+
+    const game = req.body
+    await redisHelper.setGame(redisClient, gameID, JSON.stringify(game))
     io.to(gameID).emit('game-updated', game)
+
     res.status(201).send()
   })
 
