@@ -2,6 +2,7 @@
   "name": "triangles",
   "private": true,
   "version": "2.0.0",
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"vite --host 0.0.0.0\" \"PORT=3001 nodemon server/index.js\"",
     "build": "vite build",

@@ -4,6 +4,7 @@ import { hostRemoteGame, joinRemoteGame } from './appState/onlinePlay/actions'
 import makeRandomIdentifier from './randomIdentifier'
 import * as API from './api'
 import usePromise from './usePromise'
+import { maxGameIDLength, sanitiseGameID } from '../../common/gameIDUtils'
 import Dialog, { DialogCloseButton } from './Dialog'
 import { Button, ButtonLink } from './Button'
 import { Input } from './Input'
@@ -171,7 +172,8 @@ const HostOrJoinGameDialog = ({
               class="grow"
               placeholder={inputPlaceholder}
               value={gameID}
-              onInput={event => setGameID(event.target.value)}
+              maxlength={maxGameIDLength}
+              onInput={event => setGameID(sanitiseGameID(event.target.value))}
             />
 
             <Button type="submit" disabled={gameExists !== expectedExists}>

@@ -5,13 +5,9 @@ import OnlineControls from './OnlineControls'
 import AIControls from './AIControls'
 import useViewport from './useViewport'
 
-import useAppState from './useAppState'
-
 const App = () => {
   const { viewportWidth } = useViewport()
   const twoColumnLayout = viewportWidth >= 768
-
-  const appState = useAppState('app')
 
   return (
     <main class="mx-auto max-w-screen-lg">
@@ -40,10 +36,6 @@ const App = () => {
       <Paragraph>
         Vestibulum pretium arcu vel pellentesque sollicitudin.
       </Paragraph>
-
-      <pre>
-        {JSON.stringify(appState)}
-      </pre>
     </main>
   )
 }

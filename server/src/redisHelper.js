@@ -1,8 +1,15 @@
-module.exports.gameExists = (client, gameID) => client.exists(`game:${gameID}`)
+import { sanitiseGameIDForInternalUse } from '../../common/gameIDUtils.js'
 
-module.exports.getGame = (client, gameID) => client.get(`game:${gameID}`)
+const keyForGameID = gameID => `game:${sanitiseGameIDForInternalUse(gameID)}`
 
-module.exports.setGame = async (client, gameID, game) => {
-  await client.set(`game:${gameID}`, game)
-  return client.expire(`game:${gameID}`, 60 * 60 * 24)
+const gameExists = (client, gameID) => client.exists(keyForGameID(gameID))
+
+const getGame = (client, gameID) => client.get(keyForGameID(gameID))
+
+const setGame = async (client, gameID, game) => {
+  const key = keyForGameID(gameID)
+  await client.set(key, game)
+  return client.expire(key, 60 * 60 * 24)
 }
+
+export { gameExists, getGame, setGame }

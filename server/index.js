@@ -1,9 +1,9 @@
-const path = require('path')
-const express = require('express')
-const http = require('http')
-const { createClient } = require('redis')
-const { mountAPI } = require('./src/api')
-const { mountSocket } = require('./src/socket')
+import path from 'path'
+import express from 'express'
+import http from 'http'
+import { createClient } from 'redis'
+import mountAPI from './src/api.js'
+import mountSocket from './src/socket.js'
 
 ;(async () => {
   const app = express()
@@ -22,7 +22,7 @@ const { mountSocket } = require('./src/socket')
   const io = mountSocket(server, redisClient, pubClient, subClient)
   mountAPI(app, redisClient, io)
 
-  const clientRoot = path.join(__dirname, '../client/dist')
+  const clientRoot = path.resolve('../client/dist')
 
   app.use(express.static(clientRoot))
 

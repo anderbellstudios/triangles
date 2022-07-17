@@ -1,7 +1,8 @@
-const express = require('express')
-const redisHelper = require('./redisHelper')
+import express from 'express'
+import * as redisHelper from './redisHelper.js'
+import { sanitiseGameIDForInternalUse } from '../../common/gameIDUtils.js'
 
-module.exports.mountAPI = (app, redisClient, io) => {
+const mountAPI = (app, redisClient, io) => {
   const api = express.Router()
 
   api.use(express.json())
@@ -21,10 +22,12 @@ module.exports.mountAPI = (app, redisClient, io) => {
 
     const game = req.body
     await redisHelper.setGame(redisClient, gameID, JSON.stringify(game))
-    io.to(gameID).emit('game-updated', game)
+    io.to(sanitiseGameIDForInternalUse(gameID)).emit('game-updated', game)
 
     res.status(201).send()
   })
 
   app.use('/api', api)
 }
+
+export default mountAPI
