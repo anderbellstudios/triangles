@@ -3,7 +3,7 @@ import { performMove } from './appState/game/actions'
 import useAppState from './useAppState'
 import GridCell from './GridCell'
 
-const Grid = () => {
+const Grid = ({ disabled }) => {
   const boardState = useAppState('app.game.board')
   const currentTurn = useAppState('app.game.currentTurn')
 
@@ -15,6 +15,7 @@ const Grid = () => {
           shape={boardState[i]}
           nextShape={currentTurn}
           onClick={() => performMove(i)}
+          disabled={disabled}
         />
       ))}
     </div>

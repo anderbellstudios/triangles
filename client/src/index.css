@@ -36,3 +36,23 @@
 .grid-cell:nth-child(16) {
   @apply rounded-br-lg;
 }
+
+@keyframes ellipses {
+  0% {
+    content: '';
+  }
+  33% {
+    content: '.';
+  }
+  67% {
+    content: '..';
+  }
+  100% {
+    content: '...';
+  }
+}
+
+.animate-ellipses:after {
+  content: '';
+  animation: ellipses 1s infinite alternate;
+}

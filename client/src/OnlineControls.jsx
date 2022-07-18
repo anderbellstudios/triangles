@@ -1,6 +1,7 @@
 import { h } from 'preact'
 import { useState } from 'preact/hooks'
 import useAppState from './useAppState'
+import useTryingToConnect from './useTryingToConnect'
 import { leaveRemoteGame } from './appState/onlinePlay/actions'
 import { Button, SubtleButton } from './Button'
 import { H2, LeadParagraph } from './typography'
@@ -56,6 +57,7 @@ const WhenLocal = () => {
 
 const WhenOnline = ({ remoteGameID }) => {
   const [justCopied, setJustCopied] = useState(false)
+  const [tryingToConnect, forcefullyDisconnected] = useTryingToConnect()
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(window.location.href)
@@ -66,7 +68,16 @@ const WhenOnline = ({ remoteGameID }) => {
 
   return (
     <>
-      <LeadParagraph>You are playing online</LeadParagraph>
+      <LeadParagraph aria-live="polite">
+        {(tryingToConnect && !forcefullyDisconnected) ? (
+          <>
+            Connecting
+            <span class="animate-ellipses" aria-hidden="true" />
+          </>
+        ) : (
+          'You are playing online'
+        )}
+      </LeadParagraph>
 
       <p>
         Game ID:{' '}

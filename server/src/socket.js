@@ -4,7 +4,10 @@ import * as redisHelper from './redisHelper.js'
 import { sanitiseGameIDForInternalUse } from '../../common/gameIDUtils.js'
 
 const mountSocket = (server, redisClient, pubClient, subClient) => {
-  const io = new Server(server)
+  const io = new Server(server, {
+    pingInterval: 2000,
+    pingTimeout: 1000,
+  })
 
   io.adapter(createAdapter(pubClient, subClient))
 

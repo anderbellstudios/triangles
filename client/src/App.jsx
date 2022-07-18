@@ -4,17 +4,28 @@ import GameArea from './GameArea'
 import OnlineControls from './OnlineControls'
 import AIControls from './AIControls'
 import useViewport from './useViewport'
+import useTryingToConnect from './useTryingToConnect'
 
 const App = () => {
   const { viewportWidth } = useViewport()
   const twoColumnLayout = viewportWidth >= 768
 
+  const [tryingToConnect, forcefullyDisconnected] = useTryingToConnect()
+
   return (
     <main class="mx-auto max-w-screen-lg">
       <H1>Triangles</H1>
+
       <LeadParagraph class="mb-8">
         3 players; 3 shapes; 3 in a line
       </LeadParagraph>
+
+      {tryingToConnect && forcefullyDisconnected && (
+        <div class="bg-red-600 text-white rounded-lg p-4 mb-8" aria-live="assertive">
+          The connection has been interrupted. Trying to reconnect
+          <span class="animate-ellipses" aria-hidden="true" />
+        </div>
+      )}
 
       <div class="align-center mb-8 flex flex-col justify-between gap-8 md:flex-row">
         <GameArea {...{ twoColumnLayout }} />

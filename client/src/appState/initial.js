@@ -6,6 +6,7 @@ const initialAppState = {
     onlinePlay: {
       remoteGameID: null,
       connected: false,
+      forcefullyDisconnected: false,
     },
   },
 }

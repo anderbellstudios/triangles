@@ -22,15 +22,24 @@ const handleRemoteGameID = remoteGameID => {
     return
   }
 
-  socket = io('', { query: { gameID: remoteGameID } })
+  appState.set('app.onlinePlay.forcefullyDisconnected', false)
+
+  socket = io('', {
+    query: { gameID: remoteGameID },
+    timeout: 2000,
+    forceNew: true,
+  })
 
   socket.on('connect', () => {
     appState.set('app.onlinePlay.connected', true)
     socket.emit('request-game', remoteGameID)
   })
 
-  socket.on('disconnect', () => {
+  socket.on('disconnect', reason => {
     appState.set('app.onlinePlay.connected', false)
+
+    if (reason !== 'io client disconnect')
+      appState.set('app.onlinePlay.forcefullyDisconnected', true)
   })
 
   socket.on('game-updated', game => {

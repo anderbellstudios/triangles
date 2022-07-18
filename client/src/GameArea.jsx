@@ -2,12 +2,14 @@ import { h } from 'preact'
 import Hint from '@12joan/preact-hint'
 import { performNewGame, performUndo } from './appState/game/actions'
 import useAppState from './useAppState'
+import useTryingToConnect from './useTryingToConnect'
 import Grid from './Grid'
 import UpNext from './UpNext'
 import { SubtleButton, IconButton } from './Button'
 
 const GameArea = ({ twoColumnLayout }) => {
   const freshGame = useAppState('app.game.moveHistory').length === 0
+  const [tryingToConnect] = useTryingToConnect()
 
   return (
     <div
@@ -15,7 +17,7 @@ const GameArea = ({ twoColumnLayout }) => {
       style={{ gridTemplateColumns: 'minmax(0, 1fr) min(72px, 13vw)' }}
     >
       <div class="flex justify-between gap-4 text-xs md:text-sm">
-        <SubtleButton onClick={performNewGame} disabled={freshGame}>
+        <SubtleButton onClick={performNewGame} disabled={freshGame || tryingToConnect}>
           New game
         </SubtleButton>
 
@@ -26,7 +28,7 @@ const GameArea = ({ twoColumnLayout }) => {
               class="translate-y-1/2"
               aria-label="Undo"
               onClick={performUndo}
-              disabled={freshGame}
+              disabled={freshGame || tryingToConnect}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +52,7 @@ const GameArea = ({ twoColumnLayout }) => {
 
       <div />
 
-      <Grid />
+      <Grid disabled={tryingToConnect} />
 
       <UpNext {...{ twoColumnLayout }} />
     </div>
