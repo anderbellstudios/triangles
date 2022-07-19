@@ -18,9 +18,9 @@ const performMove = index =>
     t.transform('app.game', game => gameWithMove(game, index))
   })
 
-const performNewGame = () =>
+const performNewGame = cycleStartingTurn =>
   modifyGame(t => {
-    t.transform('app.game', game => makeNewGame(game))
+    t.transform('app.game', game => makeNewGame(game, cycleStartingTurn))
   })
 
 const performUndo = () =>

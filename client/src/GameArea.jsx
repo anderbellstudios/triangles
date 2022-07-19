@@ -20,7 +20,7 @@ const GameArea = ({ twoColumnLayout }) => {
       style={{ gridTemplateColumns: 'minmax(0, 1fr) min(72px, 13vw)' }}
     >
       <div class="flex justify-between gap-4 text-xs md:text-sm">
-        <SubtleButton onClick={performNewGame} disabled={freshGame || tryingToConnect}>
+        <SubtleButton onClick={() => performNewGame(false)} disabled={freshGame || tryingToConnect}>
           New game
         </SubtleButton>
 
@@ -79,7 +79,7 @@ const GameArea = ({ twoColumnLayout }) => {
                 }[gameOutcome.type]()}
               </div>
 
-              <Button onClick={performNewGame}>Play again</Button>
+              <Button onClick={() => performNewGame(true)}>Play again</Button>
             </div>
           </div>
         )}
