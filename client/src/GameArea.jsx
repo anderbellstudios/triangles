@@ -3,12 +3,15 @@ import Hint from '@12joan/preact-hint'
 import { performNewGame, performUndo } from './appState/game/actions'
 import useAppState from './useAppState'
 import useTryingToConnect from './useTryingToConnect'
+import useGameOutcome from './useGameOutcome'
+import capitalise from './capitalise'
 import Grid from './Grid'
 import UpNext from './UpNext'
-import { SubtleButton, IconButton } from './Button'
+import { Button, SubtleButton, IconButton } from './Button'
 
 const GameArea = ({ twoColumnLayout }) => {
   const freshGame = useAppState('app.game.moveHistory').length === 0
+  const gameOutcome = useGameOutcome()
   const [tryingToConnect] = useTryingToConnect()
 
   return (
@@ -52,7 +55,22 @@ const GameArea = ({ twoColumnLayout }) => {
 
       <div />
 
-      <Grid disabled={tryingToConnect} />
+      <Grid disabled={tryingToConnect || gameOutcome.type !== 'in-progress'}>
+        {gameOutcome.type !== 'in-progress' && (
+          <div class="absolute inset-0 bg-white/75 dark:bg-slate-900/75 backdrop-blur-sm rounded-lg flex" aria-live="polite">
+            <div class="m-auto text-center">
+              <div class="text-2xl mb-4 sm:text-3xl">
+                {{
+                  'draw': () => "It's a draw!",
+                  'win': () => `${capitalise(gameOutcome.winner)} wins!`,
+                }[gameOutcome.type]()}
+              </div>
+
+              <Button onClick={performNewGame}>Play again</Button>
+            </div>
+          </div>
+        )}
+      </Grid>
 
       <UpNext {...{ twoColumnLayout }} />
     </div>
