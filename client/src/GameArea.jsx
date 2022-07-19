@@ -56,6 +56,19 @@ const GameArea = ({ twoColumnLayout }) => {
       <div />
 
       <Grid disabled={tryingToConnect || gameOutcome.type !== 'in-progress'}>
+        {gameOutcome.type === 'win' && (
+          <svg class="absolute inset-0 stroke-black dark:stroke-white" viewBox="-0.5 -0.5 4 4" aria-hidden="true">
+            <line
+              x1={gameOutcome.winningLineEndpoints.start[0]}
+              y1={gameOutcome.winningLineEndpoints.start[1]}
+              x2={gameOutcome.winningLineEndpoints.end[0]}
+              y2={gameOutcome.winningLineEndpoints.end[1]}
+              stroke-linecap="round"
+              stroke-width="0.125"
+            />
+          </svg>
+        )}
+
         {gameOutcome.type !== 'in-progress' && (
           <div class="absolute inset-0 bg-white/75 dark:bg-slate-900/75 backdrop-blur-sm rounded-lg flex" aria-live="polite">
             <div class="m-auto text-center">
