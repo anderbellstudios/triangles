@@ -20,7 +20,10 @@ const GameArea = ({ twoColumnLayout }) => {
       style={{ gridTemplateColumns: 'minmax(0, 1fr) min(72px, 13vw)' }}
     >
       <div class="flex justify-between gap-4 text-xs md:text-sm">
-        <SubtleButton onClick={() => performNewGame(false)} disabled={freshGame || tryingToConnect}>
+        <SubtleButton
+          onClick={() => performNewGame(false)}
+          disabled={freshGame || tryingToConnect}
+        >
           New game
         </SubtleButton>
 
@@ -57,7 +60,11 @@ const GameArea = ({ twoColumnLayout }) => {
 
       <Grid disabled={tryingToConnect || gameOutcome.type !== 'in-progress'}>
         {gameOutcome.type === 'win' && (
-          <svg class="absolute inset-0 stroke-black dark:stroke-white" viewBox="-0.5 -0.5 4 4" aria-hidden="true">
+          <svg
+            class="absolute inset-0 stroke-black dark:stroke-white"
+            viewBox="-0.5 -0.5 4 4"
+            aria-hidden="true"
+          >
             <line
               x1={gameOutcome.winningLineEndpoints.start[0]}
               y1={gameOutcome.winningLineEndpoints.start[1]}
@@ -70,12 +77,15 @@ const GameArea = ({ twoColumnLayout }) => {
         )}
 
         {gameOutcome.type !== 'in-progress' && (
-          <div class="absolute inset-0 bg-white/75 dark:bg-slate-900/75 backdrop-blur-sm rounded-lg flex" aria-live="polite">
+          <div
+            class="absolute inset-0 flex rounded-lg bg-white/75 backdrop-blur-sm dark:bg-slate-900/75"
+            aria-live="polite"
+          >
             <div class="m-auto text-center">
-              <div class="text-2xl mb-4 sm:text-3xl">
+              <div class="mb-4 text-2xl sm:text-3xl">
                 {{
-                  'draw': () => "It's a draw!",
-                  'win': () => `${capitalise(gameOutcome.winner)} wins!`,
+                  draw: () => "It's a draw!",
+                  win: () => `${capitalise(gameOutcome.winner)} wins!`,
                 }[gameOutcome.type]()}
               </div>
 

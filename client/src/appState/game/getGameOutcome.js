@@ -3,15 +3,16 @@ import getNthNextTurn from './getNthNextTurn'
 const positionToIndex = ([x, y]) => x + 4 * y
 const indexToPosition = index => [index % 4, Math.floor(index / 4)]
 
-const makeWinningLine = ([x, y], [dx, dy]) => ([
-  [x, y],
-  [x + dx, y + dy],
-  [x + 2 * dx, y + 2 * dy],
-].map(positionToIndex))
+const makeWinningLine = ([x, y], [dx, dy]) =>
+  [
+    [x, y],
+    [x + dx, y + dy],
+    [x + 2 * dx, y + 2 * dy],
+  ].map(positionToIndex)
 
-const horizontal = [1,  0]
-const vertical = [0,  1]
-const leadingDiagonal = [1,  1]
+const horizontal = [1, 0]
+const vertical = [0, 1]
+const leadingDiagonal = [1, 1]
 const trailingDiagonal = [-1, 1]
 
 const winningLines = [
@@ -62,12 +63,9 @@ const getGameOutcome = game => {
     }
   })
 
-  if (winner !== null)
-    return { type: 'win', winner, winningLineEndpoints }
-  else if (moveHistory.length === 16)
-    return { type: 'draw' }
-  else
-    return { type: 'in-progress' }
+  if (winner !== null) return { type: 'win', winner, winningLineEndpoints }
+  else if (moveHistory.length === 16) return { type: 'draw' }
+  else return { type: 'in-progress' }
 }
 
 export default getGameOutcome

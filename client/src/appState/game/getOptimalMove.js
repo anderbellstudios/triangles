@@ -31,18 +31,15 @@ const getSensibleMoves = game => {
 
   // Play a winning move if possible
   const winningMoves = getWinningMoves(game, currentPlayer)
-  if (winningMoves.length > 0)
-    return winningMoves
+  if (winningMoves.length > 0) return winningMoves
 
   // If the next player is about to win, block them
   const nextPlayerWinningMoves = getWinningMoves(game, nextPlayer)
-  if (nextPlayerWinningMoves.length > 0)
-    return nextPlayerWinningMoves
+  if (nextPlayerWinningMoves.length > 0) return nextPlayerWinningMoves
 
   // If the last player has at least 2 winning moves, block them
   const lastPlayerWinningMoves = getWinningMoves(game, lastPlayer)
-  if (lastPlayerWinningMoves.length >= 2)
-    return lastPlayerWinningMoves
+  if (lastPlayerWinningMoves.length >= 2) return lastPlayerWinningMoves
 
   // Otherwise, any empty cell is a sensible move
   return getEmptyCells(game.board)
@@ -72,7 +69,10 @@ const getOptimalMoves = game => {
 const getOptimalMove = game => {
   const optimalMoves = getOptimalMoves(game)
 
-  const totalWeight = optimalMoves.reduce((totalWeight, move) => totalWeight + moveWeights[move], 0)
+  const totalWeight = optimalMoves.reduce(
+    (totalWeight, move) => totalWeight + moveWeights[move],
+    0
+  )
   const randomWeight = Math.floor(Math.random() * totalWeight)
 
   let cumulativeWeight = 0
@@ -80,8 +80,7 @@ const getOptimalMove = game => {
   for (const move of optimalMoves) {
     cumulativeWeight += moveWeights[move]
 
-    if (cumulativeWeight >= randomWeight)
-      return move
+    if (cumulativeWeight >= randomWeight) return move
   }
 
   throw new Error('Could not find an optimal move')

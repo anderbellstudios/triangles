@@ -9,21 +9,16 @@ let timeoutID = null
 appState.addEventListener('app', app => {
   const { onlinePlay, game } = app
 
-  if (timeoutID !== null)
-    clearTimeout(timeoutID)
+  if (timeoutID !== null) clearTimeout(timeoutID)
 
   timeoutID = setTimeout(() => {
-    if (onlinePlay.remoteGameID !== null && !onlinePlay.connected)
-      return
+    if (onlinePlay.remoteGameID !== null && !onlinePlay.connected) return
 
-    if (game.lastUpdatedBy !== clientID)
-      return
+    if (game.lastUpdatedBy !== clientID) return
 
-    if (getGameOutcome(game).type !== 'in-progress')
-      return
+    if (getGameOutcome(game).type !== 'in-progress') return
 
-    if (!game.computerPlayers[game.currentTurn])
-      return
+    if (!game.computerPlayers[game.currentTurn]) return
 
     const optimalMove = getOptimalMove(game)
     performMove(optimalMove)

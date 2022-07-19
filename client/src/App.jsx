@@ -21,7 +21,10 @@ const App = () => {
       </LeadParagraph>
 
       {tryingToConnect && forcefullyDisconnected && (
-        <div class="bg-red-600 text-white rounded-lg p-4 mb-8" aria-live="assertive">
+        <div
+          class="mb-8 rounded-lg bg-red-600 p-4 text-white"
+          aria-live="assertive"
+        >
           The connection has been interrupted. Trying to reconnect
           <span class="animate-ellipses" aria-hidden="true" />
         </div>

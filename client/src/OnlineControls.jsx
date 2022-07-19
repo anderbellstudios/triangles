@@ -69,7 +69,7 @@ const WhenOnline = ({ remoteGameID }) => {
   return (
     <>
       <LeadParagraph aria-live="polite">
-        {(tryingToConnect && !forcefullyDisconnected) ? (
+        {tryingToConnect && !forcefullyDisconnected ? (
           <>
             Connecting
             <span class="animate-ellipses" aria-hidden="true" />

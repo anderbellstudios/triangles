@@ -1,7 +1,11 @@
 import { h } from 'preact'
 
 const GridCell = ({ shape = null, nextShape, disabled, ...otherProps }) => {
-  const emptyClass = `bg-slate-200 dark:bg-slate-700 ${disabled ? 'cursor-not-allowed' : `hocus:bg-slate-100 hocus:after:bg-${nextShape} hocus:after:opacity-40 dark:hocus:bg-slate-800`}`
+  const emptyClass = `bg-slate-200 dark:bg-slate-700 ${
+    disabled
+      ? 'cursor-not-allowed'
+      : `hocus:bg-slate-100 hocus:after:bg-${nextShape} hocus:after:opacity-40 dark:hocus:bg-slate-800`
+  }`
 
   const shapeClass =
     shape === null ? emptyClass : `bg-${shape} bg-slate-100 dark:bg-slate-800`

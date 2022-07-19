@@ -3,7 +3,10 @@ import clientID from '../../clientID'
 import makeRandomIdentifier from '../../randomIdentifier'
 
 const makeNewGame = (oldGame = {}, cycleStartingTurn = false) => {
-  const startingTurn = getNthNextTurn(oldGame.startingTurn ?? 'cross', cycleStartingTurn ? 1 : 0)
+  const startingTurn = getNthNextTurn(
+    oldGame.startingTurn ?? 'cross',
+    cycleStartingTurn ? 1 : 0
+  )
 
   return {
     lastUpdatedBy: clientID,
