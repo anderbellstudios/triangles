@@ -2,6 +2,7 @@ import appState from '..'
 import clientID from '../../clientID'
 import makeRandomIdentifier from '../../randomIdentifier'
 import getNthNextTurn from './getNthNextTurn'
+import gameWithMove from './gameWithMove'
 import makeNewGame from './makeNewGame'
 
 const modifyGame = procedure => {
@@ -14,17 +15,7 @@ const modifyGame = procedure => {
 
 const performMove = index =>
   modifyGame(t => {
-    t.transform('app.game.board', board => {
-      const newBoard = [...board]
-      newBoard[index] = appState.get('app.game.currentTurn')
-      return newBoard
-    })
-
-    t.transform('app.game.currentTurn', currentTurn =>
-      getNthNextTurn(currentTurn, 1)
-    )
-
-    t.transform('app.game.moveHistory', moveHistory => [...moveHistory, index])
+    t.transform('app.game', game => gameWithMove(game, index))
   })
 
 const performNewGame = () =>
