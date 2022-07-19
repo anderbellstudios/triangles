@@ -7,6 +7,7 @@ import { joinRemoteGame, leaveRemoteGame } from './appState/onlinePlay/actions'
 import { uploadGame } from './api'
 import './index.css'
 import './onlinePlayAdapter'
+import './aiAdapter'
 
 const handleURLChange = async () => {
   const gameID = window.location.pathname.match(/^\/game\/(.*)/)?.[1]
