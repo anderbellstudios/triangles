@@ -26,7 +26,7 @@ import mountSocket from './src/socket.js'
     res.send('OK')
   })
 
-  const clientRoot = path.resolve('../client/dist')
+  const clientRoot = path.resolve('./client/dist')
 
   app.use(express.static(clientRoot))
 
