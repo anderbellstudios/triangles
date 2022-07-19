@@ -22,6 +22,10 @@ import mountSocket from './src/socket.js'
   const io = mountSocket(server, redisClient, pubClient, subClient)
   mountAPI(app, redisClient, io)
 
+  app.get('/healthcheck', (req, res) => {
+    res.send('OK')
+  })
+
   const clientRoot = path.resolve('../client/dist')
 
   app.use(express.static(clientRoot))
