@@ -6,11 +6,16 @@ import { performMove } from './appState/game/actions'
 
 let timeoutID = null
 
-appState.addEventListener('app.game', game => {
+appState.addEventListener('app', app => {
+  const { onlinePlay, game } = app
+
   if (timeoutID !== null)
     clearTimeout(timeoutID)
 
   timeoutID = setTimeout(() => {
+    if (onlinePlay.remoteGameID !== null && !onlinePlay.connected)
+      return
+
     if (game.lastUpdatedBy !== clientID)
       return
 
