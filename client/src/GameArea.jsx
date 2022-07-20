@@ -1,9 +1,11 @@
 import { h } from 'preact'
+import { useRef, useState } from 'preact/hooks'
 import Hint from '@12joan/preact-hint'
 import { performNewGame, performUndo } from './appState/game/actions'
 import useAppState from './useAppState'
 import useTryingToConnect from './useTryingToConnect'
 import useGameOutcome from './useGameOutcome'
+import useEventListener from './useEventListener'
 import capitalise from './capitalise'
 import Grid from './Grid'
 import UpNext from './UpNext'
@@ -13,6 +15,26 @@ const GameArea = ({ twoColumnLayout }) => {
   const freshGame = useAppState('app.game.moveHistory').length === 0
   const gameOutcome = useGameOutcome()
   const [tryingToConnect] = useTryingToConnect()
+
+  const gridRef = useRef()
+  const [gridDimensions, setGridDimensions] = useState({ padding: 0, width: 4 })
+
+  useEventListener(
+    window,
+    'resize',
+    () => {
+      const gridEl = gridRef.current
+      const padding = parseFloat(getComputedStyle(gridEl).paddingLeft)
+      const width = gridEl.clientWidth
+      setGridDimensions({ padding, width })
+    },
+    [],
+    true
+  )
+
+  const centreOfCell = x =>
+    (x + 1) * gridDimensions.padding +
+    (x + 0.5) * 0.25 * (gridDimensions.width - 5 * gridDimensions.padding)
 
   return (
     <div
@@ -58,20 +80,23 @@ const GameArea = ({ twoColumnLayout }) => {
 
       <div />
 
-      <Grid disabled={tryingToConnect || gameOutcome.type !== 'in-progress'}>
+      <Grid
+        ref={gridRef}
+        disabled={tryingToConnect || gameOutcome.type !== 'in-progress'}
+      >
         {gameOutcome.type === 'win' && (
           <svg
             class="absolute inset-0 stroke-black dark:stroke-white"
-            viewBox="-0.5 -0.5 4 4"
+            viewBox={`0 0 ${gridDimensions.width} ${gridDimensions.width}`}
             aria-hidden="true"
           >
             <line
-              x1={gameOutcome.winningLineEndpoints.start[0]}
-              y1={gameOutcome.winningLineEndpoints.start[1]}
-              x2={gameOutcome.winningLineEndpoints.end[0]}
-              y2={gameOutcome.winningLineEndpoints.end[1]}
+              x1={centreOfCell(gameOutcome.winningLineEndpoints.start[0])}
+              y1={centreOfCell(gameOutcome.winningLineEndpoints.start[1])}
+              x2={centreOfCell(gameOutcome.winningLineEndpoints.end[0])}
+              y2={centreOfCell(gameOutcome.winningLineEndpoints.end[1])}
               stroke-linecap="round"
-              stroke-width="0.125"
+              stroke-width="1rem"
             />
           </svg>
         )}
