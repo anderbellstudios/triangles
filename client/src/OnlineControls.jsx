@@ -91,7 +91,7 @@ const WhenOnline = ({ remoteGameID }) => {
           onClick={handleCopy}
           class={
             justCopied
-              ? 'relative after:absolute after:inset-0 after:animate-ping after:rounded-lg after:bg-pink-600'
+              ? 'relative after:absolute after:inset-0 after:animate-ping after:rounded-lg after:bg-pink-600 after:[animation-iteration-count:1]'
               : ''
           }
           children="Copy link"
