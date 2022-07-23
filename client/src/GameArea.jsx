@@ -2,7 +2,6 @@ import { h } from 'preact'
 import { useRef, useState } from 'preact/hooks'
 import Hint from '@12joan/preact-hint'
 import { performNewGame, performUndo } from './appState/game/actions'
-import useAppState from './useAppState'
 import useTryingToConnect from './useTryingToConnect'
 import useGameOutcome from './useGameOutcome'
 import useEventListener from './useEventListener'
@@ -12,7 +11,6 @@ import UpNext from './UpNext'
 import { Button, SubtleButton, IconButton } from './Button'
 
 const GameArea = ({ twoColumnLayout }) => {
-  const freshGame = useAppState('app.game.moveHistory').length === 0
   const gameOutcome = useGameOutcome()
   const [tryingToConnect] = useTryingToConnect()
 
@@ -44,7 +42,7 @@ const GameArea = ({ twoColumnLayout }) => {
       <div class="flex justify-between gap-4 text-xs md:text-sm">
         <SubtleButton
           onClick={() => performNewGame(false)}
-          disabled={freshGame || tryingToConnect}
+          disabled={tryingToConnect}
         >
           New game
         </SubtleButton>
@@ -56,7 +54,7 @@ const GameArea = ({ twoColumnLayout }) => {
               class="translate-y-1/2"
               aria-label="Undo"
               onClick={performUndo}
-              disabled={freshGame || tryingToConnect}
+              disabled={tryingToConnect}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

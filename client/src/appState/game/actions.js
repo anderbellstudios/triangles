@@ -26,6 +26,9 @@ const performNewGame = cycleStartingTurn =>
 const performUndo = () =>
   modifyGame(t => {
     const moveHistory = [...appState.get('app.game.moveHistory')]
+
+    if (moveHistory.length === 0) return
+
     const lastMove = moveHistory.pop()
 
     t.transform('app.game.board', board => {
