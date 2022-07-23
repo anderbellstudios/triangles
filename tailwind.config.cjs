@@ -9,9 +9,12 @@ module.exports = {
     'bg-cross',
     'bg-circle',
     'bg-triangle',
-    'hocus:after:bg-cross',
-    'hocus:after:bg-circle',
-    'hocus:after:bg-triangle',
+    'strict-hover:hover:after:bg-cross',
+    'strict-hover:hover:after:bg-circle',
+    'strict-hover:hover:after:bg-triangle',
+    'focus-visible:after:bg-cross',
+    'focus-visible:after:bg-circle',
+    'focus-visible:after:bg-triangle',
   ],
   theme: {
     extend: {
@@ -25,6 +28,7 @@ module.exports = {
   plugins: [
     plugin(({ addVariant }) => {
       addVariant('hocus', ['&:hover', '&:focus-visible'])
+      addVariant('strict-hover', ['@media (hover: hover)'])
       addVariant('aria-hidden', ['&[aria-hidden="true"]'])
     }),
   ],

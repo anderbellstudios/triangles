@@ -4,7 +4,7 @@ const GridCell = ({ shape = null, nextShape, disabled, ...otherProps }) => {
   const emptyClass = `bg-slate-200 dark:bg-slate-700 ${
     disabled
       ? 'cursor-not-allowed'
-      : `hocus:bg-slate-100 hocus:after:bg-${nextShape} hocus:after:opacity-40 dark:hocus:bg-slate-800`
+      : `strict-hover:hover:bg-slate-100 focus-visible:bg-slate-100 strict-hover:hover:after:bg-${nextShape} focus-visible:after:bg-${nextShape} strict-hover:hover:after:opacity-40 focus-visible:after:opacity-40 dark:strict-hover:hover:bg-slate-800 dark:focus-visible:bg-slate-800`
   }`
 
   const shapeClass =

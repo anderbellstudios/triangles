@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "concurrently \"vite --host 0.0.0.0\" \"PORT=3001 nodemon server/index.js\"",
     "build": "vite build",
-    "server": "node server/index.js"
+    "server": "node server/index.js",
+    "prettier": "prettier -w client/{index.html,src/**/*.{js,jsx}}"
   },
   "dependencies": {
     "@12joan/app-state": "^0.1.0",
