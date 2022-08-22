@@ -3944,10 +3944,10 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
-isbot@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/isbot/-/isbot-3.5.0.tgz#602fd980be154c0ba37e8b9154af105627c12398"
-  integrity sha512-QOFF7IE7hUdzo8pbhCubeiMzKdLZt+W/UwRZWwg+zghmnqXoMwh2V0bi5UT+oIvoD0IWCWjzAtp30ZrrRwJVCg==
+isbot@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/isbot/-/isbot-3.5.1.tgz#a4c9360e3f34c0458c6a168dde5bf00a1914191a"
+  integrity sha512-IJrUiLudoYIhbNa9EuR7foEyXYPyWDe5Nnd1pTKTyPZKlDA0K5XcVzJEwvNLLstz37KokXP1pZWVKuyW34c4xQ==
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -7003,10 +7003,10 @@ webpack-assets-manifest@^3.1.1:
     tapable "^1.0.0"
     webpack-sources "^1.0.0"
 
-webpack-bundle-analyzer@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-4.5.0.tgz#1b0eea2947e73528754a6f9af3e91b2b6e0f79d5"
-  integrity sha512-GUMZlM3SKwS8Z+CKeIFx7CVoHn3dXFcUAjT/dcZQQmfSZGvitPfMob2ipjai7ovFFqPvTqkEZ/leL4O0YOdAYQ==
+webpack-bundle-analyzer@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-4.6.0.tgz#37cebc936a0c516a628aee895c6be59c4d8e141d"
+  integrity sha512-V3RcBMHW1aEclxgmYA9VxLKNJ/rYEe/BRcShxeYX+kerGu93PZB0gb0R8CW9lwvyQSfhln+flCCirdpTvwnESQ==
   dependencies:
     acorn "^8.0.4"
     acorn-walk "^8.0.0"
