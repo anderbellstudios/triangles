@@ -100,6 +100,7 @@ GEM
       activesupport
       tzinfo
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.6)
     digest (3.1.0)
     erubi (1.10.0)
@@ -195,7 +196,10 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.6.0)
+    redis (5.0.3)
+      redis-client (>= 0.7.4)
+    redis-client (0.8.0)
+      connection_pool
     regexp_parser (2.2.1)
     rexml (3.2.5)
     rubyzip (2.3.2)
@@ -270,7 +274,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.3)
   rack_authorised_proxy
   rails (~> 7.0.3)
-  redis (~> 4.4)
+  redis (~> 5.0)
   rexml
   sass-rails (>= 6)
   selenium-webdriver
