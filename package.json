@@ -9,7 +9,7 @@
     "@rails/ujs": "^7.0.4",
     "@rails/webpacker": "5.4.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "bootstrap": "^5.2.1",
+    "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
     "isbot": "^3.6.0",
     "niceware": "^3.0.0",
