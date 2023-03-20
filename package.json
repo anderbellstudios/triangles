@@ -11,7 +11,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
-    "isbot": "^3.6.6",
+    "isbot": "^3.6.7",
     "niceware": "^3.0.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
@@ -25,7 +25,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-bundle-analyzer": "^4.8.0",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^4.13.1"
   },
   "scripts": {
     "webpack:analyze": "yarn webpack:build_json && yarn webpack:analyze_json",
