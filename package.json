@@ -10,7 +10,7 @@
     "@rails/webpacker": "5.4.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.4",
+    "bootstrap-icons": "^1.10.5",
     "isbot": "^3.6.10",
     "niceware": "^3.0.0",
     "prop-types": "^15.8.1",
