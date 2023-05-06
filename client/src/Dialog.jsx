@@ -44,7 +44,11 @@ const Dialog = ({ id, title, open, onClose, children }) => {
 const DialogCloseButton = ({ onClick }) => {
   return (
     <Hint>
-      <IconButton onClick={onClick} data-hint="Close">
+      <IconButton
+        onClick={onClick}
+        data-hint="Close"
+        aria-label="Close"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1.5em"
