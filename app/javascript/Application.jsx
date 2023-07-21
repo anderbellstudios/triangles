@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import niceware from 'niceware'
 import GameChannel from './channels/game_channel'
+import PopPixieAdvert from './PopPixieAdvert'
 import FeedbackForm from './FeedbackForm'
 import Breadcrumbs from './Breadcrumbs'
 import CopyButton from './CopyButton'
@@ -173,10 +174,14 @@ class Application extends React.Component {
     return (
       <>
         <div className="container-fluid" style={{ maxWidth: '576px' }}>
-          <FeedbackForm
-            formVersion="v1"
-            title="How did you find out about Triangles?"
-            description="Got a moment? Let us know how you discovered Triangles. We'd love to hear from you!" />
+          <PopPixieAdvert />
+
+          {false && (
+            <FeedbackForm
+              formVersion="v1"
+              title="How did you find out about Triangles?"
+              description="Got a moment? Let us know how you discovered Triangles. We'd love to hear from you!" />
+          )}
 
           <Breadcrumbs
             onlineGame={this.state.onlineGame}
