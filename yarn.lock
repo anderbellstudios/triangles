@@ -744,10 +744,10 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.22.5"
 
-"@babel/plugin-transform-react-display-name@^7.22.5":
-  version "7.22.5"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-display-name/-/plugin-transform-react-display-name-7.22.5.tgz#3c4326f9fce31c7968d6cb9debcaf32d9e279a2b"
-  integrity sha512-PVk3WPYudRF5z4GKMEYUrLjPl38fJSKNaEOkFuoprioowGuWN6w2RKznuFNSlJx7pzzXXStPUnNSOEO0jL5EVw==
+"@babel/plugin-transform-react-display-name@^7.23.3":
+  version "7.23.3"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-display-name/-/plugin-transform-react-display-name-7.23.3.tgz#70529f034dd1e561045ad3c8152a267f0d7b6200"
+  integrity sha512-GnvhtVfA2OAtzdX58FJxU19rhoGeQzyVndw3GgtdECQvQFXPEZIOVULHVZGAYmOgmqjXpVpfocAbSjh99V/Fqw==
   dependencies:
     "@babel/helper-plugin-utils" "^7.22.5"
 
@@ -769,10 +769,10 @@
     "@babel/plugin-syntax-jsx" "^7.22.5"
     "@babel/types" "^7.22.15"
 
-"@babel/plugin-transform-react-pure-annotations@^7.22.5":
-  version "7.22.5"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-pure-annotations/-/plugin-transform-react-pure-annotations-7.22.5.tgz#1f58363eef6626d6fa517b95ac66fe94685e32c0"
-  integrity sha512-gP4k85wx09q+brArVinTXhWiyzLl9UpmGva0+mWyKxk6JZequ05x3eUcIUE+FyttPKJFRRVtAvQaJ6YF9h1ZpA==
+"@babel/plugin-transform-react-pure-annotations@^7.23.3":
+  version "7.23.3"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-pure-annotations/-/plugin-transform-react-pure-annotations-7.23.3.tgz#fabedbdb8ee40edf5da96f3ecfc6958e3783b93c"
+  integrity sha512-qMFdSS+TUhB7Q/3HVPnEdYJDQIk57jkntAwSuz9xfSE4n+3I+vHYCli3HoHawN1Z3RfCz/y1zXA/JXjG6cVImQ==
   dependencies:
     "@babel/helper-annotate-as-pure" "^7.22.5"
     "@babel/helper-plugin-utils" "^7.22.5"
@@ -968,17 +968,17 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/preset-react@^7.22.15":
-  version "7.22.15"
-  resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.22.15.tgz#9a776892b648e13cc8ca2edf5ed1264eea6b6afc"
-  integrity sha512-Csy1IJ2uEh/PecCBXXoZGAZBeCATTuePzCSB7dLYWS0vOEj6CNpjxIhW4duWwZodBNueH7QO14WbGn8YyeuN9w==
+"@babel/preset-react@^7.23.3":
+  version "7.23.3"
+  resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.23.3.tgz#f73ca07e7590f977db07eb54dbe46538cc015709"
+  integrity sha512-tbkHOS9axH6Ysf2OUEqoSZ6T3Fa2SrNH6WTWSPBboxKzdxNc9qOICeLXkNG0ZEwbQ1HY8liwOce4aN/Ceyuq6w==
   dependencies:
     "@babel/helper-plugin-utils" "^7.22.5"
     "@babel/helper-validator-option" "^7.22.15"
-    "@babel/plugin-transform-react-display-name" "^7.22.5"
+    "@babel/plugin-transform-react-display-name" "^7.23.3"
     "@babel/plugin-transform-react-jsx" "^7.22.15"
     "@babel/plugin-transform-react-jsx-development" "^7.22.5"
-    "@babel/plugin-transform-react-pure-annotations" "^7.22.5"
+    "@babel/plugin-transform-react-pure-annotations" "^7.23.3"
 
 "@babel/regjsgen@^0.8.0":
   version "0.8.0"
@@ -1117,22 +1117,22 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@rails/actioncable@^7.1.1":
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.1.1.tgz#e8c49769d41f35a4473133c259cc98adc04dddf8"
-  integrity sha512-ZRJ9rdwFQQjRbtgJnweY0/4UQyxN6ojEGRdib0JkjnuIciv+4ok/aAeZmBJqNreTMaBqS0eHyA9hCArwN58opg==
+"@rails/actioncable@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.1.2.tgz#d261ff4b72844f5af496671346ec478798f4ac2c"
+  integrity sha512-KGziTZfbmGm8/fHOpj515xupbYU+49hsp4etfdpoDJ/CEY2bRZR0cyFcJkpK6n0t/sxOHNWY6bo9vSgXZvT7Mg==
 
-"@rails/activestorage@^7.1.1":
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-7.1.1.tgz#3f12e8ac784f460f6a9d205744354abd79a525f2"
-  integrity sha512-QGBj+y4fbZt/QMMpjqnpKlzCKpDGTYrvJ+qc0QLis34AfbBLVgRo7kPzmdmeOTtwvWqpcivB9CrjTcV/C/7ruA==
+"@rails/activestorage@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-7.1.2.tgz#088dce680fa1e0a4f8e0c5ac91073f729204ed06"
+  integrity sha512-evC/xGlpq5XGpcNJina3oNVVB8pUp1GpnN3a84SVA+UNuB6O91OdNRl9BGHNAOo6/jxmFtLb73PIjWqQyVE14w==
   dependencies:
     spark-md5 "^3.0.1"
 
-"@rails/ujs@^7.1.1":
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.1.1.tgz#f8df96e406a2a824084b637880e57c257073cb05"
-  integrity sha512-ywGwWNiqXN3Bb1BifVQTrkWEWcAGLHW3D0JNQMQeu57LsoluRzvnenNLPsmdoDPkrmSIASDXNsJiCIpUzFj8CA==
+"@rails/ujs@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.1.2.tgz#ea903bcc0224e17156015d995b6f1b83e27d64b2"
+  integrity sha512-c5x02djEKEVVE4qfN4XgElJS4biM0xxtIVpcJ0ZHLK116U19rowTtmD0AJ/RCb3Xaewa4GPIWLlwgeC0dCQqzw==
 
 "@rails/webpacker@5.4.3":
   version "5.4.3"
