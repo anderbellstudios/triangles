@@ -222,7 +222,10 @@ GEM
       ffi (~> 1.0)
     rdoc (6.6.2)
       psych (>= 4.0.0)
-    redis (4.6.0)
+    redis (5.1.0)
+      redis-client (>= 0.17.0)
+    redis-client (0.19.1)
+      connection_pool
     regexp_parser (2.2.1)
     reline (0.4.1)
       io-console (~> 0.5)
@@ -302,7 +305,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.3)
   rack_authorised_proxy
   rails (~> 7.1.2)
-  redis (~> 4.4)
+  redis (~> 5.1)
   rexml
   sass-rails (>= 6)
   selenium-webdriver
