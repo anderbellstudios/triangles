@@ -1,4 +1,4 @@
-FROM ruby:3.0.0-alpine
+FROM ruby:3.0.7-alpine
 
 RUN apk add --update --no-cache bash build-base curl nodejs tzdata postgresql-dev yarn shared-mime-info git gcompat
 
