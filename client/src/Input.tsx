@@ -1,4 +1,4 @@
-import elem from './elem'
+import { elem } from './elem'
 
 export const Input = elem({
   tag: 'input',
