@@ -17,7 +17,7 @@
     "express": "^4.19.2",
     "preact": "^10.21.0",
     "prop-types": "^15.8.1",
-    "react-a11y-dialog": "^6.1.5",
+    "react-a11y-dialog": "^6.2.0",
     "redis": "^4.2.0",
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.1",
