@@ -10,9 +10,9 @@ button, a {
   touch-action: manipulation;
 }
 
-strong {
+a {
   font-weight: medium;
-  @apply text-pink-600 dark:text-pink-500;
+  @apply text-pink-600 dark:text-pink-500 hover:underline;
 }
 
 .preact-hint {
