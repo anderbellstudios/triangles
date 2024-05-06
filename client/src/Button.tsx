@@ -1,4 +1,4 @@
-import elem from './elem'
+import { elem } from './elem'
 
 const commonClass =
   'whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-50'

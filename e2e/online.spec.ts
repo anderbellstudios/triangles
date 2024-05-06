@@ -51,10 +51,10 @@ test.describe('Online', () => {
     await expectCurrentTurn(page, 'circle')
     await locateCell(page, 2, 2).click()
 
-    await pressLeaveGame(page);
+    await pressLeaveGame(page)
     await expectPlayingLocallyOrOnline(page, 'locally')
 
-    await newGame(page);
+    await newGame(page)
 
     await pressHostGame(page)
     await fillGameID(page, gameID)
@@ -87,7 +87,7 @@ test.describe('Online', () => {
     await fillGameID(secondPage, gameID2)
     await expectJoinGameToNotExist(secondPage)
     await secondPage.getByText('Create it now').click()
-    
+
     await expectPlayingLocallyOrOnline(secondPage, 'online')
     await expectCurrentGameID(secondPage, gameID2)
     await pressLeaveGame(secondPage)

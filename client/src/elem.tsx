@@ -1,7 +1,8 @@
 import { JSX, h } from 'preact'
 import { forwardRef } from 'preact/compat'
+import { twMerge } from 'tailwind-merge'
 
-const elem = <T extends keyof HTMLElementTagNameMap>({
+export const elem = <T extends keyof HTMLElementTagNameMap>({
   tag: TagName,
   defaultProps = {},
   defaultClass = '',
@@ -23,11 +24,9 @@ const elem = <T extends keyof HTMLElementTagNameMap>({
         <Component
           ref={ref}
           {...defaultProps}
-          class={`${defaultClass} ${className}`}
+          class={twMerge(defaultClass, className)}
           {...otherProps}
         />
       )
     }
   )
-
-export default elem

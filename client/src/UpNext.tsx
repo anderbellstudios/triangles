@@ -4,6 +4,7 @@ import Hint from '@12joan/preact-hint'
 import { useAppState } from './useAppState'
 import { getNthNextTurn } from './appState/game/getNthNextTurn'
 import { capitalise } from './capitalise'
+import { twMerge } from 'tailwind-merge'
 
 export interface UpNextProps {
   twoColumnLayout: boolean
@@ -35,7 +36,10 @@ export const UpNext = ({ twoColumnLayout }: UpNextProps) => {
           ['Last turn', lastTurn, `bg-${lastTurn} aspect-[4/2] opacity-70`],
         ].map(([descriptor, player, className]) => (
           <div
-            class={`rounded-lg bg-contain bg-center bg-no-repeat ${className}`}
+            class={twMerge(
+              'rounded-lg bg-contain bg-center bg-no-repeat',
+              className
+            )}
             aria-label={`${descriptor} is ${capitalise(player)}`}
             data-hint={[descriptor, capitalise(player)]}
             tabIndex={0}
