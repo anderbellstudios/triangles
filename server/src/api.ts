@@ -1,10 +1,14 @@
 import express, { Express } from 'express'
 import * as redisHelper from './redisHelper'
 import { sanitiseGameIDForInternalUse } from '../../common/gameIDUtils'
-import {RedisClient} from './types'
-import {Server} from 'socket.io'
+import { RedisClient } from './types'
+import { Server } from 'socket.io'
 
-export const mountAPI = (app: Express, redisClient: RedisClient, io: Server) => {
+export const mountAPI = (
+  app: Express,
+  redisClient: RedisClient,
+  io: Server
+) => {
   const api = express.Router()
 
   api.use(express.json())

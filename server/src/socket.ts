@@ -3,9 +3,14 @@ import { Server as HTTPServer } from 'http'
 import { createAdapter } from '@socket.io/redis-adapter'
 import * as redisHelper from './redisHelper'
 import { sanitiseGameIDForInternalUse } from '../../common/gameIDUtils'
-import {RedisClient} from './types'
+import { RedisClient } from './types'
 
-export const mountSocket = (server: HTTPServer, redisClient: RedisClient, pubClient: RedisClient, subClient: RedisClient): SocketServer => {
+export const mountSocket = (
+  server: HTTPServer,
+  redisClient: RedisClient,
+  pubClient: RedisClient,
+  subClient: RedisClient
+): SocketServer => {
   const io = new SocketServer(server, {
     pingInterval: 2000,
     pingTimeout: 1000,

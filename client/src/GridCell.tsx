@@ -1,5 +1,6 @@
 import { JSX, h } from 'preact'
 import { Shape } from '../../common/types'
+import { capitalise } from './capitalise'
 
 export interface GridCellProps
   extends Omit<JSX.HTMLAttributes<HTMLButtonElement>, 'shape'> {
@@ -29,7 +30,12 @@ export const GridCell = ({
       class={`grid-cell relative aspect-square rounded bg-contain bg-no-repeat ring-offset-slate-100 after:absolute after:inset-0 after:bg-contain after:bg-no-repeat dark:ring-offset-slate-800 ${shapeClass}`}
       disabled={shape !== null || disabled}
       aria-live="polite"
-      aria-label={shape === null ? `Play ${nextShape}` : `Square with ${shape}`}
+      aria-label={
+        shape === null
+          ? `Play ${capitalise(nextShape)}`
+          : `Square with ${capitalise(shape)}`
+      }
+      data-testid="grid-cell"
       {...otherProps}
     />
   )

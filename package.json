@@ -7,7 +7,7 @@
     "dev": "concurrently \"vite --host 0.0.0.0\" \"PORT=3001 tsx watch server/index.ts\"",
     "build": "vite build",
     "server": "tsx server/index.ts",
-    "prettier": "prettier -w client/{index.html,src/**/*.{ts,tsx}}",
+    "prettier": "prettier -w client/{index.html,src/**/*.{ts,tsx}} server/**/*.ts common/**/*.ts e2e/**/*.ts",
     "typecheck": "tsc --noEmit --incremental",
     "typecheck:watch": "yarn typecheck --watch"
   },
