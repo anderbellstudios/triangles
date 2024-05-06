@@ -85,11 +85,17 @@ export const undo = async (page: Page) => {
   await page.getByLabel('Undo').click()
 }
 
-export const expectPlayingLocallyOrOnline = async (page: Page, state: 'locally' | 'online') => {
+export const expectPlayingLocallyOrOnline = async (
+  page: Page,
+  state: 'locally' | 'online'
+) => {
   await expect(page.getByText(`You are playing ${state}`)).toBeVisible()
 }
 
-export const expectCurrentGameID = async (page: Page, gameID: string | null) => {
+export const expectCurrentGameID = async (
+  page: Page,
+  gameID: string | null
+) => {
   if (gameID === null) {
     await expect(page.getByTestId('current-game-id')).toBeHidden()
     return
@@ -123,7 +129,9 @@ export const fillGameID = async (page: Page, gameID: string) => {
 }
 
 export const expectHostGameToBeOkay = async (page: Page) => {
-  await expect(page.getByText('Enter an ID that people will use to join your game')).toBeVisible()
+  await expect(
+    page.getByText('Enter an ID that people will use to join your game')
+  ).toBeVisible()
   await expect(page.getByRole('button', { name: 'Create game' })).toBeEnabled()
 }
 
@@ -133,11 +141,17 @@ export const expectHostGameToAlreadyExist = async (page: Page) => {
 }
 
 export const expectJoinGameToBeOkay = async (page: Page) => {
-  await expect(page.getByText('Looks good to me! Click Join to confirm.')).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Join', exact: true })).toBeEnabled()
+  await expect(
+    page.getByText('Looks good to me! Click Join to confirm.')
+  ).toBeVisible()
+  await expect(
+    page.getByRole('button', { name: 'Join', exact: true })
+  ).toBeEnabled()
 }
 
 export const expectJoinGameToNotExist = async (page: Page) => {
   await expect(page.getByText('No game with that ID exists.')).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Join', exact: true })).toBeDisabled()
+  await expect(
+    page.getByRole('button', { name: 'Join', exact: true })
+  ).toBeDisabled()
 }
