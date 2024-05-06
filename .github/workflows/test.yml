@@ -1,4 +1,4 @@
-name: On push
+name: Test
 
 on: push
 
@@ -18,19 +18,3 @@ jobs:
     - run: docker-compose -f docker-compose.test.yml exec -T web yarn playwright test
 
     - run: docker-compose -f docker-compose.test.yml down
-
-  deploy_production:
-    needs: test
-    if: ${{ github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - uses: zenato/docker-action@master
-      with:
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-        repository: ${{ secrets.REGISTRY_REPO }}
-        registry: ${{ secrets.REGISTRY_URL }}
-        tag: production
