@@ -29,6 +29,8 @@ const handleRemoteGameID = (remoteGameID: string | null) => {
     query: { gameID: remoteGameID },
     timeout: 2000,
     forceNew: true,
+    // Long-polling does not work with Docker Swarm replicas
+    transports: ['websocket'],
   })
 
   socket.on('connect', () => {
