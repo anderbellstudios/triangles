@@ -19,7 +19,7 @@
     "prop-types": "^15.8.1",
     "react-a11y-dialog": "^6.2.0",
     "redis": "^4.6.13",
-    "socket.io": "^4.5.1",
+    "socket.io": "^4.7.5",
     "socket.io-client": "^4.5.1",
     "tailwind-merge": "^2.3.0"
   },
