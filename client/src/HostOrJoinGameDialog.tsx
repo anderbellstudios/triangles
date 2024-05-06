@@ -76,16 +76,16 @@ export const JoinGameDialog = ({ ...otherProps }: JoinGameDialogProps) => {
         }
 
         return gameExists ? (
+          <span class="text-green-700 dark:text-green-400">
+            Looks good to me! Click Join to confirm.
+          </span>
+        ) : (
           <>
             <span class="text-red-600 dark:text-red-400">
               No game with that ID exists.
             </span>{' '}
             <AlternativeActionButton children="Create it now" />
           </>
-        ) : (
-          <span class="text-green-700 dark:text-green-400">
-            Looks good to me! Click Join to confirm.
-          </span>
         )
       }}
     />

@@ -12,9 +12,11 @@ import {
 } from './utils'
 
 test.describe('Gameplay', () => {
-  test('Clicking cells', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:3000/')
+  })
 
+  test('Clicking cells', async ({ page }) => {
     await expectCurrentTurn(page, 'cross')
     await locateCell(page, 1, 1).click()
     await expectCellToBe(page, 1, 1, 'cross')
@@ -37,8 +39,6 @@ test.describe('Gameplay', () => {
   })
 
   test('Winning the game', async ({ page }) => {
-    await page.goto('http://localhost:3000/')
-
     await expectCurrentTurn(page, 'cross')
     await winWithFirstPlayer(page)
     await expectWinner(page, 'cross')
@@ -57,8 +57,6 @@ test.describe('Gameplay', () => {
   })
 
   test('Drawing the game', async ({ page }) => {
-    await page.goto('http://localhost:3000/')
-
     await expectCurrentTurn(page, 'cross')
     await drawGame(page)
     await expect(page.getByText('Draw!')).toBeVisible()
@@ -66,8 +64,6 @@ test.describe('Gameplay', () => {
   })
 
   test('New game', async ({ page }) => {
-    await page.goto('http://localhost:3000/')
-
     await expectCurrentTurn(page, 'cross')
     await locateCell(page, 1, 1).click()
     await expectCellToBe(page, 1, 1, 'cross')
@@ -82,8 +78,6 @@ test.describe('Gameplay', () => {
   })
 
   test('Undo', async ({ page }) => {
-    await page.goto('http://localhost:3000/')
-
     await expectCurrentTurn(page, 'cross')
     await locateCell(page, 1, 1).click()
     await expectCellToBe(page, 1, 1, 'cross')
