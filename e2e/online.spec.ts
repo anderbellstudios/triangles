@@ -1,4 +1,4 @@
-import { test, Page } from '@playwright/test'
+import { test, expect, Page } from '@playwright/test'
 import { makeRandomIdentifier } from '../client/src/randomIdentifier'
 import {
   expectCellToBe,
@@ -156,5 +156,30 @@ test.describe('Online', () => {
     // Takes effect on first page
     await expectCurrentTurn(page, 'cross')
     await expectCellToBe(page, 3, 3, 'triangle')
+  })
+
+  test('Pasting a join link', async ({ page }) => {
+    await pressJoinGame(page)
+
+    const input = page.getByLabel('Game ID').locator('visible=true')
+
+    const pasteIntoInput = async (text: string) =>
+      input.evaluate((input, text) => {
+        const event = new ClipboardEvent('paste', {
+          clipboardData: new DataTransfer(),
+        })
+
+        event.clipboardData!.setData('text/plain', text)
+
+        input.dispatchEvent(event)
+      }, text)
+
+    await input.fill('before 1')
+    await pasteIntoInput('https://anything.com:1234/game/my-game-id')
+    await expect(input).toHaveValue('my-game-id')
+
+    await input.fill('before 2')
+    await pasteIntoInput('https://anything.com:1234/not-game/my-game-id')
+    await expect(input).toHaveValue('before-2')
   })
 })

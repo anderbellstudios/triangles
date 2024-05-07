@@ -149,6 +149,26 @@ const BaseHostOrJoinGameDialog = ({
     setPromise(primaryAction(gameID).then(onClose))
   }
 
+  const handlePaste = (event: ClipboardEvent) => {
+    const text = event.clipboardData?.getData('text/plain')
+    if (!text) return
+
+    let pathname: string
+
+    try {
+      pathname = new URL(text).pathname
+    } catch {
+      console.warn('Pasted text is not a URL')
+      return
+    }
+
+    const match = pathname.match(/\/game\/([^/]+)/)
+    if (!match) return
+
+    event.preventDefault()
+    setGameID(sanitiseGameID(decodeURIComponent(match[1])))
+  }
+
   const AlternativeActionButton = ({ children }: { children: string }) => (
     <ButtonLink
       onClick={() => setPromise(alternativeAction(gameID).then(onClose))}
@@ -196,6 +216,7 @@ const BaseHostOrJoinGameDialog = ({
               onInput={event =>
                 setGameID(sanitiseGameID((event.target as any).value))
               }
+              onPaste={handlePaste}
             />
 
             <Button type="submit" disabled={gameExists !== expectedExists}>
