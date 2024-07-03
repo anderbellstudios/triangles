@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@babel/core": "7",
-    "@playwright/test": "^1.45.0",
+    "@playwright/test": "^1.45.1",
     "@preact/preset-vite": "^2.8.3",
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.9",
