@@ -34,7 +34,7 @@ export const mountSocket = (
       if (gameData === null) {
         socket.emit('game-not-found')
       } else {
-        socket.emit('game-updated', JSON.parse(gameData))
+        socket.emit('request-game', JSON.parse(gameData))
       }
     })
   })

@@ -32,7 +32,7 @@ export const Dialog = ({ id, title, open, onClose, children }: DialogProps) => {
 
   return (
     <div
-      {...dialogProps.container}
+      {...(dialogProps.container as any)}
       class="fixed inset-0 z-10 flex overflow-y-auto p-4 aria-hidden:hidden"
     >
       <div

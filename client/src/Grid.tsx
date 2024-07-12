@@ -18,7 +18,7 @@ export const Grid = forwardRef(
     return (
       <div
         ref={ref}
-        class="relative grid grid-cols-4 gap-1 rounded-lg bg-slate-100 p-1 dark:bg-slate-800 sm:gap-2 sm:p-2"
+        class="relative grid grid-cols-4 gap-1 rounded-lg bg-slate-100 p-1 sm:gap-2 sm:p-2 dark:bg-slate-800"
       >
         {Array.from({ length: 16 }).map((_, i) => (
           <GridCell

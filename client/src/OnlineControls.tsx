@@ -3,9 +3,10 @@ import { useState } from 'preact/hooks'
 import { useAppState } from './useAppState'
 import { useTryingToConnect } from './useTryingToConnect'
 import { leaveRemoteGame } from './appState/onlinePlay/actions'
-import { Button, SubtleButton } from './Button'
+import { Button, ButtonLink, SubtleButton } from './Button'
 import { H2, LeadParagraph } from './typography'
 import { HostGameDialog, JoinGameDialog } from './HostOrJoinGameDialog'
+import { setNotificationPermission } from './appState/actions'
 
 export const OnlineControls = () => {
   const remoteGameID = useAppState('app.onlinePlay.remoteGameID')
@@ -58,6 +59,7 @@ const WhenLocal = () => {
 const WhenOnline = ({ remoteGameID }: { remoteGameID: string }) => {
   const [justCopied, setJustCopied] = useState(false)
   const [tryingToConnect, forcefullyDisconnected] = useTryingToConnect()
+  const notificationPermission = useAppState('app.notificationPermission')
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(window.location.href)
@@ -65,6 +67,9 @@ const WhenOnline = ({ remoteGameID }: { remoteGameID: string }) => {
     setJustCopied(true)
     if (!justCopied) setTimeout(() => setJustCopied(false), 1000)
   }
+
+  const handleEnableNotifications = () =>
+    Notification.requestPermission(setNotificationPermission)
 
   return (
     <>
@@ -88,6 +93,14 @@ const WhenOnline = ({ remoteGameID }: { remoteGameID: string }) => {
           {remoteGameID}
         </code>
       </p>
+
+      {notificationPermission === 'default' && (
+        <p>
+          <ButtonLink onClick={handleEnableNotifications}>
+            Enable notifications
+          </ButtonLink>
+        </p>
+      )}
 
       <div class="space-x-2">
         <Button

@@ -1,7 +1,8 @@
 import { Socket, io } from 'socket.io-client'
 import { appState } from './appState'
 import { clientID } from './clientID'
-import {Game} from '../../common/types'
+import { Game } from '../../common/types'
+import { notifyOtherPlayerMove } from './notifyOtherPlayerMove'
 
 let socket: Socket | null = null
 let teardownSocket = () => {}
@@ -45,9 +46,20 @@ const handleRemoteGameID = (remoteGameID: string | null) => {
       appState.set('app.onlinePlay.forcefullyDisconnected', true)
   })
 
-  socket.on('game-updated', game => {
+  socket.on('request-game', (game: Game) => {
+    appState.set('app.game', game)
+  })
+
+  socket.on('game-updated', (game: Game) => {
     if (game.tag !== appState.get('app.game.tag')) {
+      const previousMoveCount = appState.get('app.game.moveHistory').length;
+      const newMoveCount = game.moveHistory.length;
+
       appState.set('app.game', game)
+
+      if (newMoveCount > previousMoveCount) {
+        notifyOtherPlayerMove();
+      }
     }
   })
 
