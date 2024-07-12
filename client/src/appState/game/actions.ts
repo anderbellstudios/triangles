@@ -4,7 +4,7 @@ import { makeRandomIdentifier } from '../../randomIdentifier'
 import { getNthNextTurn } from './getNthNextTurn'
 import { gameWithMove } from './gameWithMove'
 import { makeNewGame } from './makeNewGame'
-import {Board, Move, Shape} from '../../../../common/types'
+import { Board, Move, Shape } from '../../../../common/types'
 
 const modifyGame = (fn: (t: AppStateTransactionHelper) => void) => {
   appState.transaction(t => {

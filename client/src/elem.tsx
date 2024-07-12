@@ -24,7 +24,7 @@ export const elem = <T extends keyof HTMLElementTagNameMap>({
         <Component
           ref={ref}
           {...defaultProps}
-          class={twMerge(defaultClass, className)}
+          class={twMerge(defaultClass, className as string)}
           {...otherProps}
         />
       )

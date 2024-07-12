@@ -9,5 +9,6 @@ export const initialAppState: { app: AppState } = {
       connected: false,
       forcefullyDisconnected: false,
     },
+    notificationPermission: Notification.permission,
   },
 }
