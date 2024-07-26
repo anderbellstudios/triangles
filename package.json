@@ -31,7 +31,7 @@
     "@types/node": "^20.14.12",
     "autoprefixer": "^10.4.19",
     "concurrently": "^7.6.0",
-    "postcss": "^8.4.39",
+    "postcss": "^8.4.40",
     "postcss-aspect-ratio-polyfill": "^2.0.0",
     "prettier": "2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
