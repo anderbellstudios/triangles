@@ -18,7 +18,7 @@
     "preact": "^10.23.1",
     "prop-types": "^15.8.1",
     "react-a11y-dialog": "^6.2.0",
-    "redis": "^4.6.15",
+    "redis": "^4.7.0",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "tailwind-merge": "^2.4.0"
