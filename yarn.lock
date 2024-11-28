@@ -639,10 +639,10 @@
   dependencies:
     playwright "1.49.0"
 
-"@preact/preset-vite@^2.9.1":
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/@preact/preset-vite/-/preset-vite-2.9.1.tgz#489c4c4f6ca9122a25b9cb577563e8fd09bd9865"
-  integrity sha512-JecWzrOx7ogFhklSMhY+aH/24pajL0Vx+beEgau3WDMUUAo32cpUo/UqerPhLOyhCKXlxK9a3cRoa8g68ZAp5g==
+"@preact/preset-vite@^2.9.2":
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/@preact/preset-vite/-/preset-vite-2.9.2.tgz#cd0a03c5bee5c9a8e97e6e4946ddc23a43f58196"
+  integrity sha512-Gtp0pPd4s/bZiPAvn4Lhd/on5YZXd/AaXoO03MMtLTmH7nsH3BuXFZnBqvXpqozBDthjxwDWwGEJcf129ctY+g==
   dependencies:
     "@babel/code-frame" "^7.22.13"
     "@babel/plugin-transform-react-jsx" "^7.22.15"
