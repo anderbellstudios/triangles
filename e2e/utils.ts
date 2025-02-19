@@ -1,6 +1,6 @@
 import { type Page, expect } from '@playwright/test'
 import { capitalise } from '../client/src/capitalise'
-import { Shape } from '../common/types'
+import { type Shape } from '../common/types'
 
 export const expectCurrentTurn = async (page: Page, player: Shape) => {
   await expect(
