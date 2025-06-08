@@ -2031,10 +2031,10 @@ raw-body@2.5.2:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-a11y-dialog@^7.4.0:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/react-a11y-dialog/-/react-a11y-dialog-7.4.0.tgz#96477ef264540220d765cbd75014fbc4a652b31d"
-  integrity sha512-yRcyRrY6QR3TB1tiaDjR3gGqFC6uYYRPVJ7iQ2BUBpXW2OCJiQoIuLTfooJ6iOKVC4OMVtMFq3FAarO5T/1SvA==
+react-a11y-dialog@^7.4.1:
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/react-a11y-dialog/-/react-a11y-dialog-7.4.1.tgz#0f4203aeb34efc287f7dd4a500257fce0c9637ae"
+  integrity sha512-qSv2RkHk2F+/cPUAnhK/NdHEOxEY4DB07Vtb0jggSgJAdB/mhXmnx0dLTKBFw1Z1DQ7jTMk/JWAZrw6ycQS+hA==
   dependencies:
     a11y-dialog "^8.0.1"
 
