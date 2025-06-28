@@ -482,10 +482,10 @@
   dependencies:
     playwright "1.53.1"
 
-"@preact/preset-vite@^2.10.1":
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/@preact/preset-vite/-/preset-vite-2.10.1.tgz#133292e50094626fce5dc982de1444516b1c3678"
-  integrity sha512-59lyGBXNfZIr5OOuBUB4/IB8AqF/ULbvYnyItgK/2BJnsGJqaeaJobRVtMp1129obHQuj8oZ/dVxB9inmH8Xig==
+"@preact/preset-vite@^2.10.2":
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/@preact/preset-vite/-/preset-vite-2.10.2.tgz#7fdf94e523bab2588054858c3ecd4d253fdbcea9"
+  integrity sha512-K9wHlJOtkE+cGqlyQ5v9kL3Ge0Ql4LlIZjkUTL+1zf3nNdF88F9UZN6VTV8jdzBX9Fl7WSzeNMSDG7qECPmSmg==
   dependencies:
     "@babel/plugin-transform-react-jsx" "^7.22.15"
     "@babel/plugin-transform-react-jsx-development" "^7.22.5"
@@ -493,7 +493,7 @@
     "@rollup/pluginutils" "^4.1.1"
     babel-plugin-transform-hook-names "^1.0.2"
     debug "^4.3.4"
-    kolorist "^1.8.0"
+    picocolors "^1.1.1"
     vite-prerender-plugin "^0.5.3"
 
 "@prefresh/babel-plugin@0.5.1":
@@ -1636,7 +1636,7 @@ json5@^2.2.3:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
-kolorist@^1.6.0, kolorist@^1.8.0:
+kolorist@^1.6.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/kolorist/-/kolorist-1.8.0.tgz#edddbbbc7894bc13302cdf740af6374d4a04743c"
   integrity sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==
