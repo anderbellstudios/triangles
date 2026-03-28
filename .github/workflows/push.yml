@@ -1,0 +1,40 @@
+name: On push
+
+on: push
+
+jobs:
+  playwright:
+    name: 'Playwright'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+      - run: yarn install
+      - run: yarn playwright install --with-deps
+      - run: docker compose -f docker-compose.production.yml up -d --build --wait
+      - run: yarn e2e
+
+  typecheck:
+    name: 'Typecheck'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+      - run: yarn install
+      - run: yarn typecheck
+
+  deploy:
+    name: 'Deploy'
+    needs: [playwright, typecheck]
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: deploy
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: 12joan/build-and-push-image@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
