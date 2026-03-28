@@ -7,6 +7,7 @@
     "dev": "concurrently \"vite --host 0.0.0.0\" \"PORT=3001 tsx watch server/index.ts\"",
     "build": "vite build",
     "server": "tsx server/index.ts",
+    "e2e": "playwright test",
     "prettier": "prettier -w client/{index.html,src/**/*.{ts,tsx}} server/**/*.ts common/**/*.ts e2e/**/*.ts",
     "typecheck": "tsc --noEmit --incremental",
     "typecheck:watch": "yarn typecheck --watch"
@@ -21,7 +22,8 @@
     "redis": "^4.7.0",
     "socket.io": "^4.8.3",
     "socket.io-client": "^4.8.3",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@babel/core": "7.26.9",
@@ -37,7 +39,6 @@
     "prettier-plugin-tailwindcss": "^0.6.14",
     "sass": "^1.98.0",
     "tailwindcss": "^3.4.18",
-    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vite": "^6.4.1"
   }
