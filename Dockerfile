@@ -1,11 +1,11 @@
-FROM node:24.14.0-alpine AS builder
+FROM node:24.14.1-alpine AS builder
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --non-interactive
 COPY . .
 RUN yarn build
 
-FROM node:24.14.0-alpine
+FROM node:24.14.1-alpine
 RUN apk --no-cache add curl
 WORKDIR /app
 COPY --from=builder /app .
