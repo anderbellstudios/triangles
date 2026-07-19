@@ -611,10 +611,10 @@
   dependencies:
     playwright "1.61.1"
 
-"@preact/preset-vite@^2.10.5":
-  version "2.10.5"
-  resolved "https://registry.yarnpkg.com/@preact/preset-vite/-/preset-vite-2.10.5.tgz#a0c332d42ad3471bb84310a5b270326115cfa301"
-  integrity sha512-p0vJpxiVO7KWWazWny3LUZ+saXyZKWv6Ju0bYMWNJRp2YveufRPgSUB1C4MTqGJfz07EehMgfN+AJNwQy+w6Iw==
+"@preact/preset-vite@^2.10.6":
+  version "2.10.6"
+  resolved "https://registry.yarnpkg.com/@preact/preset-vite/-/preset-vite-2.10.6.tgz#92e5184f3ee3396c3e3a33eb3881b71c3b56604b"
+  integrity sha512-ZZ5RIT2ZVXg8UxRA8VZpoT8CdpDG7RFIqOT4bELqNBp85+HKvQBbgmh3gsoW1UOQXx26TLe+ZRNKI7q281Kckw==
   dependencies:
     "@babel/plugin-transform-react-jsx" "^7.27.1"
     "@babel/plugin-transform-react-jsx-development" "^7.27.1"
