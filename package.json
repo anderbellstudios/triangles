@@ -30,7 +30,7 @@
     "@playwright/test": "^1.62.1",
     "@preact/preset-vite": "^2.10.6",
     "@types/express": "^5.0.6",
-    "@types/node": "^22.15.30",
+    "@types/node": "^22.20.1",
     "autoprefixer": "^10.5.4",
     "concurrently": "^9.2.4",
     "postcss": "^8.5.25",
