@@ -1,30 +1,33 @@
-import { ComponentChildren, h } from 'preact'
+import { Attributes, ComponentChildren, h } from 'preact'
 import { useEffect, useRef } from 'preact/hooks'
 import { useA11yDialog } from 'react-a11y-dialog'
 // @ts-ignore
 import Hint from '@12joan/preact-hint'
 import { IconButton } from './Button'
 
-export interface DialogProps {
-  id: string
-  title: string
-  open: boolean
-  onClose: () => void
-  children: ComponentChildren
+type DialogAttributes = {
+  [key in keyof ReturnType<typeof useA11yDialog>[1]]: Attributes
 }
 
-export const Dialog = ({ id, title, open, onClose, children }: DialogProps) => {
-  const [instance, dialogProps] = useA11yDialog({ id, title, role: 'dialog' })
+export interface DialogProps {
+  id: string
+  open: boolean
+  onClose: () => void
+  children: (dialogAttrs: DialogAttributes) => ComponentChildren
+}
+
+export const Dialog = ({ id, open, onClose, children }: DialogProps) => {
+  const [instance, dialogAttrs] = useA11yDialog({ id, role: 'dialog' })
 
   const actuallyOpen = useRef(false)
 
   useEffect(() => {
     if (open && !actuallyOpen.current) {
-      instance.show()
-      instance.on('hide', onClose)
+      instance?.show()
+      instance?.on('hide', onClose)
     } else if (!open && actuallyOpen.current) {
-      instance.hide()
-      instance.off('hide', onClose)
+      instance?.hide()
+      instance?.off('hide', onClose)
     }
 
     actuallyOpen.current = open
@@ -32,19 +35,19 @@ export const Dialog = ({ id, title, open, onClose, children }: DialogProps) => {
 
   return (
     <div
-      {...(dialogProps.container as any)}
+      {...dialogAttrs.container}
       class="fixed inset-0 z-10 flex overflow-y-auto p-4 aria-hidden:hidden"
     >
       <div
-        {...dialogProps.overlay}
+        {...dialogAttrs.overlay}
         class="fixed inset-0 bg-black/50 dark:bg-black/75"
       />
 
       <div
-        {...dialogProps.dialog}
+        {...dialogAttrs.dialog}
         class="relative z-10 m-auto w-full max-w-screen-sm rounded-lg bg-white p-8 shadow-lg dark:bg-slate-900"
       >
-        {children}
+        {children(dialogAttrs)}
       </div>
     </div>
   )

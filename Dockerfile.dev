@@ -1,12 +1,10 @@
 FROM node:24.22.1
-
 WORKDIR /app
-
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --non-interactive
-
 COPY . .
-
 RUN yarn build
-
 EXPOSE 3000
+
+HEALTHCHECK --start-period=1s --start-interval=1s \
+  CMD curl -f http://localhost:3000/healthcheck || exit 1

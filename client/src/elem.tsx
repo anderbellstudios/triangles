@@ -8,7 +8,7 @@ export const elem = <T extends keyof HTMLElementTagNameMap>({
   defaultClass = '',
 }: {
   tag: T
-  defaultProps?: Partial<JSX.HTMLAttributes<HTMLElementTagNameMap[T]>>
+  defaultProps?: Partial<JSX.IntrinsicElements[T]>
   defaultClass?: string
 }) =>
   forwardRef(
@@ -16,7 +16,7 @@ export const elem = <T extends keyof HTMLElementTagNameMap>({
       {
         class: className = '',
         ...otherProps
-      }: JSX.HTMLAttributes<HTMLElementTagNameMap[T]>,
+      }: JSX.IntrinsicElements[T],
       ref
     ) => {
       const Component = TagName as any
