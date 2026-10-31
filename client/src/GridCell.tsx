@@ -2,8 +2,10 @@ import { JSX, h } from 'preact'
 import { Shape } from '../../common/types'
 import { capitalise } from './capitalise'
 
-export interface GridCellProps
-  extends Omit<JSX.HTMLAttributes<HTMLButtonElement>, 'shape'> {
+export interface GridCellProps extends Omit<
+  JSX.IntrinsicElements['button'],
+  'shape'
+> {
   shape: Shape | null
   nextShape: Shape
   disabled?: boolean
@@ -27,7 +29,7 @@ export const GridCell = ({
   return (
     <button
       type="button"
-      class={`grid-cell relative aspect-square rounded bg-contain bg-no-repeat ring-offset-slate-100 after:absolute after:inset-0 after:bg-contain after:bg-no-repeat dark:ring-offset-slate-800 ${shapeClass}`}
+      class={`grid-cell relative aspect-square rounded-sm bg-contain bg-no-repeat ring-offset-slate-100 after:absolute after:inset-0 after:bg-contain after:bg-no-repeat dark:ring-offset-slate-800 ${shapeClass}`}
       disabled={shape !== null || disabled}
       aria-live="polite"
       aria-label={

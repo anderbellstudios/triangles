@@ -13,11 +13,8 @@ export const elem = <T extends keyof HTMLElementTagNameMap>({
 }) =>
   forwardRef(
     (
-      {
-        class: className = '',
-        ...otherProps
-      }: JSX.IntrinsicElements[T],
-      ref
+      { class: className = '', ...otherProps }: JSX.IntrinsicElements[T],
+      ref,
     ) => {
       const Component = TagName as any
       return (
@@ -28,5 +25,5 @@ export const elem = <T extends keyof HTMLElementTagNameMap>({
           {...otherProps}
         />
       )
-    }
+    },
   )

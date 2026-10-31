@@ -33,5 +33,5 @@ export const Grid = forwardRef(
         {children}
       </div>
     )
-  }
+  },
 )

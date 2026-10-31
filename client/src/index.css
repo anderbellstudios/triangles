@@ -1,12 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.cjs";
+@source inline("{focus-visible:after:,strict-hover:hover:after:,}bg-{cross,circle,triangle}");
 
-*:focus-visible {
-  @apply outline-none ring-2 ring-pink-600 ring-offset-2 dark:ring-offset-slate-900;
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  border-color: var(--color-gray-200, currentColor);
 }
 
-button, a {
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
+}
+
+*:focus-visible {
+  @apply outline-hidden ring-2 ring-pink-600 ring-offset-2 dark:ring-offset-slate-900;
+}
+
+button,
+a {
   touch-action: manipulation;
 }
 
@@ -27,7 +41,7 @@ a {
 }
 
 .preact-hint__content {
-  @apply rounded px-3 py-2;
+  @apply rounded-sm px-3 py-2;
 }
 
 .grid-cell:nth-child(1) {
@@ -50,12 +64,15 @@ a {
   0% {
     content: '';
   }
+
   33% {
     content: '.';
   }
+
   67% {
     content: '..';
   }
+
   100% {
     content: '...';
   }

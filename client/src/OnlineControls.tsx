@@ -87,7 +87,7 @@ const WhenOnline = ({ remoteGameID }: { remoteGameID: string }) => {
       <p>
         Game ID:{' '}
         <code
-          class="select-all rounded bg-slate-100 p-1 text-pink-700 dark:bg-slate-800 dark:text-pink-500"
+          class="select-all rounded-sm bg-slate-100 p-1 text-pink-700 dark:bg-slate-800 dark:text-pink-500"
           data-testid="current-game-id"
         >
           {remoteGameID}

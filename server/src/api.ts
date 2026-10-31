@@ -7,7 +7,7 @@ import { Server } from 'socket.io'
 export const mountAPI = (
   app: Express,
   redisClient: RedisClient,
-  io: Server
+  io: Server,
 ) => {
   const api = express.Router()
 

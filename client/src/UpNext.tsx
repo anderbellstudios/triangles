@@ -38,7 +38,7 @@ export const UpNext = ({ twoColumnLayout }: UpNextProps) => {
           <div
             class={twMerge(
               'rounded-lg bg-contain bg-center bg-no-repeat',
-              className
+              className,
             )}
             aria-label={`${descriptor} is ${capitalise(player)}`}
             data-hint={[descriptor, capitalise(player)]}
