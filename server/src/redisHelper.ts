@@ -13,7 +13,7 @@ export const getGame = (client: RedisClient, gameID: string) =>
 export const setGame = async (
   client: RedisClient,
   gameID: string,
-  game: string
+  game: string,
 ) => {
   const key = keyForGameID(gameID)
   await client.set(key, game)

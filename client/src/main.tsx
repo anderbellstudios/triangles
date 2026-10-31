@@ -1,9 +1,11 @@
 import { h, render } from 'preact'
+// @ts-ignore
 import '@12joan/preact-hint/dist/style.css'
 import { App } from './App'
 import { appState } from './appState'
 import { joinRemoteGame, leaveRemoteGame } from './appState/onlinePlay/actions'
 import { uploadGame } from './api'
+// @ts-ignore
 import './index.css'
 import './onlinePlayAdapter'
 import './aiAdapter'

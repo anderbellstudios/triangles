@@ -4,14 +4,14 @@ import { type Shape } from '../common/types'
 
 export const expectCurrentTurn = async (page: Page, player: Shape) => {
   await expect(
-    page.getByLabel(`Current turn is ${capitalise(player)}`)
+    page.getByLabel(`Current turn is ${capitalise(player)}`),
   ).toBeVisible()
 }
 
 export const locateCell = (
   page: Page,
   row: 1 | 2 | 3 | 4,
-  col: 1 | 2 | 3 | 4
+  col: 1 | 2 | 3 | 4,
 ) => {
   const index = (row - 1) * 4 + col - 1
   return page.getByTestId('grid-cell').nth(index)
@@ -21,7 +21,7 @@ export const expectCellToBe = async (
   page: Page,
   row: 1 | 2 | 3 | 4,
   col: 1 | 2 | 3 | 4,
-  shape: Shape | null
+  shape: Shape | null,
 ) => {
   const cell = locateCell(page, row, col)
 
@@ -32,7 +32,7 @@ export const expectCellToBe = async (
 
   await expect(cell).toHaveAttribute(
     'aria-label',
-    `Square with ${capitalise(shape)}`
+    `Square with ${capitalise(shape)}`,
   )
 }
 
@@ -87,14 +87,14 @@ export const undo = async (page: Page) => {
 
 export const expectPlayingLocallyOrOnline = async (
   page: Page,
-  state: 'locally' | 'online'
+  state: 'locally' | 'online',
 ) => {
   await expect(page.getByText(`You are playing ${state}`)).toBeVisible()
 }
 
 export const expectCurrentGameID = async (
   page: Page,
-  gameID: string | null
+  gameID: string | null,
 ) => {
   if (gameID === null) {
     await expect(page.getByTestId('current-game-id')).toBeHidden()
@@ -130,7 +130,7 @@ export const fillGameID = async (page: Page, gameID: string) => {
 
 export const expectHostGameToBeOkay = async (page: Page) => {
   await expect(
-    page.getByText('Enter an ID that people will use to join your game')
+    page.getByText('Enter an ID that people will use to join your game'),
   ).toBeVisible()
   await expect(page.getByRole('button', { name: 'Create game' })).toBeEnabled()
 }
@@ -142,16 +142,16 @@ export const expectHostGameToAlreadyExist = async (page: Page) => {
 
 export const expectJoinGameToBeOkay = async (page: Page) => {
   await expect(
-    page.getByText('Looks good to me! Click Join to confirm.')
+    page.getByText('Looks good to me! Click Join to confirm.'),
   ).toBeVisible()
   await expect(
-    page.getByRole('button', { name: 'Join', exact: true })
+    page.getByRole('button', { name: 'Join', exact: true }),
   ).toBeEnabled()
 }
 
 export const expectJoinGameToNotExist = async (page: Page) => {
   await expect(page.getByText('No game with that ID exists.')).toBeVisible()
   await expect(
-    page.getByRole('button', { name: 'Join', exact: true })
+    page.getByRole('button', { name: 'Join', exact: true }),
   ).toBeDisabled()
 }

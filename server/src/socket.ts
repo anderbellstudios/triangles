@@ -9,7 +9,7 @@ export const mountSocket = (
   server: HTTPServer,
   redisClient: RedisClient,
   pubClient: RedisClient,
-  subClient: RedisClient
+  subClient: RedisClient,
 ): SocketServer => {
   const io = new SocketServer(server, {
     pingInterval: 2000,

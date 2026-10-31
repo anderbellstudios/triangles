@@ -1,5 +1,5 @@
 import { appState } from '.'
 
 export const setNotificationPermission = (
-  notificationPermission: NotificationPermission
+  notificationPermission: NotificationPermission,
 ) => appState.set('app.notificationPermission', notificationPermission)

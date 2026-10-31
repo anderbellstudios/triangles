@@ -30,7 +30,7 @@ import { mountSocket } from './src/socket'
 
   app.use(express.static(clientRoot))
 
-  app.get('*', (_req, res) => {
+  app.get('*path', (_req, res) => {
     res.sendFile(path.join(clientRoot, 'index.html'))
   })
 

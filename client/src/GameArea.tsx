@@ -32,7 +32,7 @@ export const GameArea = ({ twoColumnLayout }: GameAreaProps) => {
       setGridDimensions({ padding, width })
     },
     [],
-    true
+    true,
   )
 
   const centreOfCell = (x: number) =>
@@ -106,7 +106,7 @@ export const GameArea = ({ twoColumnLayout }: GameAreaProps) => {
 
         {gameOutcome.type !== 'in-progress' && (
           <div
-            class="absolute inset-0 flex rounded-lg bg-white/75 backdrop-blur-sm dark:bg-slate-900/75"
+            class="absolute inset-0 flex rounded-lg bg-white/75 backdrop-blur-xs dark:bg-slate-900/75"
             aria-live="polite"
           >
             <div class="m-auto text-center">

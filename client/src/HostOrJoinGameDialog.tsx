@@ -103,7 +103,7 @@ interface BaseHostOrJoinGameDialogProps extends Omit<DialogProps, 'children'> {
   hint: (
     gameExists: boolean | null,
     AlternativeActionButton: (props: { children: string }) => JSX.Element,
-    RandomiseButton: () => JSX.Element
+    RandomiseButton: () => JSX.Element,
   ) => JSX.Element
 }
 
@@ -120,7 +120,7 @@ const BaseHostOrJoinGameDialog = ({
   open,
   onClose,
 }: BaseHostOrJoinGameDialogProps) => {
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
   const [gameID, setGameID] = useState(initialGameID)
   const [gameExists, setGameExists] = useState<boolean | null>(null)
   const [promiseState, setPromise] = usePromise()
@@ -139,7 +139,7 @@ const BaseHostOrJoinGameDialog = ({
 
     const timeout = setTimeout(
       () => setPromise(API.gameExists(gameID).then(setGameExists)),
-      500
+      500,
     )
 
     return () => clearTimeout(timeout)
@@ -188,10 +188,12 @@ const BaseHostOrJoinGameDialog = ({
 
   return (
     <Dialog id={id} open={open} onClose={onClose}>
-      {(dialogAttrs) => (
+      {dialogAttrs => (
         <form class="space-y-4" onSubmit={handleSubmit}>
           <div class="flex items-center justify-between">
-            <h1 {...dialogAttrs.title} class="text-2xl font-medium">{title}</h1>
+            <h1 {...dialogAttrs.title} class="text-2xl font-medium">
+              {title}
+            </h1>
             <DialogCloseButton {...dialogAttrs.closeButton} onClick={onClose} />
           </div>
 

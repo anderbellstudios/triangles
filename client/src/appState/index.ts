@@ -2,28 +2,24 @@ import { initialAppState } from './initial'
 
 type PathKeyValueMapUnison<
   T,
-  Root extends string = ''
+  Root extends string = '',
 > = keyof T extends infer K
   ? K extends string & keyof T
-    ?
-        | { [P in `${Root}${K}`]: T[K] }
-        | (T[K] extends object
-            ? PathKeyValueMapUnison<T[K], `${Root}${K}.`>
-            : {})
+    ? | { [P in `${Root}${K}`]: T[K] }
+      | (T[K] extends object ? PathKeyValueMapUnison<T[K], `${Root}${K}.`> : {})
     : never
   : never
 
 // https://stackoverflow.com/a/50375286
 type UnionToIntersection<U> = (U extends any ? (x: U) => void : never) extends (
-  x: infer I
+  x: infer I,
 ) => void
   ? I
   : never
 
 // https://stackoverflow.com/a/63542565
-type IntersectionToObject<U> = UnionToIntersection<U> extends infer O
-  ? { [K in keyof O]: O[K] }
-  : never
+type IntersectionToObject<U> =
+  UnionToIntersection<U> extends infer O ? { [K in keyof O]: O[K] } : never
 
 type PathKeyValueMap<T> = IntersectionToObject<PathKeyValueMapUnison<T>>
 
@@ -35,25 +31,25 @@ interface AppState<T> {
   set: <K extends keyof PathKeyValueMap<T>>(
     key: K,
     value: PathKeyValueMap<T>[K],
-    shouldEmitEvents?: boolean
+    shouldEmitEvents?: boolean,
   ) => void
 
   transform: <K extends keyof PathKeyValueMap<T>>(
     key: K,
     fn: (value: PathKeyValueMap<T>[K]) => PathKeyValueMap<T>[K],
-    shouldEmitEvents?: boolean
+    shouldEmitEvents?: boolean,
   ) => void
 
   transaction: (fn: (t: TransactionHelper<T>) => void) => void
 
   addEventListener: <K extends keyof PathKeyValueMap<T>>(
     key: K,
-    fn: (value: PathKeyValueMap<T>[K]) => void
+    fn: (value: PathKeyValueMap<T>[K]) => void,
   ) => void
 
   removeEventListener: <K extends keyof PathKeyValueMap<T>>(
     key: K,
-    fn: (value: PathKeyValueMap<T>[K]) => void
+    fn: (value: PathKeyValueMap<T>[K]) => void,
   ) => void
 }
 
@@ -129,7 +125,7 @@ const makeAppState = <T>(initial: T): AppState<T> => {
   const transform: AppState<T>['transform'] = (
     key,
     fn,
-    shouldEmitEvents = true
+    shouldEmitEvents = true,
   ) => set(key, fn(get(key)), shouldEmitEvents)
 
   const transaction: AppState<T>['transaction'] = fn => {
