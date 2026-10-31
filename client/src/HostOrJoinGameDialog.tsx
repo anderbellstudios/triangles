@@ -93,6 +93,7 @@ export const JoinGameDialog = ({ ...otherProps }: JoinGameDialogProps) => {
 }
 
 interface BaseHostOrJoinGameDialogProps extends Omit<DialogProps, 'children'> {
+  title: string
   initialGameID?: string
   inputPlaceholder: string
   primaryButtonText: string
@@ -186,49 +187,51 @@ const BaseHostOrJoinGameDialog = ({
   const inputID = `${id}-input`
 
   return (
-    <Dialog id={id} title={title} open={open} onClose={onClose}>
-      <form class="space-y-4" onSubmit={handleSubmit}>
-        <div class="flex items-center justify-between">
-          <h1 class="text-2xl font-medium">{title}</h1>
-          <DialogCloseButton onClick={onClose} />
-        </div>
-
-        {promiseState.rejected && (
-          <p aria-live="polite" class="text-red-600 dark:text-red-500">
-            <span class="font-medium">Something went wrong:</span>{' '}
-            {promiseState.error?.message}
-          </p>
-        )}
-
-        <div class="space-y-2">
-          <label class="block font-medium" for={inputID}>
-            Game ID
-          </label>
-
-          <div class="grid gap-4 sm:flex">
-            <Input
-              id={inputID}
-              ref={inputRef}
-              class="grow"
-              placeholder={inputPlaceholder}
-              value={gameID}
-              maxLength={maxGameIDLength}
-              onInput={event =>
-                setGameID(sanitiseGameID((event.target as any).value))
-              }
-              onPaste={handlePaste}
-            />
-
-            <Button type="submit" disabled={gameExists !== expectedExists}>
-              {primaryButtonText}
-            </Button>
+    <Dialog id={id} open={open} onClose={onClose}>
+      {(dialogAttrs) => (
+        <form class="space-y-4" onSubmit={handleSubmit}>
+          <div class="flex items-center justify-between">
+            <h1 {...dialogAttrs.title} class="text-2xl font-medium">{title}</h1>
+            <DialogCloseButton {...dialogAttrs.closeButton} onClick={onClose} />
           </div>
-        </div>
 
-        <p aria-live="polite">
-          {hint(gameExists, AlternativeActionButton, RandomiseButton)}
-        </p>
-      </form>
+          {promiseState.rejected && (
+            <p aria-live="polite" class="text-red-600 dark:text-red-500">
+              <span class="font-medium">Something went wrong:</span>{' '}
+              {promiseState.error?.message}
+            </p>
+          )}
+
+          <div class="space-y-2">
+            <label class="block font-medium" for={inputID}>
+              Game ID
+            </label>
+
+            <div class="grid gap-4 sm:flex">
+              <Input
+                id={inputID}
+                ref={inputRef}
+                class="grow"
+                placeholder={inputPlaceholder}
+                value={gameID}
+                maxLength={maxGameIDLength}
+                onInput={event =>
+                  setGameID(sanitiseGameID((event.target as any).value))
+                }
+                onPaste={handlePaste}
+              />
+
+              <Button type="submit" disabled={gameExists !== expectedExists}>
+                {primaryButtonText}
+              </Button>
+            </div>
+          </div>
+
+          <p aria-live="polite">
+            {hint(gameExists, AlternativeActionButton, RandomiseButton)}
+          </p>
+        </form>
+      )}
     </Dialog>
   )
 }

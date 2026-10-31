@@ -3,6 +3,35 @@ name: On push
 on: push
 
 jobs:
+  docker:
+    name: 'Test production Docker image'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - run: docker compose -f docker-compose.production.yml up -d --build --wait
+    - run: curl -Is http://localhost:3000/healthcheck
+    - name: Ensure assets are served correctly
+      run: wget --page-requisites http://localhost:3000
+
+  docker_dev:
+    name: 'Test development Docker image'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: docker compose up -d --build --wait
+      - run: curl -Is http://localhost:3000/healthcheck
+      - name: Ensure assets are served correctly
+        run: wget --page-requisites http://localhost:3000
+
+  typecheck:
+    name: 'Typecheck'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+      - run: yarn install
+      - run: yarn typecheck
+
   playwright:
     name: 'Playwright'
     runs-on: ubuntu-latest
@@ -14,20 +43,9 @@ jobs:
       - run: docker compose -f docker-compose.production.yml up -d --build --wait
       - run: yarn e2e
 
-  # TODO: Currently failing
-  # typecheck:
-  #   name: 'Typecheck'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v6
-  #     - uses: actions/setup-node@v6
-  #     - run: yarn install
-  #     - run: yarn typecheck
-
   deploy:
     name: 'Deploy'
-    # TODO: needs: [playwright, typecheck]
-    needs: [playwright]
+    needs: [docker, docker_dev, typecheck, playwright]
     if: ${{ github.ref == 'refs/heads/main' }}
     uses: 12joan/build-and-push-image/.github/workflows/build-and-push-image.yml@main
     secrets:
