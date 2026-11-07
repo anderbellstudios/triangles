@@ -2021,10 +2021,10 @@ postcss@^8.5.32:
     picocolors "^1.1.1"
     source-map-js "^1.2.2"
 
-preact@^11.1.1:
-  version "11.1.1"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-11.1.1.tgz#8f4c2dd333c0ba0d36b68ca4d8998d09854c02ec"
-  integrity sha512-vpFVfai437pbuLri7XVeslCPfrEZX6Z1S2gV+MOFrA/kji+NKUXvH7y01EnVjA1guLigfkVp77Sqipd4SIllCg==
+preact@^11.2.0:
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-11.2.0.tgz#8667ca0531eb0efa529208892321313d8d3fc8d4"
+  integrity sha512-/HfHI/7N84e6GrWBJ3J280z3mLaRJiDcSvj/A+y/4AbLnND/1UlGHe1sR6oYuTGwId0nP7dqDU9OnLxMPZ7xBg==
 
 prettier-plugin-tailwindcss@^0.8.1:
   version "0.8.1"
