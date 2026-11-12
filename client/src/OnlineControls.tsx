@@ -35,7 +35,7 @@ const WhenLocal = () => {
     <>
       <LeadParagraph>You are playing locally</LeadParagraph>
 
-      <div class="space-x-2">
+      <div class="flex gap-2">
         <Button onClick={() => setShowHostGameDialog(true)}>Host game</Button>
 
         <HostGameDialog
