@@ -1,4 +1,4 @@
-import {Game} from '../../common/types'
+import { Game } from '../../common/types'
 import { wrappedFetch } from './wrappedFetch'
 
 export const gameExists = (gameID: string) =>

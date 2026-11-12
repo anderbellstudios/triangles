@@ -3,7 +3,7 @@ import { clientID } from './clientID'
 import { getGameOutcome } from './appState/game/getGameOutcome'
 import { getOptimalMove } from './appState/game/getOptimalMove'
 import { performMove } from './appState/game/actions'
-import {AppState} from './appState/types'
+import { AppState } from './appState/types'
 
 let timeoutID: ReturnType<typeof setTimeout> | null = null
 

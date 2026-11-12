@@ -1,4 +1,4 @@
-import {Game, Shape} from '../../../../common/types'
+import { Game, Shape } from '../../../../common/types'
 import { getNthNextTurn } from './getNthNextTurn'
 
 type Vec2 = [number, number]
@@ -7,17 +7,24 @@ type Line = [number, number, number]
 export type GameOutcome =
   | { type: 'in-progress' }
   | { type: 'draw' }
-  | { type: 'win'; winner: Shape; winningLineEndpoints: { start: Vec2; end: Vec2 } }
+  | {
+      type: 'win'
+      winner: Shape
+      winningLineEndpoints: { start: Vec2; end: Vec2 }
+    }
 
 const positionToIndex = ([x, y]: Vec2) => x + 4 * y
-const indexToPosition = (index: number): Vec2 => [index % 4, Math.floor(index / 4)]
+const indexToPosition = (index: number): Vec2 => [
+  index % 4,
+  Math.floor(index / 4),
+]
 
 const makeWinningLine = ([x, y]: Vec2, [dx, dy]: Vec2): Line =>
   [
     [x, y],
     [x + dx, y + dy],
     [x + 2 * dx, y + 2 * dy],
-  ].map((position) => positionToIndex(position as Vec2)) as Line
+  ].map(position => positionToIndex(position as Vec2)) as Line
 
 const horizontal: Vec2 = [1, 0]
 const vertical: Vec2 = [0, 1]
@@ -54,7 +61,11 @@ const winningLines = [
   makeWinningLine([3, 1], trailingDiagonal),
 ]
 
-export const getGameOutcome = ({ board, moveHistory, currentTurn }: Game): GameOutcome => {
+export const getGameOutcome = ({
+  board,
+  moveHistory,
+  currentTurn,
+}: Game): GameOutcome => {
   const lastTurn = getNthNextTurn(currentTurn, -1)
 
   let winner = null
@@ -71,7 +82,8 @@ export const getGameOutcome = ({ board, moveHistory, currentTurn }: Game): GameO
     }
   })
 
-  if (winner !== null) return { type: 'win', winner, winningLineEndpoints: winningLineEndpoints! }
+  if (winner !== null)
+    return { type: 'win', winner, winningLineEndpoints: winningLineEndpoints! }
   else if (moveHistory.length === 16) return { type: 'draw' }
   else return { type: 'in-progress' }
 }

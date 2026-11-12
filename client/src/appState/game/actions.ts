@@ -41,7 +41,7 @@ export const performUndo = () =>
     t.set('app.game.moveHistory', moveHistory)
 
     t.transform('app.game.currentTurn', currentTurn =>
-      getNthNextTurn(currentTurn, -1)
+      getNthNextTurn(currentTurn, -1),
     )
   })
 

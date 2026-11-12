@@ -1,7 +1,7 @@
 import { getEmptyCells } from './getEmptyCells'
 import { gameWithMove } from './gameWithMove'
 import { getGameOutcome } from './getGameOutcome'
-import {Game, Shape} from '../../../../common/types'
+import { Game, Shape } from '../../../../common/types'
 
 export const getWinningMoves = (game: Game, player: Shape) => {
   const gameWithCurrentTurn: Game = { ...game, currentTurn: player }
