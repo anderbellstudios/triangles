@@ -39,6 +39,14 @@ export const GameArea = ({ twoColumnLayout }: GameAreaProps) => {
     (x + 1) * gridDimensions.padding +
     (x + 0.5) * 0.25 * (gridDimensions.width - 5 * gridDimensions.padding)
 
+  const handlePlayAgain = () => {
+    performNewGame(true)
+    queueMicrotask(() => {
+      const firstCell = document.querySelector('.grid-cell:first-of-type')
+      if (firstCell instanceof HTMLElement) firstCell.focus()
+    })
+  }
+
   return (
     <div
       class="grid gap-x-4 gap-y-2 md:w-[512px]"
@@ -104,11 +112,15 @@ export const GameArea = ({ twoColumnLayout }: GameAreaProps) => {
           </svg>
         )}
 
-        {gameOutcome.type !== 'in-progress' && (
-          <div
-            class="absolute inset-0 flex rounded-lg bg-white/75 backdrop-blur-xs dark:bg-slate-900/75"
-            aria-live="polite"
-          >
+        <div
+          class={`absolute inset-0 flex rounded-lg bg-white/75 backdrop-blur-xs dark:bg-slate-900/75 transition-opacity ${
+            gameOutcome.type === 'in-progress'
+              ? 'opacity-0 pointer-events-none'
+              : 'delay-300 duration-500'
+          }`}
+          aria-live="polite"
+        >
+          {gameOutcome.type !== 'in-progress' && (
             <div class="m-auto text-center">
               <div class="mb-4 text-2xl sm:text-3xl">
                 {gameOutcome.type === 'draw' && "It's a draw!"}
@@ -116,10 +128,10 @@ export const GameArea = ({ twoColumnLayout }: GameAreaProps) => {
                   `${capitalise(gameOutcome.winner)} wins!`}
               </div>
 
-              <Button onClick={() => performNewGame(true)}>Play again</Button>
+              <Button onClick={handlePlayAgain}>Play again</Button>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </Grid>
 
       <UpNext {...{ twoColumnLayout }} />

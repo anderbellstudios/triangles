@@ -14,6 +14,7 @@ export const makeNewGame = (
 
   return {
     lastUpdatedBy: clientID,
+    recentEvents: [],
     tag: makeRandomIdentifier(),
     computerPlayers: {
       cross: false,

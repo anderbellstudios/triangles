@@ -2,6 +2,7 @@ import { h } from 'preact'
 import { Shape } from '../../common/types'
 import { capitalise } from './capitalise'
 import { getCoordinates } from './coordinates'
+import { KeyboardEvent } from 'preact/compat'
 
 export interface GridCellProps {
   index: number
@@ -37,6 +38,30 @@ export const GridCell = ({
       ? emptyClass
       : `bg-${shape} bg-slate-100 dark:bg-slate-800 cursor-default!`
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.altKey || event.shiftKey || event.metaKey || event.ctrlKey) return
+
+    const delta = {
+      ArrowUp: [0, -1],
+      ArrowDown: [0, 1],
+      ArrowLeft: [-1, 0],
+      ArrowRight: [1, 0],
+    }[event.key]
+
+    if (!delta) return
+
+    event.preventDefault()
+
+    const [deltaX, deltaY] = delta
+    const deltaIndex = deltaX + 4 * deltaY
+    const nextIndex = index + deltaIndex
+
+    const targetCell = document.querySelector(
+      `.grid-cell:nth-of-type(${nextIndex + 1})`,
+    )
+    if (targetCell instanceof HTMLElement) targetCell.focus()
+  }
+
   return (
     <button
       type="button"
@@ -47,6 +72,7 @@ export const GridCell = ({
       aria-label={ariaLabel}
       data-testid="grid-cell"
       onClick={disabled ? undefined : onClick}
+      onKeyDown={handleKeyDown}
     />
   )
 }
