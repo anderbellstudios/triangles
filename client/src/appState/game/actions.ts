@@ -7,6 +7,7 @@ import { makeNewGame } from './makeNewGame'
 import { Board, Move, Shape } from '../../../../common/types'
 import { capitalise } from '../../capitalise'
 import { getCoordinates } from '../../coordinates'
+import { getWinningMoves } from './getWinningMoves'
 
 const modifyGame = (
   fn: (t: AppStateTransactionHelper) => void,
@@ -24,10 +25,19 @@ const modifyGame = (
 
 export const performMove = (move: Move) => {
   const shape = appState.get('app.game.currentTurn')
+  const game = appState.get('app.game')
+  const nextGame = gameWithMove(game, move)
+  const threateningMoves = getWinningMoves(nextGame, shape)
+
+  const messageParts = [`${capitalise(shape)} played ${getCoordinates(move)}`]
+
+  threateningMoves.forEach(move =>
+    messageParts.push(`threatening ${getCoordinates(move)}`),
+  )
 
   modifyGame(
     t => t.transform('app.game', game => gameWithMove(game, move)),
-    `${capitalise(shape)} played ${getCoordinates(move)}`,
+    messageParts.join(', '),
   )
 }
 
