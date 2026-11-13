@@ -1,21 +1,23 @@
 import { h } from 'preact'
-import { Shape } from '../../common/types'
+import { Move, Shape } from '../../common/types'
 import { capitalise } from './capitalise'
 import { getCoordinates } from './coordinates'
 import { KeyboardEvent } from 'preact/compat'
 
 export interface GridCellProps {
-  index: number
+  move: Move
   shape: Shape | null
+  threateningShapes: Shape[]
   nextShape: Shape
   disabled?: boolean
   onClick?: () => void
 }
 
 export const GridCell = ({
-  index,
+  move,
   shape = null,
   nextShape,
+  threateningShapes,
   disabled: disabledProp = false,
   onClick,
 }: GridCellProps) => {
@@ -27,11 +29,21 @@ export const GridCell = ({
 
   const disabled = !!shape || disabledProp
 
-  const coordinates = getCoordinates(index)
-  const ariaLabel =
-    shape === null
-      ? `${coordinates}, empty, next turn is ${capitalise(nextShape)}`
-      : ` ${coordinates}, ${capitalise(shape)}`
+  const ariaLabelParts = [getCoordinates(move)]
+
+  if (shape) {
+    ariaLabelParts.push(capitalise(shape))
+  } else {
+    ariaLabelParts.push('empty')
+
+    threateningShapes.forEach(shape => {
+      ariaLabelParts.push(`${capitalise(shape)} threatening`)
+    })
+
+    ariaLabelParts.push(`next turn is ${capitalise(nextShape)}`)
+  }
+
+  const ariaLabel = ariaLabelParts.join(', ')
 
   const shapeClass =
     shape === null
@@ -54,7 +66,7 @@ export const GridCell = ({
 
     const [deltaX, deltaY] = delta
     const deltaIndex = deltaX + 4 * deltaY
-    const nextIndex = index + deltaIndex
+    const nextIndex = move + deltaIndex
 
     const targetCell = document.querySelector(
       `.grid-cell:nth-of-type(${nextIndex + 1})`,

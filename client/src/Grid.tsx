@@ -3,7 +3,8 @@ import { forwardRef } from 'preact/compat'
 import { performMove } from './appState/game/actions'
 import { useAppState } from './useAppState'
 import { GridCell } from './GridCell'
-import { Move } from '../../common/types'
+import { Move, Shape } from '../../common/types'
+import { getWinningMoves } from './appState/game/getWinningMoves'
 
 export interface GridProps {
   disabled: boolean
@@ -12,8 +13,30 @@ export interface GridProps {
 
 export const Grid = forwardRef(
   ({ disabled, children }: GridProps, ref: Ref<HTMLDivElement>) => {
-    const boardState = useAppState('app.game.board')
-    const currentTurn = useAppState('app.game.currentTurn')
+    const game = useAppState('app.game')
+    const currentPlayer = useAppState('app.game.currentTurn')
+
+    const crossWinningMoves = getWinningMoves(game, 'cross')
+    const circleWinningMoves = getWinningMoves(game, 'circle')
+    const triangleWinningMoves = getWinningMoves(game, 'triangle')
+
+    const getThreateningPlayers = (move: Move) => {
+      const threateningPlayers: Shape[] = []
+
+      if (crossWinningMoves.includes(move)) {
+        threateningPlayers.push('cross')
+      }
+
+      if (circleWinningMoves.includes(move)) {
+        threateningPlayers.push('circle')
+      }
+
+      if (triangleWinningMoves.includes(move)) {
+        threateningPlayers.push('triangle')
+      }
+
+      return threateningPlayers
+    }
 
     return (
       <div
@@ -23,9 +46,10 @@ export const Grid = forwardRef(
         {Array.from({ length: 16 }).map((_, i) => (
           <GridCell
             key={i}
-            index={i}
-            shape={boardState[i]}
-            nextShape={currentTurn}
+            move={i as Move}
+            shape={game.board[i]}
+            nextShape={currentPlayer}
+            threateningShapes={getThreateningPlayers(i as Move)}
             onClick={() => performMove(i as Move)}
             disabled={disabled}
           />
