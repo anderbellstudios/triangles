@@ -5,6 +5,7 @@ import { OnlineControls } from './OnlineControls'
 import { AIControls } from './AIControls'
 import { useViewport } from './useViewport'
 import { useTryingToConnect } from './useTryingToConnect'
+import { GameAnnouncements } from './GameAnnouncements'
 
 export const App = () => {
   const { viewportWidth } = useViewport()
@@ -41,6 +42,8 @@ export const App = () => {
         </div>
       </div>
 
+      <GameAnnouncements />
+
       <div class="mb-16 text-lg">
         <H2>How to play</H2>
 
@@ -58,7 +61,7 @@ export const App = () => {
         <H3 class="mt-8">Play online</H3>
 
         <Paragraph>
-          You can play locally with people in the same room as you, or you can{' '}
+          You can play locally with people in the same room as you, or you can
           play online over the internet. To play online, press Host game, choose
           a game ID, and press Create game.
         </Paragraph>
@@ -79,7 +82,7 @@ export const App = () => {
 
         <Paragraph>
           Be warned: The computer knows all the best stategies and plays to win.
-          If you can beat the computer more than 33% of the time, you're a{' '}
+          If you can beat the computer more than 33% of the time, you're a
           certified Triangles expert.
         </Paragraph>
       </div>

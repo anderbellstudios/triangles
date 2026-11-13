@@ -24,6 +24,7 @@ export type Move =
 
 export type Game = {
   lastUpdatedBy: string
+  recentEvents: string[]
   tag: string
   computerPlayers: Record<Shape, boolean>
   board: Board

@@ -5,7 +5,7 @@ export const useEventListener = <E extends keyof HTMLElementEventMap>(
   event: E,
   callback: () => void,
   dependencies: Inputs = [],
-  fireOnMount = false
+  fireOnMount = false,
 ) => {
   useEffect(() => {
     if (fireOnMount) callback()

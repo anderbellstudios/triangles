@@ -2,7 +2,7 @@ import { getWinningMoves } from './getWinningMoves'
 import { getNthNextTurn } from './getNthNextTurn'
 import { getEmptyCells } from './getEmptyCells'
 import { gameWithMove } from './gameWithMove'
-import {Game, Move} from '../../../../common/types'
+import { Game, Move } from '../../../../common/types'
 
 // Pretrained weights for the likelihood of each starting move to result in a win
 const moveWeights: Record<Move, number> = {
@@ -72,7 +72,7 @@ export const getOptimalMove = (game: Game): Move => {
 
   const totalWeight = optimalMoves.reduce(
     (totalWeight, move) => totalWeight + moveWeights[move],
-    0 as number
+    0 as number,
   )
 
   const randomWeight = Math.floor(Math.random() * totalWeight)

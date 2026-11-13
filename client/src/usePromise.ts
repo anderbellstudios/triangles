@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'preact/hooks'
 
 interface UsePromiseState<T> {
-  pending: boolean;
-  rejected: boolean;
-  resolved: boolean;
-  value: T | null;
-  error: Error | null;
+  pending: boolean
+  rejected: boolean
+  resolved: boolean
+  value: T | null
+  error: Error | null
 }
 
 const commonState: UsePromiseState<never> = {
@@ -22,7 +22,7 @@ export const usePromise = <T>(initialPromise: Promise<T> | null = null) => {
   const [state, setState] = useState<UsePromiseState<T>>(
     initialPromise === null
       ? { ...commonState }
-      : { ...commonState, pending: true }
+      : { ...commonState, pending: true },
   )
 
   useEffect(() => {

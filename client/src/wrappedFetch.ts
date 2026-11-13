@@ -1,15 +1,15 @@
 export interface WrappedFetchOptions extends RequestInit {
-  timeout?: number;
-  acceptResponse?: (response: Response) => boolean;
+  timeout?: number
+  acceptResponse?: (response: Response) => boolean
 }
 
 export const wrappedFetch = async (
   url: string,
   {
     timeout = 10000,
-    acceptResponse = (response) => response.ok,
+    acceptResponse = response => response.ok,
     ...options
-  }: WrappedFetchOptions = {}
+  }: WrappedFetchOptions = {},
 ) => {
   const abortController = new AbortController()
   const timeoutID = setTimeout(() => abortController.abort(), timeout)

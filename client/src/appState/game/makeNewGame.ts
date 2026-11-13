@@ -1,16 +1,20 @@
 import { getNthNextTurn } from './getNthNextTurn'
 import { clientID } from '../../clientID'
 import { makeRandomIdentifier } from '../../randomIdentifier'
-import {Board, Game} from '../../../../common/types'
+import { Board, Game } from '../../../../common/types'
 
-export const makeNewGame = (oldGame: Partial<Game> = {}, cycleStartingTurn = false): Game => {
+export const makeNewGame = (
+  oldGame: Partial<Game> = {},
+  cycleStartingTurn = false,
+): Game => {
   const startingTurn = getNthNextTurn(
     oldGame.startingTurn ?? 'cross',
-    cycleStartingTurn ? 1 : 0
+    cycleStartingTurn ? 1 : 0,
   )
 
   return {
     lastUpdatedBy: clientID,
+    recentEvents: [],
     tag: makeRandomIdentifier(),
     computerPlayers: {
       cross: false,

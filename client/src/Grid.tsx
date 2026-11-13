@@ -23,6 +23,7 @@ export const Grid = forwardRef(
         {Array.from({ length: 16 }).map((_, i) => (
           <GridCell
             key={i}
+            index={i}
             shape={boardState[i]}
             nextShape={currentTurn}
             onClick={() => performMove(i as Move)}

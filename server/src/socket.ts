@@ -24,7 +24,12 @@ export const mountSocket = (
     socket.join(sanitiseGameIDForInternalUse(gameID))
 
     socket.on('game-updated', async game => {
-      await redisHelper.setGame(redisClient, gameID, JSON.stringify(game))
+      const gameWithoutRecentEvents = { ...game, recentEvents: [] }
+      await redisHelper.setGame(
+        redisClient,
+        gameID,
+        JSON.stringify(gameWithoutRecentEvents),
+      )
       socket.to(sanitiseGameIDForInternalUse(gameID)).emit('game-updated', game)
     })
 

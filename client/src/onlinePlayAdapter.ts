@@ -52,19 +52,19 @@ const handleRemoteGameID = (remoteGameID: string | null) => {
 
   socket.on('game-updated', (game: Game) => {
     if (game.tag !== appState.get('app.game.tag')) {
-      const previousMoveCount = appState.get('app.game.moveHistory').length;
-      const newMoveCount = game.moveHistory.length;
+      const previousMoveCount = appState.get('app.game.moveHistory').length
+      const newMoveCount = game.moveHistory.length
 
       appState.set('app.game', game)
 
       if (newMoveCount > previousMoveCount) {
-        notifyOtherPlayerMove();
+        notifyOtherPlayerMove()
       }
     }
   })
 
   socket.on('game-not-found', () =>
-    console.error('Tried to connect to game that does not exist')
+    console.error('Tried to connect to game that does not exist'),
   )
 
   teardownSocket = () => {
@@ -76,7 +76,7 @@ const handleRemoteGameID = (remoteGameID: string | null) => {
   }
 }
 
-appState.addEventListener('app.onlinePlay.remoteGameID', (remoteGameID) => {
+appState.addEventListener('app.onlinePlay.remoteGameID', remoteGameID => {
   if (remoteGameID !== previousRemoteGameID) {
     previousRemoteGameID = remoteGameID
     handleRemoteGameID(remoteGameID)

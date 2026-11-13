@@ -30,10 +30,9 @@ export const expectCellToBe = async (
     return
   }
 
-  await expect(cell).toHaveAttribute(
-    'aria-label',
-    `Square with ${capitalise(shape)}`,
-  )
+  await expect
+    .poll(() => cell.getAttribute('aria-label'))
+    .toContain(`, ${capitalise(shape)}`)
 }
 
 export const winWithFirstPlayer = async (page: Page) => {

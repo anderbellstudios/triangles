@@ -1,4 +1,4 @@
-import {Board, Game, Move} from '../../../../common/types'
+import { Board, Game, Move } from '../../../../common/types'
 import { getNthNextTurn } from './getNthNextTurn'
 
 export const gameWithMove = (game: Game, move: Move): Game => ({
